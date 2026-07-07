@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowForge — Closing the Upstream Gap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1117;
+  --bg-2: #161b22;
+  --surface: #1c2128;
+  --surface-2: #22272e;
+  --line: #30363d;
+  --text: #e6edf3;
+  --muted: #7d8590;
+  --muted-2: #484f58;
+  --ba: #58a6ff;
+  --ba-glow: rgba(88,166,255,.18);
+  --ba-dim: rgba(88,166,255,.10);
+  --dev: #ff7b39;
+  --dev-glow: rgba(255,123,57,.18);
+  --dev-dim: rgba(255,123,57,.10);
+  --green: #3fb950;
+  --green-glow: rgba(63,185,80,.18);
+  --amber: #d29922;
+  --red: #f85149;
+  --purple: #bc8cff;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; color: var(--text); font-family: "Inter", system-ui, sans-serif;
+  background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ─── SCROLL REVEAL ─── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .55s ease, transform .55s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-up { opacity: 0; transform: translateY(40px); transition: opacity .7s ease, transform .7s ease; }
+.reveal-up.visible { opacity: 1; transform: none; }
+
+/* ─── LAYOUT ─── */
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 clamp(20px,5vw,56px); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 92vh; display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(80px,12vh,140px) 0 clamp(60px,8vh,100px);
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(900px 600px at 75% 30%, rgba(88,166,255,.08), transparent 65%),
+    radial-gradient(600px 400px at 10% 80%, rgba(255,123,57,.06), transparent 60%);
+}
+.hero-eyebrow {
+  font-family: "JetBrains Mono", monospace; font-size: .7rem; letter-spacing: .35em;
+  text-transform: uppercase; color: var(--ba); margin: 0 0 22px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before {
+  content: ""; width: 24px; height: 1px; background: var(--ba);
+}
+.hero h1 {
+  font-family: "Space Grotesk", sans-serif; font-weight: 800;
+  font-size: clamp(2.6rem, 6vw, 4.2rem); line-height: 1.0; margin: 0 0 24px;
+  letter-spacing: -.03em; max-width: 14ch;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, #58a6ff 0%, #bc8cff 50%, #ff7b39 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero-sub {
+  color: var(--muted); font-size: clamp(1rem, 1.8vw, 1.15rem); max-width: 58ch;
+  margin: 0 0 48px; line-height: 1.65;
+}
+.hero-numbers {
+  display: flex; gap: 40px; flex-wrap: wrap; margin-top: 8px;
+}
+.hero-stat { display: flex; flex-direction: column; gap: 4px; }
+.hero-stat .hs-num {
+  font-family: "Space Grotesk", sans-serif; font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 800; line-height: 1; letter-spacing: -.03em;
+}
+.hero-stat .hs-num.zero { color: var(--red); }
+.hero-stat .hs-num.thirteen { color: var(--green); }
+.hero-stat .hs-label { font-size: .82rem; color: var(--muted); }
+.hero-divider {
+  width: 1px; background: var(--line); align-self: stretch; margin: 8px 0;
+}
+.scroll-hint {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted-2);
+  animation: bounce 2s ease infinite;
+}
+.scroll-hint svg { opacity: .4; }
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+/* ─── CALLOUT ─── */
+.callout {
+  background: rgba(88,166,255,.07); border: 1px solid rgba(88,166,255,.25);
+  border-left: 3px solid var(--ba); border-radius: 10px;
+  padding: 16px 20px; margin-bottom: 32px; font-size: .88rem; color: var(--muted); line-height: 1.6;
+}
+.callout strong { color: var(--text); }
+.callout code {
+  font-family: "JetBrains Mono", monospace; font-size: .82em;
+  background: var(--surface-2); padding: 1px 5px; border-radius: 3px;
+  color: var(--ba); border: 1px solid var(--line);
+}
+
+/* ─── SECTION ─── */
+.section { padding: clamp(72px,10vh,112px) 0; }
+.section + .section { border-top: 1px solid var(--line); }
+.s-label {
+  font-family: "JetBrains Mono", monospace; font-size: .67rem; letter-spacing: .28em;
+  text-transform: uppercase; color: var(--muted-2); margin: 0 0 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.s-label::before { content: ""; width: 18px; height: 1px; background: var(--muted-2); }
+.s-title {
+  font-family: "Space Grotesk", sans-serif; font-weight: 700;
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem); line-height: 1.1; letter-spacing: -.025em;
+  margin: 0 0 10px; color: var(--text);
+}
+.s-note { color: var(--muted); font-size: .95rem; max-width: 70ch; margin: 0 0 40px; line-height: 1.65; }
+
+/* ─── ASYMMETRY SPLIT ─── */
+.asym-grid {
+  display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
+}
+.asym-side { padding: 36px 36px 40px; }
+.asym-side.ba-side { border-right: 1px solid var(--line); }
+.asym-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; }
+.asym-big {
+  font-family: "Space Grotesk", sans-serif; font-weight: 800;
+  font-size: clamp(4rem, 8vw, 6.5rem); line-height: 1; letter-spacing: -.04em;
+}
+.asym-big.zero { color: var(--red); }
+.asym-big.thirteen { color: var(--green); }
+.asym-big-label { font-size: .82rem; color: var(--muted); margin-top: 6px; }
+.asym-zone {
+  font-family: "JetBrains Mono", monospace; font-size: .6rem; letter-spacing: .14em;
+  text-transform: uppercase; padding: 4px 10px; border-radius: 6px; border: 1px solid;
+  margin-top: 4px; align-self: flex-start;
+}
+.asym-zone.ba { color: var(--ba); border-color: rgba(88,166,255,.35); background: var(--ba-dim); }
+.asym-zone.dev { color: var(--dev); border-color: rgba(255,123,57,.35); background: var(--dev-dim); }
+.asym-items { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.asym-items li {
+  display: flex; align-items: center; gap: 10px;
+  font-size: .85rem; padding: 8px 12px; border-radius: 8px;
+}
+.asym-items li.missing { color: var(--muted-2); background: transparent; }
+.asym-items li.has { color: var(--text); background: var(--surface-2); }
+.asym-items li.has-partial { color: var(--text); background: rgba(210,153,34,.07); border: 1px solid rgba(210,153,34,.15); }
+.asym-items li .ai-dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+}
+.asym-items li.missing .ai-dot { background: var(--muted-2); }
+.asym-items li.has .ai-dot { background: var(--green); box-shadow: 0 0 6px var(--green); }
+.asym-items li.has-partial .ai-dot { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
+.asym-items li .ai-badge {
+  margin-left: auto; font-family: "JetBrains Mono", monospace; font-size: .55rem;
+  letter-spacing: .08em; padding: 2px 7px; border-radius: 4px; white-space: nowrap;
+}
+.asym-items li.missing .ai-badge { background: rgba(248,81,73,.12); color: #f08070; border: 1px solid rgba(248,81,73,.2); }
+.asym-items li.has .ai-badge { background: rgba(63,185,80,.12); color: #7ee787; border: 1px solid rgba(63,185,80,.2); }
+.asym-items li.has-partial .ai-badge { background: rgba(210,153,34,.12); color: #e3b341; border: 1px solid rgba(210,153,34,.25); }
+.asym-note {
+  margin-top: 20px; padding: 12px 14px; background: rgba(88,166,255,.06);
+  border: 1px solid rgba(88,166,255,.18); border-radius: 8px;
+  font-size: .78rem; color: var(--muted); line-height: 1.55;
+}
+.asym-note strong { color: var(--ba); }
+
+/* ─── TIME CHART ─── */
+.time-chart { display: flex; flex-direction: column; gap: 4px; }
+.tchart-row {
+  display: grid; grid-template-columns: 195px 1fr 56px;
+  gap: 14px; align-items: center; padding: 4px 0;
+}
+.tchart-label { font-size: .83rem; }
+.tchart-label strong { display: block; color: var(--text); font-weight: 500; font-size: .85rem; }
+.tchart-label span { color: var(--muted); font-size: .78rem; }
+.tchart-track {
+  height: 32px; background: var(--surface-2); border-radius: 6px;
+  overflow: hidden; position: relative;
+}
+.tchart-fill {
+  height: 100%; border-radius: 6px; display: flex; align-items: center;
+  padding-left: 12px; font-family: "JetBrains Mono", monospace; font-size: .62rem;
+  font-weight: 600; letter-spacing: .06em; color: rgba(255,255,255,.65);
+  transition: width 1s cubic-bezier(.4,0,.2,1);
+}
+.tchart-fill.red { background: linear-gradient(90deg, rgba(248,81,73,.55), rgba(248,81,73,.25)); }
+.tchart-fill.amber { background: linear-gradient(90deg, rgba(210,153,34,.55), rgba(210,153,34,.25)); }
+.tchart-fill.green { background: linear-gradient(90deg, rgba(63,185,80,.55), rgba(63,185,80,.25)); }
+.tchart-hrs {
+  font-family: "JetBrains Mono", monospace; font-size: .75rem;
+  color: var(--muted); text-align: right; white-space: nowrap;
+}
+.tchart-legend { display: flex; gap: 20px; margin-top: 18px; flex-wrap: wrap; }
+.tchart-legend .tl-item { display: flex; align-items: center; gap: 7px; font-size: .77rem; color: var(--muted); }
+.tchart-legend .tl-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+/* ─── PIPELINE FLOW ─── */
+.pipeline-flow { position: relative; }
+.pf-zone-label {
+  display: flex; align-items: center; gap: 12px; padding: 10px 0 14px;
+  font-family: "JetBrains Mono", monospace; font-size: .65rem; letter-spacing: .2em;
+  text-transform: uppercase;
+}
+.pf-zone-label .pz-bar { height: 2px; flex: 1; border-radius: 1px; }
+.pf-zone-label.ba-zone { color: var(--ba); }
+.pf-zone-label.ba-zone .pz-bar { background: linear-gradient(90deg, var(--ba), transparent); }
+.pf-zone-label.dev-zone { color: var(--dev); margin-top: 8px; }
+.pf-zone-label.dev-zone .pz-bar { background: linear-gradient(90deg, var(--dev), transparent); }
+.pf-handoff {
+  display: flex; align-items: center; gap: 12px; padding: 20px 0;
+  font-size: .8rem; color: var(--muted); border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line); margin: 4px 0 8px;
+}
+.pf-handoff .ph-icon { font-size: 1.1rem; }
+.pf-handoff strong { color: var(--text); }
+.pf-steps { display: flex; flex-direction: column; gap: 2px; }
+.pf-step {
+  display: grid; grid-template-columns: 40px 200px 1fr 140px;
+  align-items: stretch; border-radius: 10px; overflow: hidden;
+  transition: background .15s; position: relative;
+}
+.pf-step.ba-step { background: rgba(88,166,255,.04); }
+.pf-step.dev-step { background: rgba(255,123,57,.03); }
+.pf-step:hover.ba-step { background: rgba(88,166,255,.08); }
+.pf-step:hover.dev-step { background: rgba(255,123,57,.06); }
+.pf-step-num {
+  display: flex; align-items: center; justify-content: center;
+  font-family: "JetBrains Mono", monospace; font-size: .6rem;
+  color: var(--muted-2); padding: 16px 0;
+  border-right: 1px solid var(--line);
+}
+.pf-step-cmd {
+  padding: 16px 18px; border-right: 1px solid var(--line);
+  display: flex; flex-direction: column; justify-content: center; gap: 6px;
+}
+.pf-step-name {
+  font-family: "JetBrains Mono", monospace; font-size: .9rem; font-weight: 600;
+  white-space: nowrap;
+}
+.pf-step-name .slash { color: var(--dev); opacity: .6; }
+.ba-step .pf-step-name .slash { color: var(--ba); opacity: .6; }
+.step-badge {
+  font-family: "JetBrains Mono", monospace; font-size: .52rem; letter-spacing: .1em;
+  text-transform: uppercase; padding: 2px 7px; border-radius: 4px; width: fit-content;
+}
+.badge-new { background: rgba(88,166,255,.15); color: var(--ba); border: 1px solid rgba(88,166,255,.3); }
+.badge-enhanced { background: rgba(188,140,255,.13); color: var(--purple); border: 1px solid rgba(188,140,255,.3); }
+.badge-existing { background: rgba(255,255,255,.05); color: var(--muted-2); border: 1px solid var(--line); }
+.pf-step-desc {
+  padding: 16px 20px; font-size: .83rem; color: var(--muted); line-height: 1.5;
+  display: flex; flex-direction: column; justify-content: center; gap: 8px;
+}
+.pf-step-desc strong { color: var(--text); font-weight: 500; }
+.pf-agents { display: flex; flex-wrap: wrap; gap: 5px; }
+.pf-agent-chip {
+  font-family: "JetBrains Mono", monospace; font-size: .57rem; letter-spacing: .03em;
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: 4px;
+  padding: 2px 8px; color: #8b949e;
+}
+.pf-agent-chip.existing { color: var(--green); border-color: rgba(63,185,80,.3); background: rgba(63,185,80,.08); }
+.pf-step-meta {
+  padding: 16px; border-left: 1px solid var(--line);
+  display: flex; flex-direction: column; justify-content: center; align-items: flex-end; gap: 6px;
+}
+.pf-owner {
+  font-family: "JetBrains Mono", monospace; font-size: .6rem; letter-spacing: .1em;
+  text-transform: uppercase; padding: 3px 9px; border-radius: 5px; font-weight: 700;
+}
+.pf-owner.ba { color: var(--ba); background: var(--ba-dim); border: 1px solid rgba(88,166,255,.2); }
+.pf-owner.dev { color: var(--dev); background: var(--dev-dim); border: 1px solid rgba(255,123,57,.2); }
+.pf-out {
+  font-family: "JetBrains Mono", monospace; font-size: .6rem; color: var(--muted-2);
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: 4px; padding: 2px 8px;
+}
+
+/* ─── IMPACT METRICS ─── */
+.metrics-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
+  background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+}
+.metric-card {
+  background: var(--surface); padding: 32px 28px;
+  position: relative; overflow: hidden;
+}
+.metric-card::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(300px 200px at 80% 0%, var(--glow,transparent), transparent 70%);
+}
+.mc-label {
+  font-family: "JetBrains Mono", monospace; font-size: .6rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--muted-2); margin-bottom: 14px;
+}
+.mc-num {
+  font-family: "Space Grotesk", sans-serif; font-size: clamp(2.4rem, 4vw, 3.4rem);
+  font-weight: 800; line-height: 1; letter-spacing: -.04em;
+  color: var(--c, var(--text)); margin-bottom: 8px;
+}
+.mc-title { font-size: .92rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.mc-body { font-size: .8rem; color: var(--muted); line-height: 1.55; }
+.mc-body code {
+  font-family: "JetBrains Mono", monospace; font-size: .8em;
+  background: var(--surface-2); padding: 1px 5px; border-radius: 3px;
+  color: var(--steel, #8b949e); border: 1px solid var(--line);
+}
+
+/* ─── CYCLE TIMELINE ─── */
+.cycle-compare { display: flex; flex-direction: column; gap: 40px; }
+.cc-row { display: grid; grid-template-columns: 140px 1fr; gap: 20px; align-items: center; }
+.cc-label { text-align: right; }
+.cc-label strong { display: block; font-size: .92rem; font-weight: 600; color: var(--text); }
+.cc-label span { font-size: .78rem; color: var(--muted); }
+.cc-label .cc-total {
+  font-family: "JetBrains Mono", monospace; font-size: .75rem; margin-top: 6px;
+  padding: 3px 10px; border-radius: 5px; display: inline-block;
+}
+.cc-label .cc-total.before { background: rgba(248,81,73,.12); color: var(--red); border: 1px solid rgba(248,81,73,.2); }
+.cc-label .cc-total.after { background: rgba(63,185,80,.12); color: var(--green); border: 1px solid rgba(63,185,80,.2); }
+.cc-bar { display: flex; gap: 2px; height: 40px; border-radius: 8px; overflow: hidden; }
+.cc-seg {
+  display: flex; align-items: center; justify-content: center;
+  font-family: "JetBrains Mono", monospace; font-size: .62rem; font-weight: 600;
+  color: rgba(255,255,255,.7); min-width: 28px; transition: flex .8s cubic-bezier(.4,0,.2,1);
+  position: relative; overflow: hidden; cursor: default;
+}
+.cc-seg:hover::after {
+  content: attr(data-tip); position: absolute; bottom: 100%; left: 50%;
+  transform: translateX(-50%); background: #1c2128; border: 1px solid var(--line);
+  color: var(--text); font-size: .68rem; padding: 4px 8px; border-radius: 5px;
+  white-space: nowrap; pointer-events: none; margin-bottom: 4px; z-index: 10;
+}
+.seg-red { background: rgba(248,81,73,.5); }
+.seg-amber { background: rgba(210,153,34,.5); }
+.seg-green { background: rgba(63,185,80,.5); }
+.seg-blue { background: rgba(88,166,255,.5); }
+.seg-fade { background: rgba(248,81,73,.2); }
+.cc-legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 16px; }
+.cc-legend .cl-item { display: flex; align-items: center; gap: 7px; font-size: .77rem; color: var(--muted); }
+.cc-legend .cl-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.saving-strip {
+  background: linear-gradient(135deg, rgba(63,185,80,.1), rgba(88,166,255,.07));
+  border: 1px solid rgba(63,185,80,.25); border-radius: 12px;
+  padding: 22px 28px; display: flex; align-items: center; gap: 28px; flex-wrap: wrap;
+  margin-top: 28px;
+}
+.saving-strip .ss-num {
+  font-family: "Space Grotesk", sans-serif; font-size: 3rem; font-weight: 800;
+  color: var(--green); line-height: 1; letter-spacing: -.04em; white-space: nowrap;
+}
+.saving-strip .ss-body { font-size: .9rem; color: var(--muted); line-height: 1.6; }
+.saving-strip .ss-body strong { color: var(--text); }
+
+/* ─── QUALITY CHAIN ─── */
+.chain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.chain-col-title {
+  font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 1.05rem;
+  margin-bottom: 24px; color: var(--text);
+}
+.chain-steps { display: flex; flex-direction: column; gap: 0; }
+.cs-item { display: grid; grid-template-columns: 44px 1fr; align-items: stretch; }
+.cs-spine { display: flex; flex-direction: column; align-items: center; }
+.cs-dot {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: "JetBrains Mono", monospace; font-size: .6rem; font-weight: 700;
+  z-index: 1;
+}
+.cs-dot.ba { background: var(--ba-dim); color: var(--ba); border: 1px solid rgba(88,166,255,.35); }
+.cs-dot.dev { background: var(--dev-dim); color: var(--dev); border: 1px solid rgba(255,123,57,.3); }
+.cs-line { flex: 1; width: 1px; background: var(--line); margin: 4px auto; }
+.cs-item:last-child .cs-line { display: none; }
+.cs-body { padding: 0 0 24px 16px; }
+.cs-title { font-size: .88rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.cs-desc { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+.cs-desc code {
+  font-family: "JetBrains Mono", monospace; font-size: .82em;
+  background: var(--surface-2); padding: 1px 5px; border-radius: 3px;
+  color: #8b949e; border: 1px solid var(--line);
+}
+.risk-list { display: flex; flex-direction: column; gap: 10px; }
+.risk-item {
+  padding: 14px 16px; background: var(--surface-2); border-radius: 10px;
+  border: 1px solid var(--line); border-left: 3px solid var(--amber);
+}
+.risk-item .ri-title { font-size: .86rem; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+.risk-item .ri-body { font-size: .79rem; color: var(--muted); line-height: 1.5; }
+.risk-item .ri-body code {
+  font-family: "JetBrains Mono", monospace; font-size: .82em;
+  background: var(--surface); padding: 1px 5px; border-radius: 3px; color: #8b949e;
+}
+
+/* ─── BUILD SEQUENCE ─── */
+.phase-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.phase-card { background: var(--surface); padding: 28px 24px; position: relative; }
+.phase-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--c); }
+.phase-card .pc-num {
+  font-family: "JetBrains Mono", monospace; font-size: .65rem; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--muted-2); margin-bottom: 10px;
+}
+.phase-card .pc-title { font-family: "Space Grotesk", sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+.phase-card .pc-cmds { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.phase-card .pc-cmd {
+  font-family: "JetBrains Mono", monospace; font-size: .78rem;
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px;
+  padding: 5px 10px; color: var(--muted); display: flex; align-items: center; gap: 6px;
+}
+.phase-card .pc-cmd .cmd-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; background: var(--c); }
+.phase-card .pc-desc { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--line); padding: 32px 0 60px;
+  color: var(--muted-2); font-size: .8rem; line-height: 1.6;
+}
+footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 960px) {
+  .asym-grid { grid-template-columns: 1fr; }
+  .asym-side.ba-side { border-right: none; border-bottom: 1px solid var(--line); }
+  .metrics-grid { grid-template-columns: 1fr 1fr; }
+  .chain-grid { grid-template-columns: 1fr; }
+  .phase-row { grid-template-columns: 1fr; }
+  .pf-step { grid-template-columns: 40px 180px 1fr; }
+  .pf-step-meta { display: none; }
+}
+@media (max-width: 700px) {
+  .tchart-row { grid-template-columns: 1fr 52px; }
+  .tchart-label { display: none; }
+  .metrics-grid { grid-template-columns: 1fr; }
+  .pf-step { grid-template-columns: 40px 1fr; }
+  .pf-step-cmd { border-right: none; }
+  .cc-row { grid-template-columns: 1fr; }
+  .cc-label { text-align: left; }
+  .hero-numbers { gap: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
+<div class="wrap">
+<section class="hero">
+  <p class="hero-eyebrow">FlowForge · BA/PO Pipeline Proposal</p>
+  <h1>Closing the <em>upstream gap</em></h1>
+  <p class="hero-sub">
+    FlowForge accelerates engineering with 15 agents across 5 steps.
+    The BA phase has <strong style="color:var(--amber)">3 agents</strong> in <code style="font-family:'JetBrains Mono';color:var(--ba);font-size:.9em">.require</code> — all of them operating <em>after</em> the spec is written.
+    The 6–10 hours before the spec exists — discovery, research, ideation, decomposition, refinement — have no tooling at all.
+  </p>
+  <div class="hero-numbers reveal">
+    <div class="hero-stat">
+      <div class="hs-num" style="color:var(--amber)" data-target="3">3</div>
+      <div class="hs-label">agents on .require today</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="hs-num thirteen" data-target="15">15</div>
+      <div class="hs-label">agents on dev pipeline</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="hs-num" style="color:var(--ba)" data-target="27">27</div>
+      <div class="hs-label">total BA-side agents proposed</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div style="height:1px;background:var(--line)"></div>
+
+<!-- ══════════ ASYMMETRY ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">The problem</p>
+  <h2 class="s-title reveal">The asymmetry today</h2>
+  <p class="s-note reveal">Steps 02–06 are built for developers — 15 agents, automated, structured. Step 01 has 3 agents — all post-spec-capture. The 6–10 hours <em>before</em> the spec gets written have nothing.</p>
+
+  <div class="callout reveal">
+    <strong>What .require actually does today:</strong> After the human writes the spec using guided prompts, three agents fire in sequence.
+    <code>Gap Reviewer</code> (Explore sub-agent, Phase 1) finds holes the author missed.
+    <code>Self-Review</code> (Phase 2) has the main agent switch to critical reviewer mode and challenge its own spec.
+    <code>QA Author</code> (Phase 3) generates the test skeleton.
+    All three are post-capture — none of them help you <em>discover what to build</em>.
+  </div>
+
+  <div class="asym-grid reveal-up">
+    <div class="asym-side ba-side">
+      <div class="asym-header">
+        <div>
+          <div class="asym-big" style="color:var(--amber)">3</div>
+          <div class="asym-big-label">agents on .require — all post-capture</div>
+        </div>
+        <span class="asym-zone ba">BA / PO</span>
+      </div>
+      <ul class="asym-items">
+        <li class="missing"><div class="ai-dot"></div> Problem framing <span class="ai-badge">none</span></li>
+        <li class="missing"><div class="ai-dot"></div> Existing landscape research <span class="ai-badge">none</span></li>
+        <li class="missing"><div class="ai-dot"></div> Solution option exploration <span class="ai-badge">none</span></li>
+        <li class="has-partial"><div class="ai-dot"></div> Spec writing — guided prompts, human-driven <span class="ai-badge">human + prompts</span></li>
+        <li class="has"><div class="ai-dot"></div> Gap Reviewer — Explore sub-agent finds spec holes (Phase 1, Step 5) <span class="ai-badge">1 agent</span></li>
+        <li class="has"><div class="ai-dot"></div> Self-Review — main agent switches to critical reviewer mode (Phase 2) <span class="ai-badge">1 agent</span></li>
+        <li class="has"><div class="ai-dot"></div> QA Author — generates QA skeleton after approval (Phase 3) <span class="ai-badge">1 agent</span></li>
+        <li class="missing"><div class="ai-dot"></div> Epic decomposition <span class="ai-badge">none</span></li>
+        <li class="missing"><div class="ai-dot"></div> Refinement facilitation <span class="ai-badge">none</span></li>
+      </ul>
+      <div class="asym-note">
+        <strong>The upstream gap:</strong> All 3 existing agents run only after the spec exists. They improve spec quality — but they can't surface a wrong problem, missing context from Confluence/Jira, or a better solution approach. That work still happens manually, before anyone opens .require.
+      </div>
+    </div>
+    <div class="asym-side">
+      <div class="asym-header">
+        <div>
+          <div class="asym-big thirteen">15</div>
+          <div class="asym-big-label">agents across 4 steps</div>
+        </div>
+        <span class="asym-zone dev">Dev</span>
+      </div>
+      <ul class="asym-items">
+        <li class="has"><div class="ai-dot"></div> .plan — 6 parallel reviewers + Devil's Advocate <span class="ai-badge">6 agents</span></li>
+        <li class="has"><div class="ai-dot"></div> .analyze — 3 parallel gap finders <span class="ai-badge">3 agents</span></li>
+        <li class="has"><div class="ai-dot"></div> .build — TDD pipeline (Builder + Test Validator) <span class="ai-badge">2 agents</span></li>
+        <li class="has"><div class="ai-dot"></div> .verify — 4 compliance checks + Devil's Advocate <span class="ai-badge">4 agents</span></li>
+        <li class="has"><div class="ai-dot"></div> .fix — circuit-breaker repair (max 3 rounds) <span class="ai-badge">built-in</span></li>
+        <li class="has"><div class="ai-dot"></div> Express/Fast — full Jira→PR auto-gen <span class="ai-badge">auto</span></li>
+        <li class="has"><div class="ai-dot"></div> Traceability chain spec → QA <span class="ai-badge">end-to-end</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ WHERE TIME GOES ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">Time audit</p>
+  <h2 class="s-title reveal">Where the time actually goes</h2>
+  <p class="s-note reveal">A standard feature before it reaches <code style="font-family:'JetBrains Mono';color:var(--dev);font-size:.9em">.plan</code>. The 3 post-capture agents save ~20–30 min on spec quality; everything before the spec is written has no tool support at all.</p>
+
+  <div class="time-chart reveal-up">
+    <div class="tchart-row">
+      <div class="tchart-label"><strong>Problem framing</strong><span>stakeholder alignment</span></div>
+      <div class="tchart-track"><div class="tchart-fill red" style="width:0%" data-width="78%">no tool support</div></div>
+      <div class="tchart-hrs">2–4h</div>
+    </div>
+    <div class="tchart-row">
+      <div class="tchart-label"><strong>Landscape research</strong><span>Jira, Confluence, codebase</span></div>
+      <div class="tchart-track"><div class="tchart-fill red" style="width:0%" data-width="58%">no tool support</div></div>
+      <div class="tchart-hrs">1–3h</div>
+    </div>
+    <div class="tchart-row">
+      <div class="tchart-label"><strong>Spec + AC writing</strong><span>/flowforge.require (guided prompts)</span></div>
+      <div class="tchart-track"><div class="tchart-fill amber" style="width:0%" data-width="53%">human-driven guided prompts</div></div>
+      <div class="tchart-hrs">2–4h</div>
+    </div>
+    <div class="tchart-row">
+      <div class="tchart-label"><strong>Gap review + self-review + QA draft</strong><span>3 post-capture agents</span></div>
+      <div class="tchart-track"><div class="tchart-fill green" style="width:0%" data-width="15%">automated (~20–30min)</div></div>
+      <div class="tchart-hrs">~0.4h</div>
+    </div>
+    <div class="tchart-row">
+      <div class="tchart-label"><strong>Refinement prep</strong><span>agenda, options, open Qs</span></div>
+      <div class="tchart-track"><div class="tchart-fill red" style="width:0%" data-width="34%">no tool support</div></div>
+      <div class="tchart-hrs">1–2h</div>
+    </div>
+    <div class="tchart-row">
+      <div class="tchart-label"><strong>Refinement session</strong><span>+ spec edits</span></div>
+      <div class="tchart-track"><div class="tchart-fill red" style="width:0%" data-width="48%">no tool support</div></div>
+      <div class="tchart-hrs">1–3h</div>
+    </div>
+    <div class="tchart-row">
+      <div class="tchart-label"><strong>.plan → .build → .verify</strong><span>FlowForge dev pipeline</span></div>
+      <div class="tchart-track"><div class="tchart-fill green" style="width:0%" data-width="20%">fully automated</div></div>
+      <div class="tchart-hrs">0.5–1h</div>
+    </div>
+  </div>
+  <div class="tchart-legend reveal">
+    <div class="tl-item"><div class="tl-dot" style="background:rgba(248,81,73,.5)"></div>No tool support</div>
+    <div class="tl-item"><div class="tl-dot" style="background:rgba(210,153,34,.5)"></div>Partial support</div>
+    <div class="tl-item"><div class="tl-dot" style="background:rgba(63,185,80,.5)"></div>Fully automated by FlowForge</div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ PIPELINE ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">The proposal</p>
+  <h2 class="s-title reveal">The full pipeline — proposed</h2>
+  <p class="s-note reveal">Six new commands + one enhanced command extend the BA pipeline upstream of spec writing. Today's 3 agents all review the spec after you write it — the proposal adds agents for everything before and around that moment.</p>
+
+  <div class="pipeline-flow reveal-up">
+    <div class="pf-zone-label ba-zone"><span>BA / PO zone — upstream</span><div class="pz-bar"></div></div>
+
+    <div class="pf-steps">
+      <div class="pf-step ba-step">
+        <div class="pf-step-num">01</div>
+        <div class="pf-step-cmd">
+          <div class="pf-step-name"><span class="slash">/ff.</span>discover</div>
+          <span class="step-badge badge-new">new</span>
+        </div>
+        <div class="pf-step-desc">
+          <div>Agent-driven interview frames the <strong>business problem before any spec writing starts</strong>. Forces articulation of success metrics, user impact, and regulatory constraints.</div>
+          <div class="pf-agents"><span class="pf-agent-chip">Problem Framer</span><span class="pf-agent-chip">Journey Mapper</span><span class="pf-agent-chip">Value Validator</span><span class="pf-agent-chip">Risk Spotter</span></div>
+        </div>
+        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">0-discovery.md</span><span class="pf-out">4 agents</span></div>
+      </div>
+      <div class="pf-step ba-step">
+        <div class="pf-step-num">02</div>
+        <div class="pf-step-cmd">
+          <div class="pf-step-name"><span class="slash">/ff.</span>research</div>
+          <span class="step-badge badge-new">new</span>
+        </div>
+        <div class="pf-step-desc">
+          <div>Scans <strong>Confluence, Jira, and the codebase</strong> — surfaces related epics, prior decisions, established patterns. The spec is grounded in what the system already does.</div>
+          <div class="pf-agents"><span class="pf-agent-chip">Confluence Scanner</span><span class="pf-agent-chip">Jira Linker</span><span class="pf-agent-chip">Pattern Scout</span></div>
+        </div>
+        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">0-research.md</span><span class="pf-out">3 agents</span></div>
+      </div>
+      <div class="pf-step ba-step">
+        <div class="pf-step-num">03</div>
+        <div class="pf-step-cmd">
+          <div class="pf-step-name"><span class="slash">/ff.</span>ideate</div>
+          <span class="step-badge badge-new">new</span>
+        </div>
+        <div class="pf-step-desc">
+          <div>Generates <strong>3–4 structured solution options</strong> — fast-to-ship vs. clean architecture vs. lowest risk. A Recommender agent proposes a preferred option. BA picks one; that anchors the spec.</div>
+          <div class="pf-agents"><span class="pf-agent-chip">Option Generator ×3</span><span class="pf-agent-chip">Recommender</span><span class="pf-agent-chip">Lane Estimator</span></div>
+        </div>
+        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">0-options.md</span><span class="pf-out">5 agents</span></div>
+      </div>
+      <div class="pf-step ba-step">
+        <div class="pf-step-num">04</div>
+        <div class="pf-step-cmd">
+          <div class="pf-step-name"><span class="slash">/ff.</span>require</div>
+          <span class="step-badge badge-enhanced">enhanced</span>
+        </div>
+        <div class="pf-step-desc">
+          <div>Spec capture (guided prompts, unchanged) + an expanded review panel. The 3 existing agents stay — Gap Reviewer, Self-Review, and QA Author. 5 new specialist agents join them. Catches ambiguity, missing edge cases, and GDPR implications before the dev pipeline sees it.</div>
+          <div class="pf-agents">
+            <span class="pf-agent-chip existing">Gap Reviewer ✓</span>
+            <span class="pf-agent-chip existing">Self-Review ✓</span>
+            <span class="pf-agent-chip existing">QA Author ✓</span>
+            <span class="pf-agent-chip">Completeness Auditor</span>
+            <span class="pf-agent-chip">Edge Case Hunter</span>
+            <span class="pf-agent-chip">Ambiguity Detector</span>
+            <span class="pf-agent-chip">GDPR Probe</span>
+            <span class="pf-agent-chip">Scope Guard</span>
+          </div>
+        </div>
+        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">1-spec.md</span><span class="pf-out">8 agents (3 existing + 5 new)</span></div>
+      </div>
+      <div class="pf-step ba-step">
+        <div class="pf-step-num">05</div>
+        <div class="pf-step-cmd">
+          <div class="pf-step-name"><span class="slash">/ff.</span>split</div>
+          <span class="step-badge badge-new">new</span>
+        </div>
+        <div class="pf-step-desc">
+          <div>Decomposes epics into <strong>independently deliverable stories</strong>, identifies the minimum viable slice, marks hard dependencies, suggests lane per story.</div>
+          <div class="pf-agents"><span class="pf-agent-chip">Story Slicer</span><span class="pf-agent-chip">Dependency Mapper</span><span class="pf-agent-chip">MVP Identifier</span></div>
+        </div>
+        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">0-split-map.md</span><span class="pf-out">3 agents</span></div>
+      </div>
+      <div class="pf-step ba-step">
+        <div class="pf-step-num">06</div>
+        <div class="pf-step-cmd">
+          <div class="pf-step-name"><span class="slash">/ff.</span>refine</div>
+          <span class="step-badge badge-new">new</span>
+        </div>
+        <div class="pf-step-desc">
+          <div><strong>Pre-session:</strong> structured agenda, open Qs, lane signal, cross-team deps. <strong>Post-session:</strong> paste in decisions; agent updates spec and Jira automatically.</div>
+          <div class="pf-agents"><span class="pf-agent-chip">Agenda Builder</span><span class="pf-agent-chip">Decision Transcriber</span><span class="pf-agent-chip">Jira Sync</span></div>
+        </div>
+        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">meeting prep</span><span class="pf-out">3 agents</span></div>
+      </div>
+      <div class="pf-step ba-step">
+        <div class="pf-step-num">07</div>
+        <div class="pf-step-cmd">
+          <div class="pf-step-name"><span class="slash">/ff.</span>prd</div>
+          <span class="step-badge badge-new">new</span>
+        </div>
+        <div class="pf-step-desc">
+          <div>Assembles discovery, options, spec, lane into a <strong>stakeholder-ready PRD</strong> — publishes to Confluence automatically. Zero-cost byproduct of the flow.</div>
+          <div class="pf-agents"><span class="pf-agent-chip">Document Assembler</span><span class="pf-agent-chip">Confluence Publisher</span></div>
+        </div>
+        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">Confluence page</span><span class="pf-out">2 agents</span></div>
+      </div>
+    </div>
+
+    <div class="pf-handoff reveal">
+      <div class="ph-icon">⇣</div>
+      <div><strong>Handoff to dev pipeline</strong> — only after spec has passed the full BA review panel. Lane suggestion pre-calculated from ideate + split output.</div>
+    </div>
+
+    <div class="pf-zone-label dev-zone"><span>Dev zone — existing pipeline, unchanged</span><div class="pz-bar"></div></div>
+    <div class="pf-steps">
+      <div class="pf-step dev-step">
+        <div class="pf-step-num">08</div>
+        <div class="pf-step-cmd"><div class="pf-step-name"><span class="slash">/ff.</span>lane</div><span class="step-badge badge-existing">existing</span></div>
+        <div class="pf-step-desc">Auto-detect or assign process lane. Now informed by ideate + split output — lane arrives pre-calculated.</div>
+        <div class="pf-step-meta"><span class="pf-owner dev">Dev</span></div>
+      </div>
+      <div class="pf-step dev-step">
+        <div class="pf-step-num">09</div>
+        <div class="pf-step-cmd"><div class="pf-step-name"><span class="slash">/ff.</span>plan</div><span class="step-badge badge-existing">existing</span></div>
+        <div class="pf-step-desc">Technical plan + 6-agent review. <strong>Higher-quality spec = fewer plan iterations.</strong></div>
+        <div class="pf-step-meta"><span class="pf-owner dev">Dev</span><span class="pf-out">6 agents</span></div>
+      </div>
+      <div class="pf-step dev-step">
+        <div class="pf-step-num">10</div>
+        <div class="pf-step-cmd"><div class="pf-step-name"><span class="slash">/ff.</span>analyze</div><span class="step-badge badge-existing">existing</span></div>
+        <div class="pf-step-desc">Gap analysis. CRITICAL gaps that previously surfaced here are now caught upstream by the BA review panel.</div>
+        <div class="pf-step-meta"><span class="pf-owner dev">Dev</span><span class="pf-out">3 agents</span></div>
+      </div>
+      <div class="pf-step dev-step">
+        <div class="pf-step-num">11–13</div>
+        <div class="pf-step-cmd"><div class="pf-step-name"><span class="slash">/ff.</span>build · verify · fix</div><span class="step-badge badge-existing">existing</span></div>
+        <div class="pf-step-desc">TDD code generation, spec compliance verification, auto-fix. Unchanged — but operating on a verified, complete spec.</div>
+        <div class="pf-step-meta"><span class="pf-owner dev">Dev</span><span class="pf-out">6 agents</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ IMPACT ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">Estimated impact</p>
+  <h2 class="s-title reveal">What changes</h2>
+  <p class="s-note reveal">Grounded in the current team size — 19 FlowForge users, 55 active tickets — observed cycle time, and where time is spent today. Baselines credit the 3 existing agents in .require.</p>
+
+  <div class="metrics-grid reveal-up">
+    <div class="metric-card" style="--c:var(--ba);--glow:var(--ba-glow)">
+      <div class="mc-label">BA / PO time per feature</div>
+      <div class="mc-num" data-target="45" data-prefix="−" data-suffix="%">−45%</div>
+      <div class="mc-title">Hours saved upstream</div>
+      <div class="mc-body">Research agent replaces 1–3h of manual Jira/Confluence archaeology. Expanded review panel and ideation reduce rework in refinement. The 3 existing agents already save ~20–30min on spec quality — the proposal targets the other 6–9h. <strong style="color:var(--text)">3–7h net saved per standard feature.</strong></div>
+    </div>
+    <div class="metric-card" style="--c:var(--red);--glow:rgba(248,81,73,.18)">
+      <div class="mc-label">Spec bounce rate at .analyze</div>
+      <div class="mc-num" data-target="50" data-prefix="−" data-suffix="%">−50%</div>
+      <div class="mc-title">Fewer critical gaps hitting dev pipeline</div>
+      <div class="mc-body">The existing 3 agents (Gap Reviewer, Self-Review, QA Author) already catch some spec issues post-capture. The 5 new BA review agents (Completeness, Edge Case, Ambiguity, GDPR, Scope) catch the rest — before the dev has invested time in <code>.plan</code>. Revised down from −65% to credit existing partial coverage.</div>
+    </div>
+    <div class="metric-card" style="--c:var(--amber);--glow:rgba(210,153,34,.18)">
+      <div class="mc-label">Refinement meeting duration</div>
+      <div class="mc-num" data-target="35" data-prefix="−" data-suffix="%">−35%</div>
+      <div class="mc-title">From exploration to decision</div>
+      <div class="mc-body"><code>/ff.ideate</code> generates 3–4 structured options before the meeting. The session becomes a decision, not an exploration. 90+ min → ~60 min. Revised from −40% — ideation only eliminates option-generation time, not all discussion overhead.</div>
+    </div>
+    <div class="metric-card" style="--c:var(--purple);--glow:rgba(188,140,255,.18)">
+      <div class="mc-label">FlowForge adoption reach</div>
+      <div class="mc-num" style="font-size:2.6rem">2–3×</div>
+      <div class="mc-title">More people who can drive it</div>
+      <div class="mc-body">FlowForge currently has a BA entry point that relies on the 3 post-capture agents in .require. With a full upstream pipeline (discover → research → ideate → require → split → refine → prd), BAs and POs initiate and run the entire upstream flow independently. Estimate unchanged — structural shift, not incremental.</div>
+    </div>
+    <div class="metric-card" style="--c:var(--green);--glow:var(--green-glow)">
+      <div class="mc-label">Total cycle time (problem → PR)</div>
+      <div class="mc-num" data-target="33" data-prefix="−" data-suffix="%">−33%</div>
+      <div class="mc-title">Compresses the dominant term</div>
+      <div class="mc-body">Current: 7–13h BA upstream + 0.5–1h FlowForge dev pipeline. The 3 existing agents save ~20–30min on spec quality. The proposed pipeline targets the remaining 6–9h. Revised down from −40% to account for partial existing coverage and adoption friction in early phases.</div>
+    </div>
+    <div class="metric-card" style="--c:var(--dev);--glow:var(--dev-glow)">
+      <div class="mc-label">Spec quality floor</div>
+      <div class="mc-num" style="font-size:2.6rem">↑↑</div>
+      <div class="mc-title">Higher baseline for .plan input</div>
+      <div class="mc-body">Today: Gap Reviewer + Self-Review catch spec holes; QA Author drafts test skeleton. Proposed: every spec has also been through discovery, research grounding, and 5 additional specialist agents. The <code>.plan</code> reviewers already apply this pattern technically — the proposal replicates it upstream at the requirements layer.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ CYCLE TIME ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">Cycle time</p>
+  <h2 class="s-title reveal">Before vs after</h2>
+  <p class="s-note reveal">Standard feature, business problem to merged PR. Each segment is a phase. Hover for details.</p>
+
+  <div class="cycle-compare reveal-up">
+    <div class="cc-row">
+      <div class="cc-label">
+        <strong>Today</strong>
+        <span>4–6 days total</span>
+        <div class="cc-total before">~7–14h</div>
+      </div>
+      <div>
+        <div class="cc-bar" id="bar-before">
+          <div class="cc-seg seg-red" style="flex:4" data-tip="Problem framing: 2–4h">2–4h</div>
+          <div class="cc-seg seg-red" style="flex:2" data-tip="Research: 1–3h">1–3h</div>
+          <div class="cc-seg seg-amber" style="flex:3" data-tip="Spec writing (.require guided prompts): 2–4h">2–4h</div>
+          <div class="cc-seg seg-green" style="flex:.4" data-tip="Gap Reviewer + Self-Review + QA Author: ~20–30min">✓</div>
+          <div class="cc-seg seg-red" style="flex:3" data-tip="Refinement: 2–4h">2–4h</div>
+          <div class="cc-seg seg-fade" style="flex:2" data-tip="Spec rework/bounce: 1–3h">rework</div>
+          <div class="cc-seg seg-green" style="flex:1" data-tip="Dev pipeline: 0.5–1h"></div>
+        </div>
+      </div>
+    </div>
+    <div class="cc-row">
+      <div class="cc-label">
+        <strong style="color:var(--green)">With BA Pipeline</strong>
+        <span>2.5–4 days total</span>
+        <div class="cc-total after">~4–8h</div>
+      </div>
+      <div>
+        <div class="cc-bar">
+          <div class="cc-seg seg-blue" style="flex:1" data-tip="Discover + research agents: 0.5–1h">—</div>
+          <div class="cc-seg seg-blue" style="flex:1" data-tip="Ideate (3–4 options generated): 0.5–1h">—</div>
+          <div class="cc-seg seg-amber" style="flex:2" data-tip="Require (human spec writing): 1–2h">1–2h</div>
+          <div class="cc-seg seg-blue" style="flex:.8" data-tip="8-agent review panel (3 existing + 5 new): ~25min">—</div>
+          <div class="cc-seg seg-blue" style="flex:1.5" data-tip="Refined meeting (with prep): ~60min">—</div>
+          <div class="cc-seg seg-amber" style="flex:.4" data-tip="Occasional bounce (rare): ~0.5h"></div>
+          <div class="cc-seg seg-green" style="flex:1" data-tip="Dev pipeline: 0.5–1h"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cc-legend reveal">
+    <div class="cl-item"><div class="cl-dot" style="background:rgba(248,81,73,.5)"></div>No tooling — manual work</div>
+    <div class="cl-item"><div class="cl-dot" style="background:rgba(210,153,34,.5)"></div>Partial / rework</div>
+    <div class="cl-item"><div class="cl-dot" style="background:rgba(88,166,255,.5)"></div>Agent-assisted BA work</div>
+    <div class="cl-item"><div class="cl-dot" style="background:rgba(63,185,80,.5)"></div>FlowForge dev pipeline (automated)</div>
+  </div>
+
+  <div class="saving-strip reveal">
+    <div class="ss-num">−33%</div>
+    <div class="ss-body">
+      Revised estimate: <strong>4–6 days → 2.5–4 days</strong> total cycle time from business problem to merged PR.
+      The 3 existing .require agents save ~20–30min; the proposed pipeline targets the remaining 6–9h of manual upstream work.
+      Revised down from −40% to account for partial existing coverage and expected adoption friction in early phases (discover, ideate).
+      Express and Fast lanes still benefit most: the Jira→PR automation bottleneck is spec quality, not pipeline speed.
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ QUALITY CHAIN ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">Why it compounds</p>
+  <h2 class="s-title reveal">Each phase determines the floor for everything below</h2>
+  <p class="s-note reveal">The weak link is at the top. The current pipeline is only as good as the spec that enters it.</p>
+
+  <div class="chain-grid reveal-up">
+    <div>
+      <div class="chain-col-title">The quality cascade</div>
+      <div class="chain-steps">
+        <div class="cs-item">
+          <div class="cs-spine"><div class="cs-dot ba">BA</div><div class="cs-line"></div></div>
+          <div class="cs-body">
+            <div class="cs-title">Discovery output → spec quality</div>
+            <div class="cs-desc">A spec written without problem framing produces ACs that are technically complete but solve the wrong thing. The 3 existing .require agents catch spec holes — but none of them can flag a misaligned problem statement. Only production or sprint review does.</div>
+          </div>
+        </div>
+        <div class="cs-item">
+          <div class="cs-spine"><div class="cs-dot ba">BA</div><div class="cs-line"></div></div>
+          <div class="cs-body">
+            <div class="cs-title">Spec quality → plan iterations</div>
+            <div class="cs-desc">Every ambiguity surfaces as a question during <code>.plan</code>. The 6 plan-review agents flag it, work bounces back to the BA. One cycle = half a dev day wasted before any code is written.</div>
+          </div>
+        </div>
+        <div class="cs-item">
+          <div class="cs-spine"><div class="cs-dot dev">Dev</div><div class="cs-line"></div></div>
+          <div class="cs-body">
+            <div class="cs-title">Plan quality → build correctness</div>
+            <div class="cs-desc">Vague plan → vague tasks → implementation that passes <code>.verify</code> technically correct but doesn't meet business intent. The failure that's hardest to catch.</div>
+          </div>
+        </div>
+        <div class="cs-item">
+          <div class="cs-spine"><div class="cs-dot dev">Dev</div></div>
+          <div class="cs-body">
+            <div class="cs-title">The expanded BA panel replicates a pattern already proven in .require</div>
+            <div class="cs-desc">The existing Gap Reviewer + Self-Review already prove that spec-review agents catch gaps human review misses. Adding 5 specialist reviewers scales that further — the same bet .plan makes with 6 technical reviewers, applied one step upstream.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="chain-col-title">Where this won't land as predicted</div>
+      <div class="risk-list">
+        <div class="risk-item">
+          <div class="ri-title">Discovery resistance</div>
+          <div class="ri-body"><code>/ff.discover</code> depends on BAs trusting an agent-driven interview. First runs will need heavy human correction. Adoption lags the more mechanical commands.</div>
+        </div>
+        <div class="risk-item">
+          <div class="ri-title">Refinement facilitation</div>
+          <div class="ri-body">Post-session spec sync only works if the meeting produces structured decisions. Many refinements end with "we'll discuss further" — the tool can't force resolution.</div>
+        </div>
+        <div class="risk-item">
+          <div class="ri-title">Org dependency</div>
+          <div class="ri-body">Cycle-time impact depends on BAs adopting FlowForge as their primary workflow. If BAs use it as a final formatting step, the upstream gains don't materialize.</div>
+        </div>
+        <div class="risk-item">
+          <div class="ri-title">Adoption curve</div>
+          <div class="ri-body">Commands that ship first (<code>research</code>, <code>require</code> enhancement, <code>prd</code>) validate the model before exploratory ones (<code>discover</code>, <code>ideate</code>) need to be trusted.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ BUILD SEQUENCE ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">Build sequence</p>
+  <h2 class="s-title reveal">Not all 7 commands at once</h2>
+  <p class="s-note reveal">Start where friction is highest and trust is easiest to build. Each phase validates the model for the next.</p>
+
+  <div class="phase-row reveal-up">
+    <div class="phase-card" style="--c:var(--green)">
+      <div class="pc-num">Phase 1 — Quick wins</div>
+      <div class="pc-title">Mechanical · high-trust</div>
+      <div class="pc-cmds">
+        <div class="pc-cmd"><div class="cmd-dot"></div>/flowforge.research</div>
+        <div class="pc-cmd"><div class="cmd-dot"></div>/flowforge.require (+ 5 new agents)</div>
+        <div class="pc-cmd"><div class="cmd-dot"></div>/flowforge.prd</div>
+      </div>
+      <div class="pc-desc">Research replaces hours of manual lookup with zero risk. The 5 new review agents extend an existing command that already has 3 agents. PRD is a zero-cost Confluence byproduct BAs love immediately.</div>
+    </div>
+    <div class="phase-card" style="--c:var(--amber)">
+      <div class="pc-num">Phase 2 — Refinement layer</div>
+      <div class="pc-title">Higher leverage · needs trust</div>
+      <div class="pc-cmds">
+        <div class="pc-cmd"><div class="cmd-dot"></div>/flowforge.split</div>
+        <div class="pc-cmd"><div class="cmd-dot"></div>/flowforge.refine</div>
+        <div class="pc-cmd"><div class="cmd-dot"></div>/flowforge.ideate</div>
+      </div>
+      <div class="pc-desc">Epic decomposition is already done manually — tool just structures it. Refinement meeting prep is easy to validate. Ideation is most useful when framing is already known.</div>
+    </div>
+    <div class="phase-card" style="--c:var(--ba)">
+      <div class="pc-num">Phase 3 — Full upstream</div>
+      <div class="pc-title">Transformative · BA-led</div>
+      <div class="pc-cmds">
+        <div class="pc-cmd"><div class="cmd-dot"></div>/flowforge.discover</div>
+        <div class="pc-cmd" style="opacity:.5"><div class="cmd-dot"></div>Full BA-owned flow</div>
+      </div>
+      <div class="pc-desc">At this point BAs run the entire upstream pipeline independently, handing a verified, research-grounded, agent-reviewed spec to the dev pipeline. FlowForge becomes a full product development tool.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div style="height:1px;background:var(--line)"></div>
+<footer>
+<div class="wrap">
+  Proposed: <code>discover · research · ideate · require (enhanced) · split · refine · prd</code> ·
+  27 BA-side agents total (3 existing + 24 new) · Dev pipeline (15 agents) unchanged ·
+  Revised cycle-time impact: −33% problem-to-PR on standard features · existing agents credited in baseline
+</div>
+</footer>
+
+<script>
+// ── Scroll reveal ──
+const revealEls = document.querySelectorAll('.reveal, .reveal-up');
+const ro = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => ro.observe(el));
+
+// ── Animated bar widths ──
+const barEls = document.querySelectorAll('.tchart-fill[data-width]');
+const barObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.width = e.target.dataset.width;
+      barObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+barEls.forEach(el => barObs.observe(el));
+
+// ── Counter animation ──
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target, 10);
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  if (!target) return;
+  let start = null;
+  const duration = 1000;
+  function step(ts) {
+    if (!start) start = ts;
+    const progress = Math.min((ts - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = prefix + Math.round(ease * target) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+const counterEls = document.querySelectorAll('[data-target]');
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { animateCounter(e.target); counterObs.unobserve(e.target); }
+  });
+}, { threshold: 0.5 });
+counterEls.forEach(el => counterObs.observe(el));
+</script>
+</body>
+</html>
