@@ -405,6 +405,16 @@ body {
   font-family: "JetBrains Mono", monospace; font-size: .82em;
   background: var(--surface); padding: 1px 5px; border-radius: 3px; color: #8b949e;
 }
+.risk-item.blocker {
+  border-left-color: var(--red); background: rgba(248,81,73,.05);
+}
+.risk-item.blocker .ri-title { color: var(--red); }
+.risk-item .ri-severity {
+  font-family: "JetBrains Mono", monospace; font-size: .55rem; letter-spacing: .12em;
+  text-transform: uppercase; padding: 2px 7px; border-radius: 4px; display: inline-block; margin-bottom: 6px;
+}
+.ri-severity.hard { background: rgba(248,81,73,.12); color: var(--red); border: 1px solid rgba(248,81,73,.25); }
+.ri-severity.soft { background: rgba(210,153,34,.12); color: var(--amber); border: 1px solid rgba(210,153,34,.25); }
 
 /* ─── BUILD SEQUENCE ─── */
 .phase-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
@@ -462,8 +472,8 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
   <h1>Closing the <em>upstream gap</em></h1>
   <p class="hero-sub">
     FlowForge accelerates engineering with 15 agents across 5 steps.
-    The BA phase has <strong style="color:var(--amber)">3 agents</strong> in <code style="font-family:'JetBrains Mono';color:var(--ba);font-size:.9em">.require</code> — all of them operating <em>after</em> the spec is written.
-    The 6–10 hours before the spec exists — discovery, research, ideation, decomposition, refinement — have no tooling at all.
+    The BA phase has <strong style="color:var(--amber)">3 agents</strong> in <code style="font-family:'JetBrains Mono';color:var(--ba);font-size:.9em">.require</code> — all operating <em>after</em> the spec is written.
+    The 6–10 hours before the spec exists have no tooling. And non-technical BAs face a hidden git barrier before they can even start.
   </p>
   <div class="hero-numbers reveal">
     <div class="hero-stat">
@@ -499,6 +509,14 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
     <code>Self-Review</code> (Phase 2) has the main agent switch to critical reviewer mode and challenge its own spec.
     <code>QA Author</code> (Phase 3) generates the test skeleton.
     All three are post-capture — none of them help you <em>discover what to build</em>.
+  </div>
+
+  <div class="callout reveal" style="border-left-color:var(--red);background:rgba(248,81,73,.05);">
+    <strong style="color:var(--red)">Git barrier — critical adoption blocker for non-technical BAs/POs:</strong>
+    FlowForge requires two manual git operations that most BAs have never done.
+    <strong>(1) Pull before every step:</strong> <code>git pull origin master</code> must be run manually before starting any new feature. Forgetting it is silent — no error, just stale context.
+    <strong>(2) Branch dependency trap:</strong> <code>/flowforge.require</code> creates a feature branch immediately from whatever the current HEAD is. If feature A's branch hasn't been merged yet, feature B's branch is parented on A — creating an implicit dependency that isn't visible until <code>.plan</code> or <code>.build</code> fails on unrelated changes. A non-git user has no way to know this is happening.
+    Neither issue is in scope for the current BA pipeline proposal, but both must be resolved before non-technical BAs can run FlowForge independently.
   </div>
 
   <div class="asym-grid reveal-up">
@@ -604,10 +622,27 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 <div class="wrap">
   <p class="s-label reveal">The proposal</p>
   <h2 class="s-title reveal">The full pipeline — proposed</h2>
-  <p class="s-note reveal">Six new commands + one enhanced command extend the BA pipeline upstream of spec writing. Today's 3 agents all review the spec after you write it — the proposal adds agents for everything before and around that moment.</p>
+  <p class="s-note reveal">Seven new commands + one enhanced command extend the BA pipeline. A new pre-flight step eliminates the git barrier for non-technical users. Today's 3 agents all review the spec after you write it — the proposal adds agents for everything before and around that moment.</p>
 
   <div class="pipeline-flow reveal-up">
-    <div class="pf-zone-label ba-zone"><span>BA / PO zone — upstream</span><div class="pz-bar"></div></div>
+    <div class="pf-zone-label" style="color:var(--muted);"><span>Pre-flight — git barrier elimination</span><div class="pz-bar" style="background:linear-gradient(90deg,var(--muted),transparent)"></div></div>
+
+    <div class="pf-steps">
+      <div class="pf-step ba-step" style="background:rgba(248,81,73,.04);border:1px solid rgba(248,81,73,.12);border-radius:10px;">
+        <div class="pf-step-num" style="color:var(--red)">00</div>
+        <div class="pf-step-cmd">
+          <div class="pf-step-name"><span class="slash" style="color:var(--red)">/ff.</span>start</div>
+          <span class="step-badge badge-new" style="background:rgba(248,81,73,.12);color:var(--red);border-color:rgba(248,81,73,.3)">new · blocker fix</span>
+        </div>
+        <div class="pf-step-desc">
+          <div>Eliminates the two git blockers for non-technical users. <strong>Pulls latest master automatically</strong> — no manual <code>git pull</code> required. <strong>Checks for unmerged branches:</strong> if a prior feature branch exists and hasn't been merged, warns the user before creating a new one — preventing silent branch dependency traps. Creates the feature branch from a clean, up-to-date HEAD.</div>
+          <div class="pf-agents"><span class="pf-agent-chip">Git Pre-flight</span><span class="pf-agent-chip">Branch Conflict Detector</span></div>
+        </div>
+        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">clean branch</span><span class="pf-out">automated</span></div>
+      </div>
+    </div>
+
+    <div class="pf-zone-label ba-zone" style="margin-top:12px"><span>BA / PO zone — upstream</span><div class="pz-bar"></div></div>
 
     <div class="pf-steps">
       <div class="pf-step ba-step">
@@ -898,19 +933,33 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
     <div>
       <div class="chain-col-title">Where this won't land as predicted</div>
       <div class="risk-list">
+        <div class="risk-item blocker">
+          <div class="ri-severity hard">hard blocker</div>
+          <div class="ri-title">Git pull — silent stale context</div>
+          <div class="ri-body">Every FlowForge step requires <code>git pull origin master</code> first. A non-technical BA will not know to do this. The failure is silent — FlowForge runs against stale code, produces a spec grounded in the wrong baseline. No error is raised. <strong style="color:var(--text)">Addressed by <code>/ff.start</code></strong>, but until that ships, this is a guaranteed failure mode for any BA using FlowForge without a dev standing by.</div>
+        </div>
+        <div class="risk-item blocker">
+          <div class="ri-severity hard">hard blocker</div>
+          <div class="ri-title">Branch dependency trap — invisible chaining</div>
+          <div class="ri-body"><code>/flowforge.require</code> creates the feature branch immediately from the current HEAD. If a prior feature branch is still open (not merged), the new branch is parented on it — creating an implicit dependency. When the first feature changes or is rebased, the second breaks silently. A BA starting two features in sequence will hit this every time and have no idea why. <strong style="color:var(--text)">Addressed by <code>/ff.start</code></strong>'s branch conflict check, but the current tool has no guard at all.</div>
+        </div>
         <div class="risk-item">
+          <div class="ri-severity soft">soft risk</div>
           <div class="ri-title">Discovery resistance</div>
           <div class="ri-body"><code>/ff.discover</code> depends on BAs trusting an agent-driven interview. First runs will need heavy human correction. Adoption lags the more mechanical commands.</div>
         </div>
         <div class="risk-item">
+          <div class="ri-severity soft">soft risk</div>
           <div class="ri-title">Refinement facilitation</div>
           <div class="ri-body">Post-session spec sync only works if the meeting produces structured decisions. Many refinements end with "we'll discuss further" — the tool can't force resolution.</div>
         </div>
         <div class="risk-item">
+          <div class="ri-severity soft">soft risk</div>
           <div class="ri-title">Org dependency</div>
           <div class="ri-body">Cycle-time impact depends on BAs adopting FlowForge as their primary workflow. If BAs use it as a final formatting step, the upstream gains don't materialize.</div>
         </div>
         <div class="risk-item">
+          <div class="ri-severity soft">soft risk</div>
           <div class="ri-title">Adoption curve</div>
           <div class="ri-body">Commands that ship first (<code>research</code>, <code>require</code> enhancement, <code>prd</code>) validate the model before exploratory ones (<code>discover</code>, <code>ideate</code>) need to be trusted.</div>
         </div>
@@ -932,11 +981,12 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
       <div class="pc-num">Phase 1 — Quick wins</div>
       <div class="pc-title">Mechanical · high-trust</div>
       <div class="pc-cmds">
+        <div class="pc-cmd"><div class="cmd-dot"></div>/flowforge.start <span style="color:var(--red);font-size:.7em">← git blocker fix</span></div>
         <div class="pc-cmd"><div class="cmd-dot"></div>/flowforge.research</div>
         <div class="pc-cmd"><div class="cmd-dot"></div>/flowforge.require (+ 5 new agents)</div>
         <div class="pc-cmd"><div class="cmd-dot"></div>/flowforge.prd</div>
       </div>
-      <div class="pc-desc">Research replaces hours of manual lookup with zero risk. The 5 new review agents extend an existing command that already has 3 agents. PRD is a zero-cost Confluence byproduct BAs love immediately.</div>
+      <div class="pc-desc"><code>/ff.start</code> is the prerequisite for all other BA commands — pull + branch safety check, zero learning curve. Research replaces hours of manual lookup. The 5 new review agents extend an existing command. PRD is a zero-cost Confluence byproduct.</div>
     </div>
     <div class="phase-card" style="--c:var(--amber)">
       <div class="pc-num">Phase 2 — Refinement layer</div>
@@ -964,7 +1014,8 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 <div style="height:1px;background:var(--line)"></div>
 <footer>
 <div class="wrap">
-  Proposed: <code>discover · research · ideate · require (enhanced) · split · refine · prd</code> ·
+  Proposed: <code>start (new) · discover · research · ideate · require (enhanced) · split · refine · prd</code> ·
+  Hard blockers addressed: git pull automation + branch dependency guard (<code>/ff.start</code>) ·
   27 BA-side agents total (3 existing + 24 new) · Dev pipeline (15 agents) unchanged ·
   Revised cycle-time impact: −33% problem-to-PR on standard features · existing agents credited in baseline
 </div>
