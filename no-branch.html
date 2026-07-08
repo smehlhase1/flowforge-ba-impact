@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FlowForge · No-Branch Tickets</title>
+<title>FlowForge · Tickets Without Any Branch</title>
 <style>
   :root {
     --bg: #0d1117;
@@ -344,16 +344,16 @@
 <div class="header">
   <div class="header-icon">⚡</div>
   <div class="header-text">
-    <h1>FlowForge · No-Branch Tickets</h1>
-    <p>Open CIL tickets labelled <strong>FlowForge</strong> with status <strong>To Do</strong> and no <code>flowforge/*</code> branch in GitHub</p>
+    <h1>FlowForge · Tickets Without Any Branch</h1>
+    <p>Open CIL tickets labelled <strong>FlowForge</strong> with status <strong>To Do</strong> and <strong>no branch at all</strong> in GitHub</p>
   </div>
   <div class="updated-badge">Updated 2026-07-08</div>
 </div>
 
 <div class="stats">
-  <div class="stat-card"><div class="val val-red" id="stat-total">69</div><div class="lbl">Tickets without branch</div></div>
+  <div class="stat-card"><div class="val val-red" id="stat-total">22</div><div class="lbl">No branch at all</div></div>
   <div class="stat-card"><div class="val val-blue" id="stat-reporters">—</div><div class="lbl">Unique reporters</div></div>
-  <div class="stat-card"><div class="val val-muted">4</div><div class="lbl">Have flowforge branch</div></div>
+  <div class="stat-card"><div class="val val-muted">47</div><div class="lbl">Have a branch (excl.)</div></div>
   <div class="stat-card"><div class="val val-muted">CIL</div><div class="lbl">Project</div></div>
 </div>
 
@@ -378,7 +378,7 @@
   <select id="reporter-filter" onchange="filterTable()">
     <option value="">All reporters</option>
   </select>
-  <div class="count-badge"><span id="visible-count">69</span> shown</div>
+  <div class="count-badge"><span id="visible-count">22</span> shown</div>
 </div>
 
 <div class="table-wrap">
@@ -404,78 +404,28 @@
 
 <script>
 const TICKETS = [
-  ["CIL-6075","[Westpac] Remove claims from GET /policies/{policy_number} response","Nihad Aliyev"],
   ["CIL-6054","Clara replacement - [Retail Portal] Remove unnecessary fields from OnePay payment session","Madiyar Mardenov"],
   ["CIL-6051","[CHOE] sisu-api & discovery: Update AdditionalDataMotorShared to support per-vehicle license plates","Ekaterina Akimova"],
-  ["CIL-6001","[travel-service] Send save-quote email via Emagin for USA B2C partner flow","Rehma Saeed"],
-  ["CIL-5943","[NBG Standing Order] Register Standing Order for AZ/Europisti Application","Raisat Ramazanova"],
   ["CIL-5937","[CIL Library / travel-service] Pass gadget fields to Fusion POST /Optimizations","Rehma Saeed"],
   ["CIL-5936","[simplesurance-api] Add gadget object to PointOfSale in travel quote schema","Rehma Saeed"],
-  ["CIL-5935","[allyz] Create Allyz CA product code & credentials","Mirkamol Xamidov"],
-  ["CIL-5934","[NBG Motor] Fix missing field mappings in POST /offers integration","Neetu Verma"],
-  ["CIL-5933","[NBG Motor] Fix missing field mappings in POST /quotes/prices integration","Neetu Verma"],
   ["CIL-5912","Analysis over CIL <> Braintree JK SDK integration to retrieve client_token","Rehma Saeed"],
   ["CIL-5906","[CIL Library] - Create provider package for USPG API","Rehma Saeed"],
-  ["CIL-5901","[NBG UL] life service: Integrate Application Document Upload with AZ GR Docs API","Andrii Gatsaniuk"],
-  ["CIL-5898","[NBG UL] life service: Integrate Policy Document Retrieval with AZ GR Docs API","Neetu Verma"],
-  ["CIL-5897","[NBG UL] life service: Integrate Application Document Retrieval with AZ GR Docs API","Neetu Verma"],
-  ["CIL-5894","[NBG UL] life service: Integrate Offer Document Retrieval with AZ GR Docs API","Andrii Gatsaniuk"],
-  ["CIL-5888","[Westpac] Map \"personType\" field to insured_persons in Policy Details Response","Nihad Aliyev"],
-  ["CIL-5883","[NBG UL] life service: Integrate Apply for Policy endpoint with AZ GR Applications API","Andrii Gatsaniuk"],
-  ["CIL-5867","[NBG-Health] Create Product Code for NBG Health","Neetu Verma"],
   ["CIL-5861","Investigation - [FOX] EAPI breaking change: contractUpgrades moved to root level","Ozlam Tahirli"],
-  ["CIL-5849","[FOX] Saved quotes remain on Dashboard after successful policy purchase","Ozlam Tahirli"],
-  ["CIL-5844","Global App AzD - Investigation - missing mapping for Insured Object + IBAN enrichment","Maria Bezrukova"],
   ["CIL-5838","[simplesurance-api + travel-service] Get Quote By ID: Return HTML in resources.rawOutput","Rehma Saeed"],
   ["CIL-5836","[Spike] Investigate and implement storing raw Fusion HTML in Integration Layer Quote tables","Rehma Saeed"],
-  ["CIL-5822","[NBG UL] life service: Integrate Life Quote endpoint with AZ GR Offers API","Neetu Verma"],
-  ["CIL-5773","[NBG Motor] motor service: Accept an endorsement and immediately issue via AZ Greece charge","Neetu Verma"],
   ["CIL-5725","[NBG Property] property service: Integrate POST Policy upload document","Raisat Ramazanova"],
   ["CIL-5721","[CHOE] e2e: Extend product_type enum on Get Policy endpoint","Judit Papp"],
   ["CIL-5720","[CHOE] API draft: Extend product_type enum on API Get Policy endpoint","Judit Papp"],
   ["CIL-5717","[placeholder] Global App: Implement FlowForge skill for Data Model documentation update","Julia Kuznietsova"],
-  ["CIL-5709","MDDR: Update beneficiary — forward risks[] device fields to eAPI","Mishin, Igor (Allianz Partners)"],
-  ["CIL-5708","MDDR: Create beneficiary — forward risks[] device fields to eAPI","Mishin, Igor (Allianz Partners)"],
-  ["CIL-5707","MDDR: Extend beneficiary create and update API with risks array","Mishin, Igor (Allianz Partners)"],
-  ["CIL-5701","Global App AzD - Claims integration - incomplete mapping","Maria Bezrukova"],
-  ["CIL-5698","[NBG SR] sisu-api: Introduce new endpoint to withdraw Submission Details","Neetu Verma"],
   ["CIL-5694","[CHOE] e2e: Support care_of_type and care_of fields in Update Insured Person address update","Judit Papp"],
-  ["CIL-5692","[NBG UL] sisu api: Introduce Apply for Policy endpoint in new Life Insurance API","Neetu Verma"],
-  ["CIL-5691","[NBG UL] sisu api: Introduce Quote endpoint in new Life Insurance API","Neetu Verma"],
   ["CIL-5680","[NBG Property] property service: Integrate Policy with AZ GR /applications","Neetu Verma"],
-  ["CIL-5669","[mddr-service] Integrate MDDR Cancel Policy with AZP eAPI (test-partner)","Bekzat Mustafa"],
-  ["CIL-5667","[MDDR] sisu-api: extend Policy amend to support modifications for MDDR","Bekzat Mustafa"],
   ["CIL-5633","[sisu-api: case mgmt] Create POST/cases/upload-documents endpoint","Floriane Miletic"],
-  ["CIL-5630","[Clara] Get Policy Details - Mapping w/ eAPI for open policies (beneficiary)","Floriane Miletic"],
-  ["CIL-5604","[CHOE] discovery: List Mailbox Items","Safiko Papkhadze"],
   ["CIL-5588","Cancel EHA beneficiary contract via portal","Mishin, Igor (Allianz Partners)"],
   ["CIL-5587","Link EHA beneficiary to individual add-on policy when customer purchases an upgrade (Q&B)","Mishin, Igor (Allianz Partners)"],
   ["CIL-5586","CIL: Create EHA beneficiary — eAPI Beneficiary Management API v3 integration","Mishin, Igor (Allianz Partners)"],
   ["CIL-5584","Create partner flow for Clara EHA","Mishin, Igor (Allianz Partners)"],
   ["CIL-5582","Prepare CIL webhook endpoint for one-time EHA beneficiary import","Mishin, Igor (Allianz Partners)"],
-  ["CIL-5581","Consume EHA beneficiary lifecycle events from BIOS via webhook (Enterprise API)","Mishin, Igor (Allianz Partners)"],
-  ["CIL-5561","[MDDR] Implement MDDR beneficiary creation logic for webhook events","Mishin, Igor (Allianz Partners)"],
-  ["CIL-5446","[bmw] Adjust contract mapping & orchestration logic using isSelfPaymentRequired","Floriane Miletic"],
-  ["CIL-5445","[BMW] Handle VEHICLE_REPATRIATION service type","Floriane Miletic"],
-  ["CIL-5415","[NBG SR] sisu-api: Introduce new endpoint to list Submissions","Neetu Verma"],
-  ["CIL-5400","[NBG SR] motor-service: Implement List Service Request Submissions","Neetu Verma"],
-  ["CIL-5399","[NBG SR] motor-service: Implement Cancel/Closing of a Submission","Neetu Verma"],
   ["CIL-5398","[NBG SR] motor-service: Implement Update of a Service Request","Neetu Verma"],
-  ["CIL-5397","[NBG SR] motor-service: Implement Creation of a Submission","Neetu Verma"],
-  ["CIL-5395","[CHOE] discovery: Download Document","Safiko Papkhadze"],
-  ["CIL-5383","[bmw] Adjust GetGeolocation Logic to Call Frontier API for ETA Fallback","Mirkamol Xamidov"],
-  ["CIL-5338","[travel-service/rsa-service]: Persist policy recalculation records","Bekzat Mustafa"],
-  ["CIL-5335","[travel-service] Integrate Travel eAPI Amend Policy flow","Bekzat Mustafa"],
-  ["CIL-5231","[CHOE] discovery: Get Mailbox Item","Safiko Papkhadze"],
-  ["CIL-5129","[NBG] Health: health service: Create a new service","Neetu Verma"],
-  ["CIL-4884","[CHOE] API draft & sisu api & discovery - Extend Marital Status enum with UNKNOWN","Judit Papp"],
-  ["CIL-4867","[CHOE] provider: Get Document Content","Safiko Papkhadze"],
-  ["CIL-4866","[CHOE] provider: Update Mailbox Item (Single & Batch)","Safiko Papkhadze"],
-  ["CIL-4864","[CHOE] provider: Get Mailbox Item","Safiko Papkhadze"],
-  ["CIL-4863","[CHOE] API draft: Get Mailbox Item","Safiko Papkhadze"],
-  ["CIL-4633","[CHOE] discovery: Update Mailbox Item","Safiko Papkhadze"],
-  ["CIL-4348","[CHOE] provider: List Mailbox Items","Safiko Papkhadze"],
-  ["CIL-4265","FOX UK – AMT and ST Policy Date Validations - CIL - Q&B flow","Ozlam Tahirli"],
 ];
 
 const BASE_URL = "https://sisu-agile.atlassian.net/browse/";
