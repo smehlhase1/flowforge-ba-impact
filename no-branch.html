@@ -228,6 +228,33 @@
   }
   .empty-icon { font-size: 32px; margin-bottom: 8px; }
 
+  /* View toggle */
+  .view-toggle {
+    max-width: 1200px;
+    margin: 0 auto 16px;
+    display: flex;
+    gap: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 4px;
+    width: fit-content;
+  }
+  .view-btn {
+    padding: 6px 16px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background .15s, color .15s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .view-btn.active { background: var(--accent-dim); color: var(--accent); }
+  .view-btn:hover:not(.active) { background: var(--tag-bg); color: var(--text); }
+
   /* Reporter breakdown */
   .breakdown {
     max-width: 1200px;
@@ -239,11 +266,70 @@
   }
   .breakdown h3 { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 16px; }
   .bar-list { display: flex; flex-direction: column; gap: 10px; }
-  .bar-item { display: flex; align-items: center; gap: 10px; }
+  .bar-item {
+    display: flex; align-items: center; gap: 10px;
+    cursor: pointer; border-radius: 6px; padding: 4px 6px;
+    transition: background .1s;
+  }
+  .bar-item:hover { background: var(--tag-bg); }
+  .bar-item.active-filter { background: var(--accent-dim); }
   .bar-name { width: 180px; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex-shrink: 0; }
   .bar-track { flex: 1; height: 8px; background: var(--tag-bg); border-radius: 4px; overflow: hidden; }
   .bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent) 0%, var(--purple) 100%); transition: width .4s ease; }
   .bar-count { font-size: 12px; color: var(--muted); width: 28px; text-align: right; flex-shrink: 0; }
+
+  /* Grouped view */
+  .group-section {
+    max-width: 1200px;
+    margin: 0 auto 16px;
+  }
+  .group-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: #1c2128;
+    border: 1px solid var(--border);
+    border-radius: var(--radius) var(--radius) 0 0;
+    cursor: pointer;
+    user-select: none;
+    transition: background .1s;
+  }
+  .group-header:hover { background: #222831; }
+  .group-header.collapsed { border-radius: var(--radius); }
+  .group-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #fff;
+    flex-shrink: 0;
+  }
+  .group-name { font-weight: 600; font-size: 14px; flex: 1; }
+  .group-chip {
+    background: var(--accent-dim);
+    color: var(--accent);
+    border-radius: 12px;
+    padding: 2px 10px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .group-chevron {
+    color: var(--muted);
+    font-size: 11px;
+    transition: transform .2s;
+  }
+  .group-header.collapsed .group-chevron { transform: rotate(-90deg); }
+  .group-body {
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 var(--radius) var(--radius);
+    overflow: hidden;
+  }
+  .group-body.hidden { display: none; }
+  .group-table { width: 100%; border-collapse: collapse; }
+  .group-table td { padding: 10px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; font-size: 13px; }
+  .group-table tr:last-child td { border-bottom: none; }
+  .group-table tr:hover td { background: #1c2128; }
 
   @media (max-width: 700px) {
     .summary-cell, .summary-text { max-width: 180px; }
@@ -269,6 +355,17 @@
   <div class="stat-card"><div class="val val-blue" id="stat-reporters">—</div><div class="lbl">Unique reporters</div></div>
   <div class="stat-card"><div class="val val-muted">4</div><div class="lbl">Have flowforge branch</div></div>
   <div class="stat-card"><div class="val val-muted">CIL</div><div class="lbl">Project</div></div>
+</div>
+
+<div class="view-toggle">
+  <button class="view-btn active" id="btn-flat" onclick="switchView('flat')">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v2A1.5 1.5 0 0 1 13.5 6h-11A1.5 1.5 0 0 1 1 4.5v-2zm0 5A1.5 1.5 0 0 1 2.5 6h11A1.5 1.5 0 0 1 15 7.5v2A1.5 1.5 0 0 1 13.5 11h-11A1.5 1.5 0 0 1 1 9.5v-2zm0 5A1.5 1.5 0 0 1 2.5 11h11a1.5 1.5 0 0 1 1.5 1.5v2a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5v-2z"/></svg>
+    Table
+  </button>
+  <button class="view-btn" id="btn-grouped" onclick="switchView('grouped')">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/></svg>
+    By Reporter
+  </button>
 </div>
 
 <div class="controls">
@@ -299,9 +396,11 @@
 </div>
 
 <div class="breakdown">
-  <h3>Tickets per reporter</h3>
+  <h3>Tickets per reporter <span style="font-size:11px;color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0">— click a bar to filter the table</span></h3>
   <div class="bar-list" id="bar-list"></div>
 </div>
+
+<div id="grouped-view" style="display:none"></div>
 
 <script>
 const TICKETS = [
@@ -381,6 +480,7 @@ const TICKETS = [
 
 const BASE_URL = "https://sisu-agile.atlassian.net/browse/";
 let sortCol = 0, sortDir = -1;
+let currentView = 'flat';
 
 function initials(name) {
   return name.split(/[\s,]+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
@@ -409,12 +509,23 @@ function buildBars(data) {
   const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
   const max = sorted[0]?.[1] || 1;
   const wrap = document.getElementById('bar-list');
+  const activeRep = document.getElementById('reporter-filter').value;
   wrap.innerHTML = sorted.map(([name, n]) => `
-    <div class="bar-item">
+    <div class="bar-item${activeRep === name ? ' active-filter' : ''}" onclick="clickBar('${name.replace(/'/g,"\\'")}')">
       <div class="bar-name" title="${name}">${name}</div>
       <div class="bar-track"><div class="bar-fill" style="width:${(n/max*100).toFixed(1)}%"></div></div>
       <div class="bar-count">${n}</div>
     </div>`).join('');
+}
+
+function clickBar(name) {
+  const sel = document.getElementById('reporter-filter');
+  sel.value = sel.value === name ? '' : name;
+  filterTable();
+  buildBars(TICKETS);
+  if (currentView === 'flat') {
+    document.getElementById('ticket-table').scrollIntoView({behavior:'smooth', block:'start'});
+  }
 }
 
 function filterTable() {
@@ -434,6 +545,7 @@ function filterTable() {
   document.getElementById('visible-count').textContent = visible;
   const empty = document.querySelector('.empty-row');
   if (empty) empty.style.display = visible === 0 ? '' : 'none';
+  buildBars(TICKETS);
 }
 
 function sortTable(col) {
@@ -458,6 +570,70 @@ function sortTable(col) {
   rows.forEach(r => tbody.appendChild(r));
   const empty = tbody.querySelector('.empty-row');
   if (empty) tbody.appendChild(empty);
+}
+
+function buildGroupedView() {
+  const groups = {};
+  TICKETS.forEach(([key, summary, reporter]) => {
+    if (!groups[reporter]) groups[reporter] = [];
+    groups[reporter].push([key, summary]);
+  });
+  const sorted = Object.entries(groups).sort((a,b) => b[1].length - a[1].length);
+  const wrap = document.getElementById('grouped-view');
+  wrap.innerHTML = sorted.map(([reporter, tickets]) => {
+    const color = avatarColor(reporter);
+    const ini = initials(reporter);
+    const id = 'grp-' + reporter.replace(/[^a-z0-9]/gi,'_');
+    const rows = tickets.map(([key, summary]) => `
+      <tr>
+        <td style="width:120px"><a class="ticket-key" href="${BASE_URL}${key}" target="_blank" rel="noopener">${key}</a></td>
+        <td>${summary}</td>
+        <td style="width:100px"><span class="branch-badge badge-missing">✕ no branch</span></td>
+      </tr>`).join('');
+    return `
+      <div class="group-section">
+        <div class="group-header" onclick="toggleGroup('${id}')" id="hdr-${id}">
+          <div class="group-avatar" style="background:${color}">${ini}</div>
+          <div class="group-name">${reporter}</div>
+          <div class="group-chip">${tickets.length} ticket${tickets.length>1?'s':''}</div>
+          <div class="group-chevron">▼</div>
+        </div>
+        <div class="group-body" id="${id}">
+          <table class="group-table">${rows}</table>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function toggleGroup(id) {
+  const body = document.getElementById(id);
+  const hdr = document.getElementById('hdr-' + id);
+  body.classList.toggle('hidden');
+  hdr.classList.toggle('collapsed');
+}
+
+function switchView(view) {
+  currentView = view;
+  document.getElementById('btn-flat').classList.toggle('active', view === 'flat');
+  document.getElementById('btn-grouped').classList.toggle('active', view === 'grouped');
+
+  const flatControls = document.querySelector('.controls');
+  const flatTable = document.querySelector('.table-wrap');
+  const breakdown = document.querySelector('.breakdown');
+  const groupedView = document.getElementById('grouped-view');
+
+  if (view === 'flat') {
+    flatControls.style.display = '';
+    flatTable.style.display = '';
+    breakdown.style.display = '';
+    groupedView.style.display = 'none';
+  } else {
+    flatControls.style.display = 'none';
+    flatTable.style.display = 'none';
+    breakdown.style.display = 'none';
+    groupedView.style.display = '';
+    buildGroupedView();
+  }
 }
 
 function render() {
