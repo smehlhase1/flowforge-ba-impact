@@ -472,7 +472,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
   <h1>Closing the <em>upstream gap</em></h1>
   <p class="hero-sub">
     FlowForge accelerates engineering with 15 agents across 5 steps.
-    The BA phase has <strong style="color:var(--amber)">3 agents</strong> in <code style="font-family:'JetBrains Mono';color:var(--ba);font-size:.9em">.require</code> — all operating <em>after</em> the spec is written.
+    The BA phase has <strong style="color:var(--amber)">3 agents</strong> in <code style="font-family:'JetBrains Mono';color:var(--ba);font-size:.9em">.require</code> — the Gap Reviewer fires mid-capture (Phase 1, Step 5), Self-Review runs in Phase 2, and QA Author generates the test skeleton in Phase 3 after approval.
     The 6–10 hours before the spec exists have no tooling. And non-technical BAs face a hidden git barrier before they can even start.
   </p>
   <div class="hero-numbers reveal">
@@ -482,7 +482,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
     </div>
     <div class="hero-divider"></div>
     <div class="hero-stat">
-      <div class="hs-num thirteen" data-target="15">15</div>
+      <div class="hs-num thirteen" data-target="14">14</div>
       <div class="hs-label">agents on dev pipeline</div>
     </div>
     <div class="hero-divider"></div>
@@ -501,14 +501,14 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 <div class="wrap">
   <p class="s-label reveal">The problem</p>
   <h2 class="s-title reveal">The asymmetry today</h2>
-  <p class="s-note reveal">Steps 02–06 are built for developers — 15 agents, automated, structured. Step 01 has 3 agents — all post-spec-capture. The 6–10 hours <em>before</em> the spec gets written have nothing.</p>
+  <p class="s-note reveal">Steps 02–06 are built for developers — 14 agents, automated, structured. Step 01 has 3 agents — one fires mid-capture, two fire after. The 6–10 hours <em>before</em> the spec gets written have nothing.</p>
 
   <div class="callout reveal">
-    <strong>What .require actually does today:</strong> After the human writes the spec using guided prompts, three agents fire in sequence.
-    <code>Gap Reviewer</code> (Explore sub-agent, Phase 1) finds holes the author missed.
-    <code>Self-Review</code> (Phase 2) has the main agent switch to critical reviewer mode and challenge its own spec.
-    <code>QA Author</code> (Phase 3) generates the test skeleton.
-    All three are post-capture — none of them help you <em>discover what to build</em>.
+    <strong>What .require actually does today:</strong> Three agents run across three phases.
+    <code>Gap Reviewer</code> (Explore sub-agent, Phase 1 Step 5) fires mid-capture after an initial draft — it finds holes before the spec is finalised.
+    <code>Self-Review</code> (Phase 2) has the main agent switch to critical reviewer mode and challenge its own completed spec.
+    <code>QA Author</code> (Phase 3) generates the test skeleton after Phase 2 approval.
+    None of them help you <em>discover what to build</em> — but the Gap Reviewer at least intervenes while the spec can still be changed easily.
   </div>
 
   <div class="callout reveal" style="border-left-color:var(--red);background:rgba(248,81,73,.05);">
@@ -533,29 +533,29 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
         <li class="missing"><div class="ai-dot"></div> Existing landscape research <span class="ai-badge">none</span></li>
         <li class="missing"><div class="ai-dot"></div> Solution option exploration <span class="ai-badge">none</span></li>
         <li class="has-partial"><div class="ai-dot"></div> Spec writing — guided prompts, human-driven <span class="ai-badge">human + prompts</span></li>
-        <li class="has"><div class="ai-dot"></div> Gap Reviewer — Explore sub-agent finds spec holes (Phase 1, Step 5) <span class="ai-badge">1 agent</span></li>
-        <li class="has"><div class="ai-dot"></div> Self-Review — main agent switches to critical reviewer mode (Phase 2) <span class="ai-badge">1 agent</span></li>
-        <li class="has"><div class="ai-dot"></div> QA Author — generates QA skeleton after approval (Phase 3) <span class="ai-badge">1 agent</span></li>
+        <li class="has"><div class="ai-dot"></div> Gap Reviewer — Explore sub-agent finds spec holes mid-capture (Phase 1, Step 5 — while spec is still being written) <span class="ai-badge">1 agent</span></li>
+        <li class="has"><div class="ai-dot"></div> Self-Review — main agent switches to critical reviewer mode after spec is written (Phase 2) <span class="ai-badge">1 agent</span></li>
+        <li class="has"><div class="ai-dot"></div> QA Author — generates QA skeleton after Phase 2 approval (Phase 3) <span class="ai-badge">1 agent</span></li>
         <li class="missing"><div class="ai-dot"></div> Epic decomposition <span class="ai-badge">none</span></li>
         <li class="missing"><div class="ai-dot"></div> Refinement facilitation <span class="ai-badge">none</span></li>
       </ul>
       <div class="asym-note">
-        <strong>The upstream gap:</strong> All 3 existing agents run only after the spec exists. They improve spec quality — but they can't surface a wrong problem, missing context from Confluence/Jira, or a better solution approach. That work still happens manually, before anyone opens .require.
+        <strong>The upstream gap:</strong> The Gap Reviewer fires mid-capture (Step 5) while the spec is still being written — the earliest existing intervention point. Self-Review and QA Author run after. None of them can surface a wrong problem, missing context from Confluence/Jira, or a better solution approach. That work still happens manually, before anyone opens .require.
       </div>
     </div>
     <div class="asym-side">
       <div class="asym-header">
         <div>
-          <div class="asym-big thirteen">15</div>
+          <div class="asym-big thirteen">14</div>
           <div class="asym-big-label">agents across 4 steps</div>
         </div>
         <span class="asym-zone dev">Dev</span>
       </div>
       <ul class="asym-items">
-        <li class="has"><div class="ai-dot"></div> .plan — 6 parallel reviewers + Devil's Advocate <span class="ai-badge">6 agents</span></li>
+        <li class="has"><div class="ai-dot"></div> .plan — 5 parallel reviewers + Devil's Advocate <span class="ai-badge">6 agents</span></li>
         <li class="has"><div class="ai-dot"></div> .analyze — 3 parallel gap finders <span class="ai-badge">3 agents</span></li>
-        <li class="has"><div class="ai-dot"></div> .build — TDD pipeline (Builder + Test Validator) <span class="ai-badge">2 agents</span></li>
-        <li class="has"><div class="ai-dot"></div> .verify — 4 compliance checks + Devil's Advocate <span class="ai-badge">4 agents</span></li>
+        <li class="has"><div class="ai-dot"></div> .build — TDD pipeline (Builder + Test Validator + Fixer) <span class="ai-badge">3 agents</span></li>
+        <li class="has"><div class="ai-dot"></div> .verify — 4 compliance checks + Devil's Advocate (standard lane) <span class="ai-badge">5 agents</span></li>
         <li class="has"><div class="ai-dot"></div> .fix — circuit-breaker repair (max 3 rounds) <span class="ai-badge">built-in</span></li>
         <li class="has"><div class="ai-dot"></div> Express/Fast — full Jira→PR auto-gen <span class="ai-badge">auto</span></li>
         <li class="has"><div class="ai-dot"></div> Traceability chain spec → QA <span class="ai-badge">end-to-end</span></li>
@@ -756,7 +756,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
       <div class="pf-step dev-step">
         <div class="pf-step-num">09</div>
         <div class="pf-step-cmd"><div class="pf-step-name"><span class="slash">/ff.</span>plan</div><span class="step-badge badge-existing">existing</span></div>
-        <div class="pf-step-desc">Technical plan + 6-agent review. <strong>Higher-quality spec = fewer plan iterations.</strong></div>
+        <div class="pf-step-desc">Technical plan + 5 specialist reviewers + Devil's Advocate. <strong>Higher-quality spec = fewer plan iterations.</strong></div>
         <div class="pf-step-meta"><span class="pf-owner dev">Dev</span><span class="pf-out">6 agents</span></div>
       </div>
       <div class="pf-step dev-step">
@@ -911,7 +911,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
           <div class="cs-spine"><div class="cs-dot ba">BA</div><div class="cs-line"></div></div>
           <div class="cs-body">
             <div class="cs-title">Spec quality → plan iterations</div>
-            <div class="cs-desc">Every ambiguity surfaces as a question during <code>.plan</code>. The 6 plan-review agents flag it, work bounces back to the BA. One cycle = half a dev day wasted before any code is written.</div>
+            <div class="cs-desc">Every ambiguity surfaces as a question during <code>.plan</code>. The 5 specialist reviewers + Devil's Advocate flag it, work bounces back to the BA. One cycle = half a dev day wasted before any code is written.</div>
           </div>
         </div>
         <div class="cs-item">
@@ -1016,7 +1016,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 <div class="wrap">
   Proposed: <code>start (new) · discover · research · ideate · require (enhanced) · split · refine · prd</code> ·
   Hard blockers addressed: git pull automation + branch dependency guard (<code>/ff.start</code>) ·
-  27 BA-side agents total (3 existing + 24 new) · Dev pipeline (15 agents) unchanged ·
+  27 BA-side agents total (3 existing + 24 new) · Dev pipeline (14 agents) unchanged ·
   Revised cycle-time impact: −33% problem-to-PR on standard features · existing agents credited in baseline
 </div>
 </footer>
