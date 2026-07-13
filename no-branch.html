@@ -351,7 +351,7 @@
 </div>
 
 <div class="stats">
-  <div class="stat-card"><div class="val val-red" id="stat-total">49</div><div class="lbl">No branch at all</div></div>
+  <div class="stat-card"><div class="val val-red" id="stat-total">32</div><div class="lbl">No branch at all</div></div>
   <div class="stat-card"><div class="val val-blue" id="stat-reporters">—</div><div class="lbl">Unique reporters</div></div>
   <div class="stat-card"><div class="val val-muted">50+</div><div class="lbl">Have a branch (excl.)</div></div>
   <div class="stat-card"><div class="val val-muted">CIL</div><div class="lbl">Project</div></div>
@@ -378,7 +378,7 @@
   <select id="reporter-filter" onchange="filterTable()">
     <option value="">All reporters</option>
   </select>
-  <div class="count-badge"><span id="visible-count">49</span> shown</div>
+  <div class="count-badge"><span id="visible-count">32</span> shown</div>
 </div>
 
 <div class="table-wrap">
@@ -404,14 +404,11 @@
 
 <script>
 const TICKETS = [
+  ["CIL-6278","[NBG Property] CIL: Property Lookup Data Integration","Raisat Ramazanova"],
   ["CIL-6273","flowforge: Claude Code Bash hooks hang indefinitely on Windows/PowerShell/GitBash","Igor Kochman"],
   ["CIL-6267","FlowForge: Update installation instructions","Vitaly Vlasov"],
-  ["CIL-6264","[Westpac] Map medical screening status to insured persons in Policy Details Response","Nihad Aliyev"],
   ["CIL-6262","[sisu api] Provision client credentials for Enterprise API team on beneficiary webhook endpoint","Mishin, Igor (Allianz Partners)"],
   ["CIL-6248","[Coverwise] Create selling partner, product codes and client credentials for Coverwise Wave 2","Ozlam Tahirli"],
-  ["CIL-6247","[RRB] Create selling partner, product codes and client credentials for RRB integration","Ozlam Tahirli"],
-  ["CIL-6246","[Hood] Create selling partner, product codes and client credentials for Hood integration","Ozlam Tahirli"],
-  ["CIL-6240","Global App AzD - Investigation: Available Actions: SiSu returns empty/incomplete actions","Maria Bezrukova"],
   ["CIL-6218","[Westpac] Cron job processes only one uploaded cancellation file while generating status files for all uploaded files","Tejaswini Patil"],
   ["CIL-6202","Global App: Mitigate Threat T14: Cross-Device SEK Sync Vulnerability","Julia Kuznietsova"],
   ["CIL-6199","Global App: Mitigate Threat T11: Insufficient Session Invalidation","Julia Kuznietsova"],
@@ -423,36 +420,22 @@ const TICKETS = [
   ["CIL-6188","Global App: Mitigate Threat F-12: PII over-sharing in JWTs","Julia Kuznietsova"],
   ["CIL-6185","Global App: Mitigate Threat F-05: No key rotation cadence","Julia Kuznietsova"],
   ["CIL-6183","Global App: Mitigate Threat F-01: ParseUnverified() trust dependency","Julia Kuznietsova"],
-  ["CIL-6160","[NBG Property] CIL: Integrate PATCH /policies with AZ Greece Fire API application cancellation","Raisat Ramazanova"],
-  ["CIL-6153","[NBG Property] CIL: Extend /lookups request/response schema for property bundle packages","Raisat Ramazanova"],
-  ["CIL-6138","[NBG Property] CIL: Integrate /lookups PACKAGES key with AZ Greece Fire API","Raisat Ramazanova"],
   ["CIL-6134","Global App: Mitigate Threat P2: Linked Identity Correlation","Julia Kuznietsova"],
-  ["CIL-6131","[NBG UL] life service: Integrate Get Policy Details endpoint with AZ GR API","Andrii Gatsaniuk"],
   ["CIL-6130","Global App: Mitigate Threat T2: Token Replay Attack - implement token binding with device fingerprint","Julia Kuznietsova"],
   ["CIL-6109","Global App: Mitigate Threat F-09 : Rate limiting not endpoint-specific","Julia Kuznietsova"],
   ["CIL-6094","Global App: Mitigate Threat T7: Lambda Function URL abuse by routing Global App Lambdas behind ALB and Akamai","Julia Kuznietsova"],
-  ["CIL-6093","[NBG UL Single] life service: Integrate Issuance Policy endpoint with AZ GR API","Andrii Gatsaniuk"],
   ["CIL-6091","[BBVA] Grafana: Create Grafana board for BBVA project","Rehma Saeed"],
   ["CIL-6089","[Netrisk] Grafana: Create Grafana board for Netrisk project","Rehma Saeed"],
-  ["CIL-6078","Clara Replacement - [Retail Portal] Implement Get Policy","Madiyar Mardenov"],
-  ["CIL-6077","Clara replacement - [Meta Portal] Implement Get Policy","Madiyar Mardenov"],
-  ["CIL-6075","[Westpac] Remove claims from GET /policies/{policy_number} response","Nihad Aliyev"],
   ["CIL-6054","Clara replacement - [Meta Portal] Remove unnecessary fields from OnePay payment session","Madiyar Mardenov"],
-  ["CIL-6051","[CHOE] sisu-api & discovery: Update AdditionalDataMotorShared to support per-vehicle license plates","Ekaterina Akimova"],
-  ["CIL-6002","simplesurance-api: API draft: 202 Async error response","Judit Papp"],
-  ["CIL-6001","[travel-service] Send save-quote email via Emagin for USA B2C partner flow","Rehma Saeed"],
-  ["CIL-5943","[NBG Standing Order] Register Standing Order for AZ/Europisti Application","Raisat Ramazanova"],
-  ["CIL-5937","[CIL Library / travel-service] Pass gadget fields to Fusion POST /Optimizations","Rehma Saeed"],
-  ["CIL-5936","[simplesurance-api] Add gadget object to PointOfSale in travel quote schema","Rehma Saeed"],
-  ["CIL-5934","[NBG Motor] Fix missing field mappings in POST /offers integration","Neetu Verma"],
-  ["CIL-5933","[NBG Motor] Fix missing field mappings in POST /quotes/prices integration","Neetu Verma"],
-  ["CIL-5912","Analysis over CIL <> Braintree JK SDK integration to retrieve client_token","Rehma Saeed"],
-  ["CIL-5906","[CIL Library] - Create provider package for USPG API","Rehma Saeed"],
-  ["CIL-5904","[NBG Property] sisu api: Introduce Accept Policy Amendment endpoint for Property","Neetu Verma"],
-  ["CIL-5903","[NBG Property] sisu api: Introduce Amend Policy endpoint for Property (cancellation)","Neetu Verma"],
-  ["CIL-5901","[NBG UL] life service: Integrate Application Document Upload with AZ GR Docs API","Andrii Gatsaniuk"],
-  ["CIL-5898","[NBG UL] life service: Integrate Policy Document Retrieval with AZ GR Docs API","Neetu Verma"],
-  ["CIL-5897","[NBG UL] life service: Integrate Application Document Retrieval with AZ GR Docs API","Neetu Verma"],
+  ["CIL-5768","Global App: Mitigate Threat T2: Token Replay Attack - refresh token rotation","Julia Kuznietsova"],
+  ["CIL-5721","[CHOE] e2e: Extend product_type enum on Get Policy endpoint","Judit Papp"],
+  ["CIL-5720","[CHOE] API draft: Extend product_type enum on API Get Policy endpoint","Judit Papp"],
+  ["CIL-5655","Global app: Mitigate Treat F-08: Token generation anomaly detection coverage unconfirmed","Julia Kuznietsova"],
+  ["CIL-5633","[sisu-api: case mgmt] Create POST/cases/upload-documents endpoint","Floriane Miletic"],
+  ["CIL-5581","Consume EHA beneficiary lifecycle events from BIOS via webhook (Enterprise API)","Mishin, Igor"],
+  ["CIL-5398","[NBG SR]motor-service: Implement Update of a Service Request","Neetu Verma"],
+  ["CIL-5338","[travel-service/rsa-service]: Persist policy recalculation records","Bekzat Mustafa"],
+  ["CIL-4867","[CHOE] provider: Get Document Content","Safiko Papkhadze"],
 ];
 
 const BASE_URL = "https://sisu-agile.atlassian.net/browse/";
