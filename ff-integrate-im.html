@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowForge — Partner Onboarding for Integration Managers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1117;
+  --bg-2: #161b22;
+  --surface: #1c2128;
+  --surface-2: #22272e;
+  --line: #30363d;
+  --text: #e6edf3;
+  --muted: #7d8590;
+  --muted-2: #484f58;
+  --ba: #58a6ff;
+  --ba-glow: rgba(88,166,255,.18);
+  --ba-dim: rgba(88,166,255,.10);
+  --dev: #ff7b39;
+  --dev-glow: rgba(255,123,57,.18);
+  --dev-dim: rgba(255,123,57,.10);
+  --green: #3fb950;
+  --green-glow: rgba(63,185,80,.18);
+  --amber: #d29922;
+  --red: #f85149;
+  --purple: #bc8cff;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; color: var(--text); font-family: "Inter", system-ui, sans-serif;
+  background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ─── SCROLL REVEAL ─── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .55s ease, transform .55s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-up { opacity: 0; transform: translateY(40px); transition: opacity .7s ease, transform .7s ease; }
+.reveal-up.visible { opacity: 1; transform: none; }
+
+/* ─── LAYOUT ─── */
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 clamp(20px,5vw,56px); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 92vh; display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(80px,12vh,140px) 0 clamp(60px,8vh,100px);
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(900px 600px at 75% 30%, rgba(88,166,255,.08), transparent 65%),
+    radial-gradient(600px 400px at 10% 80%, rgba(63,185,80,.06), transparent 60%);
+}
+.hero-eyebrow {
+  font-family: "JetBrains Mono", monospace; font-size: .7rem; letter-spacing: .35em;
+  text-transform: uppercase; color: var(--ba); margin: 0 0 22px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before {
+  content: ""; width: 24px; height: 1px; background: var(--ba);
+}
+.hero h1 {
+  font-family: "Space Grotesk", sans-serif; font-weight: 800;
+  font-size: clamp(2.6rem, 6vw, 4.2rem); line-height: 1.0; margin: 0 0 24px;
+  letter-spacing: -.03em; max-width: 18ch;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, #58a6ff 0%, #3fb950 60%, #bc8cff 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero-sub {
+  color: var(--muted); font-size: clamp(1rem, 1.8vw, 1.15rem); max-width: 60ch;
+  margin: 0 0 48px; line-height: 1.65;
+}
+.hero-numbers {
+  display: flex; gap: 40px; flex-wrap: wrap; margin-top: 8px;
+}
+.hero-stat { display: flex; flex-direction: column; gap: 4px; }
+.hero-stat .hs-num {
+  font-family: "Space Grotesk", sans-serif; font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 800; line-height: 1; letter-spacing: -.03em;
+}
+.hero-stat .hs-label { font-size: .82rem; color: var(--muted); }
+.hero-divider {
+  width: 1px; background: var(--line); align-self: stretch; margin: 8px 0;
+}
+.scroll-hint {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted-2);
+  animation: bounce 2s ease infinite;
+}
+.scroll-hint svg { opacity: .4; }
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+/* ─── CALLOUT ─── */
+.callout {
+  background: rgba(88,166,255,.07); border: 1px solid rgba(88,166,255,.25);
+  border-left: 3px solid var(--ba); border-radius: 10px;
+  padding: 16px 20px; margin-bottom: 32px; font-size: .88rem; color: var(--muted); line-height: 1.6;
+}
+.callout strong { color: var(--text); }
+.callout code {
+  font-family: "JetBrains Mono", monospace; font-size: .82em;
+  background: var(--surface-2); padding: 1px 5px; border-radius: 3px;
+  color: var(--ba); border: 1px solid var(--line);
+}
+
+/* ─── SECTION ─── */
+.section { padding: clamp(72px,10vh,112px) 0; }
+.section + .section { border-top: 1px solid var(--line); }
+.s-label {
+  font-family: "JetBrains Mono", monospace; font-size: .67rem; letter-spacing: .28em;
+  text-transform: uppercase; color: var(--muted-2); margin: 0 0 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.s-label::before { content: ""; width: 18px; height: 1px; background: var(--muted-2); }
+.s-title {
+  font-family: "Space Grotesk", sans-serif; font-weight: 700;
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem); line-height: 1.1; letter-spacing: -.025em;
+  margin: 0 0 10px; color: var(--text);
+}
+.s-note { color: var(--muted); font-size: .95rem; max-width: 70ch; margin: 0 0 40px; line-height: 1.65; }
+
+/* ─── ASYMMETRY SPLIT ─── */
+.asym-grid {
+  display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
+}
+.asym-side { padding: 36px 36px 40px; }
+.asym-side.ba-side { border-right: 1px solid var(--line); }
+.asym-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; }
+.asym-big {
+  font-family: "Space Grotesk", sans-serif; font-weight: 800;
+  font-size: clamp(4rem, 8vw, 6.5rem); line-height: 1; letter-spacing: -.04em;
+}
+.asym-big.zero { color: var(--red); }
+.asym-big.five { color: var(--green); }
+.asym-big-label { font-size: .82rem; color: var(--muted); margin-top: 6px; }
+.asym-zone {
+  font-family: "JetBrains Mono", monospace; font-size: .6rem; letter-spacing: .14em;
+  text-transform: uppercase; padding: 4px 10px; border-radius: 6px; border: 1px solid;
+  margin-top: 4px; align-self: flex-start;
+}
+.asym-zone.ba { color: var(--ba); border-color: rgba(88,166,255,.35); background: var(--ba-dim); }
+.asym-zone.dev { color: var(--dev); border-color: rgba(255,123,57,.35); background: var(--dev-dim); }
+.asym-zone.im { color: var(--green); border-color: rgba(63,185,80,.35); background: rgba(63,185,80,.10); }
+.asym-items { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.asym-items li {
+  display: flex; align-items: center; gap: 10px;
+  font-size: .85rem; padding: 8px 12px; border-radius: 8px;
+}
+.asym-items li.missing { color: var(--muted-2); background: transparent; }
+.asym-items li.has { color: var(--text); background: var(--surface-2); }
+.asym-items li.has-partial { color: var(--text); background: rgba(210,153,34,.07); border: 1px solid rgba(210,153,34,.15); }
+.asym-items li .ai-dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+}
+.asym-items li.missing .ai-dot { background: var(--muted-2); }
+.asym-items li.has .ai-dot { background: var(--green); box-shadow: 0 0 6px var(--green); }
+.asym-items li.has-partial .ai-dot { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
+.asym-items li .ai-badge {
+  margin-left: auto; font-family: "JetBrains Mono", monospace; font-size: .55rem;
+  letter-spacing: .08em; padding: 2px 7px; border-radius: 4px; white-space: nowrap;
+}
+.asym-items li.missing .ai-badge { background: rgba(248,81,73,.12); color: #f08070; border: 1px solid rgba(248,81,73,.2); }
+.asym-items li.has .ai-badge { background: rgba(63,185,80,.12); color: #7ee787; border: 1px solid rgba(63,185,80,.2); }
+.asym-items li.has-partial .ai-badge { background: rgba(210,153,34,.12); color: #e3b341; border: 1px solid rgba(210,153,34,.25); }
+.asym-note {
+  margin-top: 20px; padding: 12px 14px; background: rgba(88,166,255,.06);
+  border: 1px solid rgba(88,166,255,.18); border-radius: 8px;
+  font-size: .78rem; color: var(--muted); line-height: 1.55;
+}
+.asym-note strong { color: var(--ba); }
+
+/* ─── TIME CHART ─── */
+.time-chart { display: flex; flex-direction: column; gap: 4px; }
+.tchart-row {
+  display: grid; grid-template-columns: 195px 1fr 56px;
+  gap: 14px; align-items: center; padding: 4px 0;
+}
+.tchart-label { font-size: .83rem; }
+.tchart-label strong { display: block; color: var(--text); font-weight: 500; font-size: .85rem; }
+.tchart-label span { color: var(--muted); font-size: .78rem; }
+.tchart-track {
+  height: 32px; background: var(--surface-2); border-radius: 6px;
+  overflow: hidden; position: relative;
+}
+.tchart-fill {
+  height: 100%; border-radius: 6px; display: flex; align-items: center;
+  padding-left: 12px; font-family: "JetBrains Mono", monospace; font-size: .62rem;
+  font-weight: 600; letter-spacing: .06em; color: rgba(255,255,255,.65);
+  transition: width 1s cubic-bezier(.4,0,.2,1);
+}
+.tchart-fill.red { background: linear-gradient(90deg, rgba(248,81,73,.55), rgba(248,81,73,.25)); }
+.tchart-fill.amber { background: linear-gradient(90deg, rgba(210,153,34,.55), rgba(210,153,34,.25)); }
+.tchart-fill.green { background: linear-gradient(90deg, rgba(63,185,80,.55), rgba(63,185,80,.25)); }
+.tchart-fill.blue { background: linear-gradient(90deg, rgba(88,166,255,.55), rgba(88,166,255,.25)); }
+.tchart-hrs {
+  font-family: "JetBrains Mono", monospace; font-size: .75rem;
+  color: var(--muted); text-align: right; white-space: nowrap;
+}
+.tchart-legend { display: flex; gap: 20px; margin-top: 18px; flex-wrap: wrap; }
+.tchart-legend .tl-item { display: flex; align-items: center; gap: 7px; font-size: .77rem; color: var(--muted); }
+.tchart-legend .tl-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+/* ─── PIPELINE FLOW ─── */
+.pipeline-flow { position: relative; }
+.pf-zone-label {
+  display: flex; align-items: center; gap: 12px; padding: 10px 0 14px;
+  font-family: "JetBrains Mono", monospace; font-size: .65rem; letter-spacing: .2em;
+  text-transform: uppercase;
+}
+.pf-zone-label .pz-bar { height: 2px; flex: 1; border-radius: 1px; }
+.pf-zone-label.ba-zone { color: var(--ba); }
+.pf-zone-label.ba-zone .pz-bar { background: linear-gradient(90deg, var(--ba), transparent); }
+.pf-zone-label.im-zone { color: var(--green); }
+.pf-zone-label.im-zone .pz-bar { background: linear-gradient(90deg, var(--green), transparent); }
+.pf-zone-label.dev-zone { color: var(--dev); margin-top: 8px; }
+.pf-zone-label.dev-zone .pz-bar { background: linear-gradient(90deg, var(--dev), transparent); }
+.pf-handoff {
+  display: flex; align-items: center; gap: 12px; padding: 20px 0;
+  font-size: .8rem; color: var(--muted); border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line); margin: 4px 0 8px;
+}
+.pf-handoff .ph-icon { font-size: 1.1rem; }
+.pf-handoff strong { color: var(--text); }
+.pf-steps { display: flex; flex-direction: column; gap: 2px; }
+.pf-step {
+  display: grid; grid-template-columns: 40px 200px 1fr 140px;
+  align-items: stretch; border-radius: 10px; overflow: hidden;
+  transition: background .15s; position: relative;
+}
+.pf-step.ba-step { background: rgba(88,166,255,.04); }
+.pf-step.im-step { background: rgba(63,185,80,.04); }
+.pf-step.dev-step { background: rgba(255,123,57,.03); }
+.pf-step:hover.ba-step { background: rgba(88,166,255,.08); }
+.pf-step:hover.im-step { background: rgba(63,185,80,.08); }
+.pf-step:hover.dev-step { background: rgba(255,123,57,.06); }
+.pf-step-num {
+  display: flex; align-items: center; justify-content: center;
+  font-family: "JetBrains Mono", monospace; font-size: .6rem;
+  color: var(--muted-2); padding: 16px 0;
+  border-right: 1px solid var(--line);
+}
+.pf-step-cmd {
+  padding: 16px 18px; border-right: 1px solid var(--line);
+  display: flex; flex-direction: column; justify-content: center; gap: 6px;
+}
+.pf-step-name {
+  font-family: "JetBrains Mono", monospace; font-size: .9rem; font-weight: 600;
+  white-space: nowrap;
+}
+.pf-step-name .slash { color: var(--dev); opacity: .6; }
+.ba-step .pf-step-name .slash { color: var(--ba); opacity: .6; }
+.im-step .pf-step-name .slash { color: var(--green); opacity: .7; }
+.step-badge {
+  font-family: "JetBrains Mono", monospace; font-size: .52rem; letter-spacing: .1em;
+  text-transform: uppercase; padding: 2px 7px; border-radius: 4px; width: fit-content;
+}
+.badge-new { background: rgba(88,166,255,.15); color: var(--ba); border: 1px solid rgba(88,166,255,.3); }
+.badge-pause { background: rgba(210,153,34,.15); color: var(--amber); border: 1px solid rgba(210,153,34,.3); }
+.badge-gen { background: rgba(63,185,80,.15); color: var(--green); border: 1px solid rgba(63,185,80,.3); }
+.badge-existing { background: rgba(255,255,255,.05); color: var(--muted-2); border: 1px solid var(--line); }
+.pf-step-desc {
+  padding: 16px 20px; font-size: .83rem; color: var(--muted); line-height: 1.5;
+  display: flex; flex-direction: column; justify-content: center; gap: 8px;
+}
+.pf-step-desc strong { color: var(--text); font-weight: 500; }
+.pf-agents { display: flex; flex-wrap: wrap; gap: 5px; }
+.pf-agent-chip {
+  font-family: "JetBrains Mono", monospace; font-size: .57rem; letter-spacing: .03em;
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: 4px;
+  padding: 2px 8px; color: #8b949e;
+}
+.pf-step-meta {
+  padding: 16px; border-left: 1px solid var(--line);
+  display: flex; flex-direction: column; justify-content: center; align-items: flex-end; gap: 6px;
+}
+.pf-owner {
+  font-family: "JetBrains Mono", monospace; font-size: .6rem; letter-spacing: .1em;
+  text-transform: uppercase; padding: 3px 9px; border-radius: 5px; font-weight: 700;
+}
+.pf-owner.ba { color: var(--ba); background: var(--ba-dim); border: 1px solid rgba(88,166,255,.2); }
+.pf-owner.im { color: var(--green); background: rgba(63,185,80,.10); border: 1px solid rgba(63,185,80,.2); }
+.pf-owner.dev { color: var(--dev); background: var(--dev-dim); border: 1px solid rgba(255,123,57,.2); }
+.pf-owner.luis { color: var(--amber); background: rgba(210,153,34,.10); border: 1px solid rgba(210,153,34,.2); }
+.pf-out {
+  font-family: "JetBrains Mono", monospace; font-size: .6rem; color: var(--muted-2);
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: 4px; padding: 2px 8px;
+}
+
+/* ─── IMPACT METRICS ─── */
+.metrics-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
+  background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+}
+.metric-card {
+  background: var(--surface); padding: 32px 28px;
+  position: relative; overflow: hidden;
+}
+.metric-card::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(300px 200px at 80% 0%, var(--glow,transparent), transparent 70%);
+}
+.mc-label {
+  font-family: "JetBrains Mono", monospace; font-size: .6rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--muted-2); margin-bottom: 14px;
+}
+.mc-num {
+  font-family: "Space Grotesk", sans-serif; font-size: clamp(2.4rem, 4vw, 3.4rem);
+  font-weight: 800; line-height: 1; letter-spacing: -.04em;
+  color: var(--c, var(--text)); margin-bottom: 8px;
+}
+.mc-title { font-size: .92rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.mc-body { font-size: .8rem; color: var(--muted); line-height: 1.55; }
+.mc-body code {
+  font-family: "JetBrains Mono", monospace; font-size: .8em;
+  background: var(--surface-2); padding: 1px 5px; border-radius: 3px;
+  color: var(--steel, #8b949e); border: 1px solid var(--line);
+}
+
+/* ─── CYCLE TIMELINE ─── */
+.cycle-compare { display: flex; flex-direction: column; gap: 40px; }
+.cc-row { display: grid; grid-template-columns: 140px 1fr; gap: 20px; align-items: center; }
+.cc-label { text-align: right; }
+.cc-label strong { display: block; font-size: .92rem; font-weight: 600; color: var(--text); }
+.cc-label span { font-size: .78rem; color: var(--muted); }
+.cc-label .cc-total {
+  font-family: "JetBrains Mono", monospace; font-size: .75rem; margin-top: 6px;
+  padding: 3px 10px; border-radius: 5px; display: inline-block;
+}
+.cc-label .cc-total.before { background: rgba(248,81,73,.12); color: var(--red); border: 1px solid rgba(248,81,73,.2); }
+.cc-label .cc-total.after { background: rgba(63,185,80,.12); color: var(--green); border: 1px solid rgba(63,185,80,.2); }
+.cc-bar { display: flex; gap: 2px; height: 40px; border-radius: 8px; overflow: hidden; }
+.cc-seg {
+  display: flex; align-items: center; justify-content: center;
+  font-family: "JetBrains Mono", monospace; font-size: .62rem; font-weight: 600;
+  color: rgba(255,255,255,.7); min-width: 28px; transition: flex .8s cubic-bezier(.4,0,.2,1);
+  position: relative; overflow: hidden; cursor: default;
+}
+.cc-seg:hover::after {
+  content: attr(data-tip); position: absolute; bottom: 100%; left: 50%;
+  transform: translateX(-50%); background: #1c2128; border: 1px solid var(--line);
+  color: var(--text); font-size: .68rem; padding: 4px 8px; border-radius: 5px;
+  white-space: nowrap; pointer-events: none; margin-bottom: 4px; z-index: 10;
+}
+.seg-red { background: rgba(248,81,73,.5); }
+.seg-amber { background: rgba(210,153,34,.5); }
+.seg-green { background: rgba(63,185,80,.5); }
+.seg-blue { background: rgba(88,166,255,.5); }
+.seg-purple { background: rgba(188,140,255,.4); }
+.seg-fade { background: rgba(248,81,73,.2); }
+.cc-legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 16px; }
+.cc-legend .cl-item { display: flex; align-items: center; gap: 7px; font-size: .77rem; color: var(--muted); }
+.cc-legend .cl-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.saving-strip {
+  background: linear-gradient(135deg, rgba(63,185,80,.1), rgba(88,166,255,.07));
+  border: 1px solid rgba(63,185,80,.25); border-radius: 12px;
+  padding: 22px 28px; display: flex; align-items: center; gap: 28px; flex-wrap: wrap;
+  margin-top: 28px;
+}
+.saving-strip .ss-num {
+  font-family: "Space Grotesk", sans-serif; font-size: 3rem; font-weight: 800;
+  color: var(--green); line-height: 1; letter-spacing: -.04em; white-space: nowrap;
+}
+.saving-strip .ss-body { font-size: .9rem; color: var(--muted); line-height: 1.6; }
+.saving-strip .ss-body strong { color: var(--text); }
+
+/* ─── QUALITY CHAIN ─── */
+.chain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.chain-col-title {
+  font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 1.05rem;
+  margin-bottom: 24px; color: var(--text);
+}
+.chain-steps { display: flex; flex-direction: column; gap: 0; }
+.cs-item { display: grid; grid-template-columns: 44px 1fr; align-items: stretch; }
+.cs-spine { display: flex; flex-direction: column; align-items: center; }
+.cs-dot {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: "JetBrains Mono", monospace; font-size: .6rem; font-weight: 700;
+  z-index: 1;
+}
+.cs-dot.ba { background: var(--ba-dim); color: var(--ba); border: 1px solid rgba(88,166,255,.35); }
+.cs-dot.im { background: rgba(63,185,80,.10); color: var(--green); border: 1px solid rgba(63,185,80,.3); }
+.cs-dot.dev { background: var(--dev-dim); color: var(--dev); border: 1px solid rgba(255,123,57,.3); }
+.cs-dot.luis { background: rgba(210,153,34,.10); color: var(--amber); border: 1px solid rgba(210,153,34,.3); }
+.cs-line { flex: 1; width: 1px; background: var(--line); margin: 4px auto; }
+.cs-item:last-child .cs-line { display: none; }
+.cs-body { padding: 0 0 24px 16px; }
+.cs-title { font-size: .88rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.cs-desc { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+.cs-desc code {
+  font-family: "JetBrains Mono", monospace; font-size: .82em;
+  background: var(--surface-2); padding: 1px 5px; border-radius: 3px;
+  color: #8b949e; border: 1px solid var(--line);
+}
+.risk-list { display: flex; flex-direction: column; gap: 10px; }
+.risk-item {
+  padding: 14px 16px; background: var(--surface-2); border-radius: 10px;
+  border: 1px solid var(--line); border-left: 3px solid var(--amber);
+}
+.risk-item .ri-title { font-size: .86rem; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+.risk-item .ri-body { font-size: .79rem; color: var(--muted); line-height: 1.5; }
+.risk-item .ri-body code {
+  font-family: "JetBrains Mono", monospace; font-size: .82em;
+  background: var(--surface); padding: 1px 5px; border-radius: 3px; color: #8b949e;
+}
+.risk-item.blocker {
+  border-left-color: var(--red); background: rgba(248,81,73,.05);
+}
+.risk-item.blocker .ri-title { color: var(--red); }
+.risk-item .ri-severity {
+  font-family: "JetBrains Mono", monospace; font-size: .55rem; letter-spacing: .12em;
+  text-transform: uppercase; padding: 2px 7px; border-radius: 4px; display: inline-block; margin-bottom: 6px;
+}
+.ri-severity.hard { background: rgba(248,81,73,.12); color: var(--red); border: 1px solid rgba(248,81,73,.25); }
+.ri-severity.soft { background: rgba(210,153,34,.12); color: var(--amber); border: 1px solid rgba(210,153,34,.25); }
+
+/* ─── BUILD SEQUENCE ─── */
+.phase-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.phase-card { background: var(--surface); padding: 28px 24px; position: relative; }
+.phase-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--c); }
+.phase-card .pc-num {
+  font-family: "JetBrains Mono", monospace; font-size: .65rem; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--muted-2); margin-bottom: 10px;
+}
+.phase-card .pc-title { font-family: "Space Grotesk", sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+.phase-card .pc-cmds { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.phase-card .pc-cmd {
+  font-family: "JetBrains Mono", monospace; font-size: .78rem;
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px;
+  padding: 5px 10px; color: var(--muted); display: flex; align-items: center; gap: 6px;
+}
+.phase-card .pc-cmd .cmd-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; background: var(--c); }
+.phase-card .pc-desc { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+
+/* ─── ARTIFACT TABLE ─── */
+.artifact-table { width: 100%; border-collapse: collapse; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.artifact-table th {
+  font-family: "JetBrains Mono", monospace; font-size: .62rem; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--muted-2); padding: 12px 16px;
+  background: var(--surface); text-align: left; border-bottom: 1px solid var(--line);
+}
+.artifact-table td {
+  padding: 12px 16px; font-size: .83rem; border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.artifact-table tr:last-child td { border-bottom: none; }
+.artifact-table tr:nth-child(odd) td { background: var(--surface); }
+.artifact-table tr:nth-child(even) td { background: var(--surface-2); }
+.artifact-table td:first-child { font-family: "JetBrains Mono", monospace; font-size: .77rem; color: var(--ba); }
+.artifact-table td:nth-child(2) { color: var(--text); }
+.artifact-table td:nth-child(3) { color: var(--muted); font-size: .78rem; }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--line); padding: 32px 0 60px;
+  color: var(--muted-2); font-size: .8rem; line-height: 1.6;
+}
+footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 960px) {
+  .asym-grid { grid-template-columns: 1fr; }
+  .asym-side.ba-side { border-right: none; border-bottom: 1px solid var(--line); }
+  .metrics-grid { grid-template-columns: 1fr 1fr; }
+  .chain-grid { grid-template-columns: 1fr; }
+  .phase-row { grid-template-columns: 1fr; }
+  .pf-step { grid-template-columns: 40px 180px 1fr; }
+  .pf-step-meta { display: none; }
+}
+@media (max-width: 700px) {
+  .tchart-row { grid-template-columns: 1fr 52px; }
+  .tchart-label { display: none; }
+  .metrics-grid { grid-template-columns: 1fr; }
+  .pf-step { grid-template-columns: 40px 1fr; }
+  .pf-step-cmd { border-right: none; }
+  .cc-row { grid-template-columns: 1fr; }
+  .cc-label { text-align: left; }
+  .hero-numbers { gap: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
+<div class="wrap">
+<section class="hero">
+  <p class="hero-eyebrow">FlowForge · Partner Integration — PROD-13946</p>
+  <h1>Onboard partners <em>without engineering</em></h1>
+  <p class="hero-sub">
+    Adding a new partner to the CIL platform today requires an engineer to hand-author Go constants, YAML stanzas, rate limiter entries across 5 files, auth manifests, and adapter skeletons — all from tribal knowledge spread across Confluence, prior PRs, and institutional memory. Integration managers cannot initiate or track an onboarding without engineering at every step.
+    <code style="font-family:'JetBrains Mono';color:var(--green);font-size:.9em">/flowforge.integration</code> changes that: plain-language prompts, 9 guided phases, 5 ready-to-merge artifacts, and automatic Jira tickets — no Go knowledge required.
+  </p>
+  <div class="hero-numbers reveal">
+    <div class="hero-stat">
+      <div class="hs-num" style="color:var(--red)" data-target="0">0</div>
+      <div class="hs-label">Go knowledge required</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="hs-num" style="color:var(--green)" data-target="5">5</div>
+      <div class="hs-label">engineering artifacts generated</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="hs-num" style="color:var(--ba)" data-target="9">9</div>
+      <div class="hs-label">guided phases — no arguments</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="hs-num" style="color:var(--purple)" data-target="5">5</div>
+      <div class="hs-label">CIL onboarding steps covered</div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 9l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    scroll
+  </div>
+</section>
+</div>
+
+<div style="height:1px;background:var(--line)"></div>
+
+<!-- ══════════ ASYMMETRY ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">The problem</p>
+  <h2 class="s-title reveal">Onboarding a partner today requires an engineer at every step</h2>
+  <p class="s-note reveal">The CIL platform has 5 onboarding steps. Today an engineer must be involved in all 5 — not because the decisions are complex, but because the tooling is entirely engineering-facing. An integration manager who knows the partner, the endpoints, and the LoB cannot self-serve any of it.</p>
+
+  <div class="callout reveal">
+    <strong>What a CIL onboarding actually involves:</strong> For a partner like RBB or DKB, the integration team needs:
+    (1) a Go <code>ProductCode</code> constant and <code>&amp;Product{...}</code> struct in <code>products.go</code>,
+    (2) an access control YAML stanza listing every permitted endpoint,
+    (3) a rate limiter entry copied to 5 environment config files,
+    (4) an auth client manifest for the Vault secret, and
+    (5) a Go adapter skeleton at the correct package path.
+    Every one of these requires an engineer to know the naming conventions, find the right file, derive the correct enum values, and not make a uniqueness mistake. None of it is conceptually hard — it is all pattern-following from tribal knowledge.
+  </div>
+
+  <div class="callout reveal" style="border-left-color:var(--amber);background:rgba(210,153,34,.05);">
+    <strong style="color:var(--amber)">The integration manager's current workflow:</strong>
+    An integration manager receives a partner onboarding request and immediately has to loop in engineering. They write a Jira ticket describing what the partner needs. An engineer interprets that ticket, looks up a prior onboarding PR (e.g. RBB CIL-6247 or DKB CIL-6516), manually copies and adapts the artifacts, creates more Jira tickets, and hands back. The integration manager has no visibility into which step is complete, which file has been edited, or what is blocked — unless they ask. There is no dashboard, no checkpoint, and no way to self-serve any part of the flow.
+  </div>
+
+  <div class="asym-grid reveal-up">
+    <div class="asym-side ba-side">
+      <div class="asym-header">
+        <div>
+          <div class="asym-big zero">0</div>
+          <div class="asym-big-label">self-service steps available today</div>
+        </div>
+        <span class="asym-zone ba">Integration Manager</span>
+      </div>
+      <ul class="asym-items">
+        <li class="missing"><div class="ai-dot"></div> Derive partner slug from name <span class="ai-badge">manual / engineer</span></li>
+        <li class="missing"><div class="ai-dot"></div> Generate + validate product code (uniqueness) <span class="ai-badge">manual / engineer</span></li>
+        <li class="missing"><div class="ai-dot"></div> Read live endpoint list from OpenAPI spec <span class="ai-badge">manual / engineer</span></li>
+        <li class="missing"><div class="ai-dot"></div> Derive access control roles from endpoints <span class="ai-badge">manual / engineer</span></li>
+        <li class="missing"><div class="ai-dot"></div> Author catalog stanza (products.go) <span class="ai-badge">manual / engineer</span></li>
+        <li class="missing"><div class="ai-dot"></div> Author rate limiter entry — 5 env files <span class="ai-badge">manual / engineer</span></li>
+        <li class="missing"><div class="ai-dot"></div> Author auth client manifest template <span class="ai-badge">manual / engineer</span></li>
+        <li class="missing"><div class="ai-dot"></div> Create partner adapter skeleton <span class="ai-badge">manual / engineer</span></li>
+        <li class="missing"><div class="ai-dot"></div> Create linked Jira tickets <span class="ai-badge">manual</span></li>
+        <li class="missing"><div class="ai-dot"></div> Track onboarding status per partner <span class="ai-badge">no dashboard</span></li>
+      </ul>
+      <div class="asym-note">
+        <strong>The tribal knowledge problem:</strong> Every field in every artifact has a naming convention derived from prior PRs — not documented anywhere a non-engineer can find. The InsuranceType enum is in a proto file. The product code pattern is in Confluence comments. The rate limiter syntax exists only in the 5 existing config files. An integration manager has no path to learn or apply any of this independently.
+      </div>
+    </div>
+    <div class="asym-side">
+      <div class="asym-header">
+        <div>
+          <div class="asym-big five">5</div>
+          <div class="asym-big-label">artifacts generated from plain-language prompts</div>
+        </div>
+        <span class="asym-zone im">With /flowforge.integration</span>
+      </div>
+      <ul class="asym-items">
+        <li class="has"><div class="ai-dot"></div> Partner name → slug derived + confirmed automatically <span class="ai-badge">guided</span></li>
+        <li class="has"><div class="ai-dot"></div> Product code generated + validated against live products.go <span class="ai-badge">live check</span></li>
+        <li class="has"><div class="ai-dot"></div> Endpoint list read from simplesurance-api.yml at runtime <span class="ai-badge">live read</span></li>
+        <li class="has"><div class="ai-dot"></div> Roles derived automatically from endpoint selection <span class="ai-badge">auto-derived</span></li>
+        <li class="has"><div class="ai-dot"></div> Catalog stanza ready to paste into products.go <span class="ai-badge">generated</span></li>
+        <li class="has"><div class="ai-dot"></div> Rate limiter stanza + note: add to all 5 env files <span class="ai-badge">generated</span></li>
+        <li class="has"><div class="ai-dot"></div> Auth client manifest template (credentials always [MANUAL]) <span class="ai-badge">generated</span></li>
+        <li class="has"><div class="ai-dot"></div> Partner adapter skeleton at correct package path <span class="ai-badge">generated</span></li>
+        <li class="has"><div class="ai-dot"></div> Jira tickets created via Atlassian MCP (1 or 3) <span class="ai-badge">auto-created</span></li>
+        <li class="has"><div class="ai-dot"></div> /flowforge.integration.status — live dashboard per partner <span class="ai-badge">dashboard</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ WHERE TIME GOES ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">Time audit</p>
+  <h2 class="s-title reveal">Where the engineering time actually goes in a partner onboarding</h2>
+  <p class="s-note reveal">A standard partner onboarding — one country, one LoB, reusing an existing flow handler. The integration manager's waiting time is not shown — it compounds on top of the engineer's active time.</p>
+
+  <div class="time-chart reveal-up">
+    <div class="tchart-row">
+      <div class="tchart-label"><strong>Tribal knowledge lookup</strong><span>Confluence, prior PRs, Slack</span></div>
+      <div class="tchart-track"><div class="tchart-fill red" style="width:0%" data-width="72%">no automation</div></div>
+      <div class="tchart-hrs">1–2h</div>
+    </div>
+    <div class="tchart-row">
+      <div class="tchart-label"><strong>Slug + product code derivation</strong><span>naming conventions, uniqueness check</span></div>
+      <div class="tchart-track"><div class="tchart-fill red" style="width:0%" data-width="36%">manual grep</div></div>
+      <div class="tchart-hrs">0.5–1h</div>
+    </div>
+    <div class="tchart-row">
+      <div class="tchart-label"><strong>Catalog stanza + access control</strong><span>products.go, config.yaml</span></div>
+      <div class="tchart-track"><div class="tchart-fill red" style="width:0%" data-width="54%">copy + adapt from prior PR</div></div>
+      <div class="tchart-hrs">1–2h</div>
+    </div>
+    <div class="tchart-row">
+      <div class="tchart-label"><strong>Rate limiter (5 files)</strong><span>config, dev, sandbox, staging, prod</span></div>
+      <div class="tchart-track"><div class="tchart-fill amber" style="width:0%" data-width="27%">repetitive manual edit</div></div>
+      <div class="tchart-hrs">0.5h</div>
+    </div>
+    <div class="tchart-row">
+      <div class="tchart-label"><strong>Auth manifest + adapter skeleton</strong><span>Vault template, adapter.go</span></div>
+      <div class="tchart-track"><div class="tchart-fill red" style="width:0%" data-width="45%">copy from prior partner</div></div>
+      <div class="tchart-hrs">1–1.5h</div>
+    </div>
+    <div class="tchart-row">
+      <div class="tchart-label"><strong>Jira ticket creation</strong><span>description, labels, parent epic</span></div>
+      <div class="tchart-track"><div class="tchart-fill amber" style="width:0%" data-width="27%">manual</div></div>
+      <div class="tchart-hrs">0.5h</div>
+    </div>
+    <div class="tchart-row">
+      <div class="tchart-label"><strong>/flowforge.integration</strong><span>guided prompts → all artifacts</span></div>
+      <div class="tchart-track"><div class="tchart-fill green" style="width:0%" data-width="18%">automated (~30–60min)</div></div>
+      <div class="tchart-hrs">~0.5–1h</div>
+    </div>
+  </div>
+  <div class="tchart-legend reveal">
+    <div class="tl-item"><div class="tl-dot" style="background:rgba(248,81,73,.5)"></div>No automation — tribal knowledge</div>
+    <div class="tl-item"><div class="tl-dot" style="background:rgba(210,153,34,.5)"></div>Repetitive manual work</div>
+    <div class="tl-item"><div class="tl-dot" style="background:rgba(63,185,80,.5)"></div>Fully automated by /flowforge.integration</div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ PIPELINE ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">The command</p>
+  <h2 class="s-title reveal">/flowforge.integration — 9 guided phases</h2>
+  <p class="s-note reveal">Starts with <em>"What is the name of the business partner?"</em> — no arguments, no technical prerequisites. Every identifier is derived automatically. The command pauses at the Admin UI checkpoint (a real-world dependency) and resumes when the partner ID is in hand. All 5 engineering artifacts are generated in Phase 8 and Jira tickets are created in Phase 9.</p>
+
+  <div class="pipeline-flow reveal-up">
+    <div class="pf-zone-label im-zone"><span>Integration manager — guided input phases</span><div class="pz-bar"></div></div>
+
+    <div class="pf-steps">
+      <div class="pf-step im-step">
+        <div class="pf-step-num" style="color:var(--green)">P1</div>
+        <div class="pf-step-cmd" style="border-right-color:var(--line)">
+          <div class="pf-step-name" style="color:var(--text)">Partner identity</div>
+          <span class="step-badge badge-new">CIL-6785</span>
+        </div>
+        <div class="pf-step-desc">
+          <div>Starts with <strong>"What is the name of the business partner?"</strong> — plain English, no arguments. Derives the partner slug (lowercase-alphanumeric), shows it for confirmation, and checks uniqueness against live <code>products.go</code>. Collision blocks with a clear message; additions mode offered if partner already exists.</div>
+        </div>
+        <div class="pf-step-meta"><span class="pf-owner im">IM</span><span class="pf-out">partnerSlug confirmed</span></div>
+      </div>
+      <div class="pf-step im-step">
+        <div class="pf-step-num" style="color:var(--green)">P2</div>
+        <div class="pf-step-cmd">
+          <div class="pf-step-name" style="color:var(--text)">Country + LoB</div>
+          <span class="step-badge badge-new">CIL-6785</span>
+        </div>
+        <div class="pf-step-desc">
+          <div>Countries presented from existing entries. <strong>LoB list read from <code>simplesurance-api.yml</code> at runtime</strong> — never hardcoded. Selected LoB mapped to correct <code>INSURANCE_TYPE_*</code> enum by reading <code>rtqpolicy.proto</code> at runtime. Integration manager never needs to know enum names.</div>
+        </div>
+        <div class="pf-step-meta"><span class="pf-owner im">IM</span><span class="pf-out">country + LoB + insuranceType</span></div>
+      </div>
+      <div class="pf-step im-step">
+        <div class="pf-step-num" style="color:var(--green)">P3</div>
+        <div class="pf-step-cmd">
+          <div class="pf-step-name" style="color:var(--text)">Endpoint selection</div>
+          <span class="step-badge badge-new">CIL-6785</span>
+        </div>
+        <div class="pf-step-desc">
+          <div>Endpoint list read from <code>simplesurance-api.yml</code> at runtime, filtered to selected LoB. <strong>Roles derived automatically</strong> from selected operationIds (CREATE/UPDATE/READ) — never asked manually. Trigger flags set for backend-specific IDs needed in Phase 7 (MPOP, ABS, eMagin, RSA, callback URL).</div>
+        </div>
+        <div class="pf-step-meta"><span class="pf-owner im">IM</span><span class="pf-out">endpoints + roles + trigger flags</span></div>
+      </div>
+      <div class="pf-step im-step">
+        <div class="pf-step-num" style="color:var(--green)">P4</div>
+        <div class="pf-step-cmd">
+          <div class="pf-step-name" style="color:var(--text)">Product code</div>
+          <span class="step-badge badge-new">CIL-6786</span>
+        </div>
+        <div class="pf-step-desc">
+          <div>Generates <code>PC{PARTNER}{YEAR}{LOB}_{COUNTRY}</code> (e.g. <code>PCRBB2026TRV_AU</code>). <strong>Validated by grepping live <code>products.go</code></strong> — not a cached list. Collision → alternative proposed. Confirmed code reserved for the run. Multiple countries → one code each, independently validated.</div>
+        </div>
+        <div class="pf-step-meta"><span class="pf-owner im">IM</span><span class="pf-out">productCode(s) confirmed</span></div>
+      </div>
+    </div>
+
+    <div class="pf-handoff" style="border-color:rgba(210,153,34,.3);background:rgba(210,153,34,.03)">
+      <div class="ph-icon">⏸</div>
+      <div><strong>Admin UI checkpoint (Phase 5)</strong> — The command pauses here. <em>"Before continuing, the selling partner account must be created in Admin UI by the Integration/Luis team. Once created, enter the numeric partner ID here:"</em> Checkpoint state is saved to <code>.flowforge/integrations/{slug}/checkpoint.json</code>. Re-running the command with the same slug resumes from this point — all prior inputs are preserved. Do not proceed without the partner ID.</div>
+    </div>
+
+    <div class="pf-zone-label" style="color:var(--amber);margin-top:8px"><span>Human gate — Luis / Integration team creates account</span><div class="pz-bar" style="background:linear-gradient(90deg,var(--amber),transparent)"></div></div>
+
+    <div class="pf-steps" style="margin-top:8px">
+      <div class="pf-step" style="background:rgba(210,153,34,.04);border:1px solid rgba(210,153,34,.1);border-radius:10px">
+        <div class="pf-step-num" style="color:var(--amber)">P5</div>
+        <div class="pf-step-cmd">
+          <div class="pf-step-name" style="color:var(--text)">Partner ID entry</div>
+          <span class="step-badge badge-pause">pause + resume</span>
+        </div>
+        <div class="pf-step-desc">
+          <div>Integration manager enters the numeric partner ID obtained from Admin UI. Non-numeric input rejected with re-prompt. This ID populates the catalog constant, access control subject, and rate limiter entry in Phase 8. <strong>Resume from any prior session</strong> — checkpoint is persisted, not in-memory.</div>
+        </div>
+        <div class="pf-step-meta"><span class="pf-owner luis">Luis team</span><span class="pf-out">partnerId confirmed</span></div>
+      </div>
+    </div>
+
+    <div class="pf-zone-label im-zone" style="margin-top:12px"><span>Integration manager — flow and backend configuration</span><div class="pz-bar"></div></div>
+
+    <div class="pf-steps">
+      <div class="pf-step im-step">
+        <div class="pf-step-num" style="color:var(--green)">P6</div>
+        <div class="pf-step-cmd">
+          <div class="pf-step-name" style="color:var(--text)">Flow handler decision</div>
+          <span class="step-badge badge-new">CIL-6787</span>
+        </div>
+        <div class="pf-step-desc">
+          <div>Asked in business terms: <em>"Does this partner use the same insurance backend as an existing partner (e.g. same Allianz backend)? [y/N]"</em> <strong>Yes → single Jira setup ticket; adapter skeleton marked "wire to existing."</strong> No → 3-ticket Jira breakdown; adapter marked as new implementation. Unsure → defaults to new, flagged [MANUAL - confirm with engineering].</div>
+        </div>
+        <div class="pf-step-meta"><span class="pf-owner im">IM</span><span class="pf-out">reuse flag + Jira shape</span></div>
+      </div>
+      <div class="pf-step im-step">
+        <div class="pf-step-num" style="color:var(--green)">P7</div>
+        <div class="pf-step-cmd">
+          <div class="pf-step-name" style="color:var(--text)">Backend IDs</div>
+          <span class="step-badge badge-new">CIL-6787</span>
+        </div>
+        <div class="pf-step-desc">
+          <div><strong>Conditional — only prompts triggered by selected endpoints.</strong> Beneficiary endpoints → MPOP codes. Motor → ABS IDs. Individual quote → eMagin fields. RSA → azCorporateContractNumber. Cases → callback URL + backend market mapping shown. Skipped optional IDs marked <code>[MANUAL - to be provided by partner]</code> in the generated artifacts.</div>
+        </div>
+        <div class="pf-step-meta"><span class="pf-owner im">IM</span><span class="pf-out">backend IDs per trigger</span></div>
+      </div>
+    </div>
+
+    <div class="pf-handoff">
+      <div class="ph-icon">⇣</div>
+      <div><strong>Artifact generation (Phase 8)</strong> — All 5 artifacts produced in a single step from the collected inputs. Nothing to look up, nothing to derive manually.</div>
+    </div>
+
+    <div class="pf-zone-label ba-zone"><span>Artifact generation — all 5 engineering deliverables</span><div class="pz-bar"></div></div>
+
+    <div class="pf-steps">
+      <div class="pf-step ba-step">
+        <div class="pf-step-num">P8</div>
+        <div class="pf-step-cmd">
+          <div class="pf-step-name"><span class="slash">/</span>Artifacts</div>
+          <span class="step-badge badge-gen">5 files — CIL-6788, CIL-6789</span>
+        </div>
+        <div class="pf-step-desc">
+          <div><strong>Go catalog stanza</strong> — constant block + <code>&amp;Product{...}</code> struct, ready to paste into <code>products.go</code>. All fields populated: insuranceType from proto enum, roles from endpoints, storageExclusions auto-suggested by flow type.</div>
+          <div><strong>Access control YAML stanza</strong> — partner comment + subject + all selected operationIds. Ready to paste into <code>resources/access_control/config.yaml</code>.</div>
+          <div><strong>Rate limiter stanza</strong> — single entry with explicit note: <em>"Add to all 5 files: config.yaml, config_dev.yaml, config_sandbox.yaml, config_staging.yaml, config_production.yaml."</em></div>
+          <div><strong>Auth client manifest template</strong> — all credential fields are <code>[MANUAL]</code>. No real secrets generated. Note printed explaining Vault path and which fields require manual entry before deployment.</div>
+          <div><strong>Partner adapter skeleton</strong> — <code>go/code/simplesurance/provider/{partnerSlug}/adapter.go</code> with Config struct, constructor stub, and TODO comment based on Phase 6 decision.</div>
+        </div>
+        <div class="pf-step-meta">
+          <span class="pf-owner ba">IM + Eng</span>
+          <span class="pf-out">products.go stanza</span>
+          <span class="pf-out">access_control stanza</span>
+          <span class="pf-out">rate_limiter stanza</span>
+          <span class="pf-out">auth manifest template</span>
+          <span class="pf-out">adapter.go skeleton</span>
+        </div>
+      </div>
+      <div class="pf-step ba-step">
+        <div class="pf-step-num">P9</div>
+        <div class="pf-step-cmd">
+          <div class="pf-step-name"><span class="slash">/</span>Jira output</div>
+          <span class="step-badge badge-gen">CIL-6790</span>
+        </div>
+        <div class="pf-step-desc">
+          <div>Creates Jira tickets via Atlassian MCP. <strong>Flow handler reuse → 1 CIL Task</strong> (config + access provisioning setup). <strong>New flow handler → 3 CIL Tasks:</strong> API Draft, SISU API &amp; Discovery, Provider adapter. Each ticket pre-populated with relevant artifact snippets. Label: <code>partner-onboarding</code>. Parent: active PROD epic.</div>
+          <div>Final summary printed: all artifact types, ticket keys, and a 5-item next-steps checklist including "Fill [MANUAL] fields in auth client manifest with real credentials."</div>
+        </div>
+        <div class="pf-step-meta"><span class="pf-owner im">IM</span><span class="pf-out">1 or 3 Jira tickets</span><span class="pf-out">next-steps checklist</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:40px">
+    <p class="s-label reveal">Companion command</p>
+    <h3 class="s-title reveal" style="font-size:clamp(1.3rem,2.5vw,1.9rem)">/flowforge.integration.status — onboarding dashboard</h3>
+    <p class="s-note reveal">Read-only. Reads <code>products.go</code>, all checkpoint files, and open Jira tickets labelled <code>partner-onboarding</code> at runtime. Shows ONBOARDED partners, IN PROGRESS onboardings (with phase + timestamp), and JIRA OPEN ITEMS. Supports <code>--partner</code>, <code>--status</code>, and <code>--country</code> filters. Makes no writes of any kind.</p>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ ARTIFACT TABLE ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">Generated artifacts</p>
+  <h2 class="s-title reveal">What gets produced — and where it goes</h2>
+  <p class="s-note reveal">Every artifact is ready to paste or commit. Nothing requires engineering knowledge to place — each one includes the exact file path and any additional instructions (e.g. "add to all 5 rate limiter files").</p>
+
+  <div class="reveal-up">
+  <table class="artifact-table">
+    <thead>
+      <tr>
+        <th>Artifact</th>
+        <th>What it is</th>
+        <th>Target file / location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Go catalog stanza</td>
+        <td>Partner constant + <code>&amp;Product{...}</code> struct with all fields: insuranceType, roles, storageExclusions, productCode, partnerID, quoteExpiration, webhookConfig if applicable</td>
+        <td><code>go/code/lib/cil/catalog/products.go</code> — append to existing constants and product slice</td>
+      </tr>
+      <tr>
+        <td>Access control YAML</td>
+        <td>Single stanza with partner comment, subject (numeric partnerID), and list of all selected operationIds</td>
+        <td><code>resources/access_control/config.yaml</code> — append entry</td>
+      </tr>
+      <tr>
+        <td>Rate limiter stanza</td>
+        <td>Single entry (<code>partner_id</code>, <code>name</code>, <code>limit: "250/20ms"</code>) with explicit instruction to add to all 5 env config files</td>
+        <td>config.yaml, config_dev.yaml, config_sandbox.yaml, config_staging.yaml, config_production.yaml</td>
+      </tr>
+      <tr>
+        <td>Auth client manifest template</td>
+        <td>JSON object for Vault <code>clients</code> array. Credential fields are always <code>[MANUAL]</code>. Callback URL populated if Cases endpoints selected; otherwise <code>[MANUAL]</code></td>
+        <td><code>apps/xsell/auth-service/&lt;env&gt;/auth</code> — add to <code>clients</code> array in Vault secret</td>
+      </tr>
+      <tr>
+        <td>Partner adapter skeleton</td>
+        <td>Go file with package declaration, Config struct (fields from backend IDs), <code>New()</code> constructor stub, and TODO comment: wire to existing handler or implement new, per Phase 6 decision</td>
+        <td><code>go/code/simplesurance/provider/{partnerSlug}/adapter.go</code></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ IMPACT ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">Estimated impact</p>
+  <h2 class="s-title reveal">What changes for the integration team</h2>
+  <p class="s-note reveal">Grounded in the current CIL onboarding process. Baseline: a standard partner onboarding (one country, one LoB) takes an engineer 4–6 hours of active work plus integration manager wait time that is not measured but is typically 1–3 days.</p>
+
+  <div class="metrics-grid reveal-up">
+    <div class="metric-card" style="--c:var(--green);--glow:var(--green-glow)">
+      <div class="mc-label">Engineering involvement per onboarding</div>
+      <div class="mc-num" data-target="80" data-prefix="−" data-suffix="%">−80%</div>
+      <div class="mc-title">Only needed for new flow handlers</div>
+      <div class="mc-body">For partners reusing an existing flow handler (same Allianz backend), engineering involvement drops to: review the PR, merge it. All artifact authoring is handled by the integration manager via <code>/flowforge.integration</code>. Engineering is only required for partners needing a new flow handler (Phase 6 → new → 3-ticket breakdown).</div>
+    </div>
+    <div class="metric-card" style="--c:var(--ba);--glow:var(--ba-glow)">
+      <div class="mc-label">Time to ready-to-merge artifacts</div>
+      <div class="mc-num" data-target="75" data-prefix="−" data-suffix="%">−75%</div>
+      <div class="mc-title">4–6h manual → 30–60min guided</div>
+      <div class="mc-body">The 4–6 hours of tribal knowledge lookup, file editing, and copy-paste from prior PRs compress to a single guided session. The Admin UI pause (Luis creating the partner account) is unchanged — it is an external dependency, not a tooling bottleneck. Active effort time changes; wait time does not.</div>
+    </div>
+    <div class="metric-card" style="--c:var(--red);--glow:rgba(248,81,73,.18)">
+      <div class="mc-label">Onboarding errors (stale data, wrong enum)</div>
+      <div class="mc-num" style="font-size:2.6rem">~0</div>
+      <div class="mc-title">Live reads eliminate stale-copy mistakes</div>
+      <div class="mc-body">Product code uniqueness is validated by grepping live <code>products.go</code> — not a cached list. The InsuranceType enum is read from <code>rtqpolicy.proto</code> at runtime. The endpoint list is read from <code>simplesurance-api.yml</code> at runtime. Every field that was previously derived from Confluence copy-paste is now derived from the live codebase. Stale-copy mistakes become structurally impossible.</div>
+    </div>
+    <div class="metric-card" style="--c:var(--purple);--glow:rgba(188,140,255,.18)">
+      <div class="mc-label">Integration managers who can self-serve</div>
+      <div class="mc-num" style="font-size:2.6rem">All</div>
+      <div class="mc-title">No Go knowledge required</div>
+      <div class="mc-body">The command starts with "What is the name of the business partner?" and asks no technical questions. Slugs, product codes, enum values, roles, and file paths are derived internally. An integration manager who knows the partner name, the country, the LoB, and which CIL endpoints the partner needs can complete the entire onboarding input phase independently.</div>
+    </div>
+    <div class="metric-card" style="--c:var(--amber);--glow:rgba(210,153,34,.18)">
+      <div class="mc-label">Partner onboarding visibility</div>
+      <div class="mc-num" style="font-size:2.6rem">↑↑</div>
+      <div class="mc-title">From zero to live dashboard</div>
+      <div class="mc-body">Today: onboarding status requires asking the engineer or grepping <code>products.go</code>. With <code>/flowforge.integration.status</code>: any team member runs one command and sees all onboarded partners, all in-progress onboardings (phase + timestamp), and all open Jira tickets. No engineering involvement needed for status queries.</div>
+    </div>
+    <div class="metric-card" style="--c:var(--dev);--glow:var(--dev-glow)">
+      <div class="mc-label">Tribal knowledge dependency</div>
+      <div class="mc-num" style="font-size:2.6rem">0</div>
+      <div class="mc-title">All conventions encoded in the skill</div>
+      <div class="mc-body">Product code pattern (<code>PC{PARTNER}{YEAR}{LOB}_{COUNTRY}</code>), storageExclusion rules by flow type, the 5 rate limiter files, the Vault auth path, the adapter package path — every naming convention and file location that today lives in an engineer's head or a Confluence comment is encoded in the skill and derived automatically.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ CYCLE TIME ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">Cycle time</p>
+  <h2 class="s-title reveal">Partner onboarding: before vs after</h2>
+  <p class="s-note reveal">Standard onboarding — one country, one LoB, reusing an existing flow handler. Active engineering + integration manager effort only; Admin UI account creation wait time is excluded (external dependency, unchanged). Hover for details.</p>
+
+  <div class="cycle-compare reveal-up">
+    <div class="cc-row">
+      <div class="cc-label">
+        <strong>Today</strong>
+        <span>1–2 days active work</span>
+        <div class="cc-total before">4–7h active</div>
+      </div>
+      <div>
+        <div class="cc-bar">
+          <div class="cc-seg seg-red" style="flex:3" data-tip="Tribal knowledge lookup (Confluence, prior PRs, Slack): 1–2h">1–2h</div>
+          <div class="cc-seg seg-red" style="flex:2" data-tip="Slug derivation + product code uniqueness check (manual grep): 0.5–1h">0.5h</div>
+          <div class="cc-seg seg-red" style="flex:3" data-tip="Catalog stanza + access control authoring (copy from prior PR): 1–2h">1–2h</div>
+          <div class="cc-seg seg-amber" style="flex:1.5" data-tip="Rate limiter (5 files) + auth manifest + adapter skeleton: ~1.5h">1.5h</div>
+          <div class="cc-seg seg-amber" style="flex:1" data-tip="Jira ticket creation: ~0.5h">0.5h</div>
+          <div class="cc-seg seg-fade" style="flex:1" data-tip="Rework / missed fields / wrong enum: 0–1h">rework</div>
+        </div>
+      </div>
+    </div>
+    <div class="cc-row">
+      <div class="cc-label">
+        <strong style="color:var(--green)">With /flowforge.integration</strong>
+        <span>1 session, same day</span>
+        <div class="cc-total after">0.5–1h active</div>
+      </div>
+      <div>
+        <div class="cc-bar">
+          <div class="cc-seg seg-blue" style="flex:1.5" data-tip="Guided phases 1–4 (partner identity, LoB, endpoints, product code): ~15–20min">P1–4</div>
+          <div class="cc-seg seg-purple" style="flex:.5" data-tip="Admin UI checkpoint (pause, wait for partner ID from Luis team): external wait">⏸</div>
+          <div class="cc-seg seg-blue" style="flex:1.5" data-tip="Phases 6–7 (flow handler decision, backend IDs): ~10–15min">P6–7</div>
+          <div class="cc-seg seg-green" style="flex:1" data-tip="Phase 8: all 5 artifacts generated instantly">P8</div>
+          <div class="cc-seg seg-green" style="flex:.8" data-tip="Phase 9: Jira tickets created via Atlassian MCP: ~2min">P9</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cc-legend reveal">
+    <div class="cl-item"><div class="cl-dot" style="background:rgba(248,81,73,.5)"></div>Manual tribal knowledge work</div>
+    <div class="cl-item"><div class="cl-dot" style="background:rgba(210,153,34,.5)"></div>Repetitive manual editing</div>
+    <div class="cl-item"><div class="cl-dot" style="background:rgba(88,166,255,.5)"></div>Guided prompts (integration manager)</div>
+    <div class="cl-item"><div class="cl-dot" style="background:rgba(188,140,255,.4)"></div>External gate (Admin UI — unchanged)</div>
+    <div class="cl-item"><div class="cl-dot" style="background:rgba(63,185,80,.5)"></div>Automated generation</div>
+  </div>
+
+  <div class="saving-strip reveal">
+    <div class="ss-num">−75%</div>
+    <div class="ss-body">
+      Active onboarding effort: <strong>4–7h engineering time → 0.5–1h integration manager time</strong> for standard flow-handler-reuse onboardings.
+      The Admin UI gate (Luis/Integration team creating the partner account) is a real-world dependency that the command acknowledges with a pause-and-resume checkpoint — it is not eliminated, but it is no longer a blocker on artifact production.
+      The only remaining engineering effort: review the generated artifacts and merge the PR.
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ QUALITY CHAIN ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">Why live reads matter</p>
+  <h2 class="s-title reveal">Every data source read at runtime — no stale copies</h2>
+  <p class="s-note reveal">The pattern that makes this safe: every source of truth in the codebase is read at command runtime, not at skill-write time. The skill stays current as endpoints, enum values, and product codes change without requiring skill file edits.</p>
+
+  <div class="chain-grid reveal-up">
+    <div>
+      <div class="chain-col-title">The live-read cascade</div>
+      <div class="chain-steps">
+        <div class="cs-item">
+          <div class="cs-spine"><div class="cs-dot im">P2</div><div class="cs-line"></div></div>
+          <div class="cs-body">
+            <div class="cs-title">LoB list → simplesurance-api.yml tags at runtime</div>
+            <div class="cs-desc">Never hardcoded. When a new LoB is added to the API (e.g. a new tag in the OpenAPI spec), it automatically appears in the integration manager's selection list. No skill file edit required.</div>
+          </div>
+        </div>
+        <div class="cs-item">
+          <div class="cs-spine"><div class="cs-dot im">P2</div><div class="cs-line"></div></div>
+          <div class="cs-body">
+            <div class="cs-title">InsuranceType enum → rtqpolicy.proto at runtime</div>
+            <div class="cs-desc">The <code>INSURANCE_TYPE_*</code> enum value is read directly from the proto source. An integration manager never needs to look up an enum name — the mapping is derived automatically and will stay correct as new insurance types are added to the proto.</div>
+          </div>
+        </div>
+        <div class="cs-item">
+          <div class="cs-spine"><div class="cs-dot im">P3</div><div class="cs-line"></div></div>
+          <div class="cs-body">
+            <div class="cs-title">Endpoint list → simplesurance-api.yml operationIds at runtime</div>
+            <div class="cs-desc">Filtered to the selected LoB tag. New endpoints added to the API spec appear immediately in the next onboarding run. Roles and access control resources are derived from this live list — no manual mapping table.</div>
+          </div>
+        </div>
+        <div class="cs-item">
+          <div class="cs-spine"><div class="cs-dot im">P4</div><div class="cs-line"></div></div>
+          <div class="cs-body">
+            <div class="cs-title">Product code uniqueness → products.go at runtime</div>
+            <div class="cs-desc"><code>products.go</code> is the source of truth — no separate registry file that could go stale or be missed in a PR. The skill greps all existing <code>"PC[^"]*"</code> string values and rejects any collision immediately. Confirmed codes are reserved for the session to prevent double-use within a single run covering multiple countries.</div>
+          </div>
+        </div>
+        <div class="cs-item">
+          <div class="cs-spine"><div class="cs-dot ba">P8</div></div>
+          <div class="cs-body">
+            <div class="cs-title">Auth schema → clientmgr.go and client.go at runtime</div>
+            <div class="cs-desc">The auth client manifest template fields are derived from <code>go/code/auth/internal/clientmgr/clientmgr.go</code> and <code>go/code/auth/store/client.go</code>. If the auth client schema changes, the manifest template reflects it on the next run.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="chain-col-title">Where this won't land as predicted</div>
+      <div class="risk-list">
+        <div class="risk-item">
+          <div class="ri-severity soft">constraint</div>
+          <div class="ri-title">Admin UI gate is unchanged</div>
+          <div class="ri-body">The selling partner account must still be created manually in Admin UI by the Luis/Integration team before artifacts can be completed. This is a real-world external dependency — the command accommodates it with a pause-and-resume checkpoint but cannot eliminate the wait. Onboarding calendar time is therefore not reduced by the same factor as active effort time.</div>
+        </div>
+        <div class="risk-item">
+          <div class="ri-severity soft">constraint</div>
+          <div class="ri-title">New flow handlers still require engineering</div>
+          <div class="ri-body">When a partner uses an insurance backend not already wired into CIL (Phase 6 → new flow handler), the adapter skeleton is a starting point — an engineer must still implement the actual flow logic. The command generates the skeleton and creates the 3-ticket breakdown, but does not implement the backend integration. This is correct scope: the command covers onboarding to <em>existing</em> endpoints, not new development.</div>
+        </div>
+        <div class="risk-item">
+          <div class="ri-severity soft">soft risk</div>
+          <div class="ri-title">Auth manifest credentials are always [MANUAL]</div>
+          <div class="ri-body">The auth client manifest template intentionally leaves <code>secret</code>, <code>client_auth_userid</code>, and <code>client_auth_user_type</code> as <code>[MANUAL]</code>. Real credentials are distributed via secrets management and must be filled in by the team before deployment. This is a security constraint, not a gap — but it means the generated manifest is not deployable as-is.</div>
+        </div>
+        <div class="risk-item">
+          <div class="ri-severity soft">soft risk</div>
+          <div class="ri-title">Additions mode scope</div>
+          <div class="ri-body">When an already-onboarded partner adds a new country or LoB (additions mode, T007), the command generates only the delta artifacts — new product code(s) and additional access control and catalog stanza entries. It does not re-generate the auth manifest or adapter skeleton, which already exist. Integration managers must know to use additions mode rather than re-running from scratch.</div>
+        </div>
+        <div class="risk-item">
+          <div class="ri-severity soft">soft risk</div>
+          <div class="ri-title">Jira MCP availability</div>
+          <div class="ri-body">Ticket creation in Phase 9 uses the Atlassian MCP. If the MCP is unavailable, the command falls back to printing ticket templates for manual creation. All artifact generation is unaffected — only the Jira step degrades gracefully.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ BUILD SEQUENCE ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">Build sequence</p>
+  <h2 class="s-title reveal">8 tasks — three delivery groups</h2>
+  <p class="s-note reveal">Tasks are structured so each group is independently releasable. The guided input phases ship first (the foundation); artifact generation and Jira output ship second; resume mode and the status dashboard ship third and are immediately usable alongside the main command.</p>
+
+  <div class="phase-row reveal-up">
+    <div class="phase-card" style="--c:var(--green)">
+      <div class="pc-num">Group 1 — Guided input</div>
+      <div class="pc-title">Data collection foundation</div>
+      <div class="pc-cmds">
+        <div class="pc-cmd"><div class="cmd-dot"></div>CIL-6785 — T001: Partner identity, LoB, endpoints</div>
+        <div class="pc-cmd"><div class="cmd-dot"></div>CIL-6786 — T002: Product code generation + validation</div>
+        <div class="pc-cmd"><div class="cmd-dot"></div>CIL-6787 — T003: Admin UI checkpoint, flow handler, backend IDs</div>
+      </div>
+      <div class="pc-desc">These three tasks implement Phases 1–7. All subsequent phases depend on the slug, LoB, InsuranceType, selected endpoints, partner ID, and backend IDs produced here. The live reads from <code>simplesurance-api.yml</code> and <code>rtqpolicy.proto</code> are established in T001. The pause-and-resume checkpoint pattern is established in T003.</div>
+    </div>
+    <div class="phase-card" style="--c:var(--ba)">
+      <div class="pc-num">Group 2 — Artifact generation + Jira</div>
+      <div class="pc-title">Deliverable production</div>
+      <div class="pc-cmds">
+        <div class="pc-cmd"><div class="cmd-dot"></div>CIL-6788 — T004: Catalog, access control, rate limiter</div>
+        <div class="pc-cmd"><div class="cmd-dot"></div>CIL-6789 — T005: Auth manifest template + adapter skeleton</div>
+        <div class="pc-cmd"><div class="cmd-dot"></div>CIL-6790 — T006: Jira ticket creation output</div>
+      </div>
+      <div class="pc-desc">Implements Phase 8 (5 artifacts) and Phase 9 (Jira output). Depends on all Group 1 outputs. T004 covers the three config artifacts (CIL steps 2 and 3). T005 covers the two implementation artifacts (CIL steps 1 and 4). T006 closes the loop with tracked work items in Jira — 1 ticket for flow-handler-reuse, 3 tickets for new.</div>
+    </div>
+    <div class="phase-card" style="--c:var(--purple)">
+      <div class="pc-num">Group 3 — Resilience + visibility</div>
+      <div class="pc-title">Resume mode + status dashboard</div>
+      <div class="pc-cmds">
+        <div class="pc-cmd"><div class="cmd-dot"></div>CIL-6791 — T007: Resume + additions mode</div>
+        <div class="pc-cmd"><div class="cmd-dot"></div>CIL-6792 — T008: /flowforge.integration.status dashboard</div>
+      </div>
+      <div class="pc-desc">T007 enables checkpoint persistence — critical because the Admin UI gate may take minutes to days. Without resume, re-running would require re-entering all prior inputs. Additions mode handles the common case of expanding an existing partner to a new country or LoB. T008 is independently implementable and provides the live onboarding dashboard that answers "where are we with partner X?" without engineering involvement.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div style="height:1px;background:var(--line)"></div>
+<footer>
+<div class="wrap">
+  Epic: <code>PROD-13946</code> · Branch: <code>ff-integrate</code> · Commands: <code>/flowforge.integration</code> (9 phases, 5 artifacts, 1–3 Jira tickets) · <code>/flowforge.integration.status</code> (read-only dashboard) ·
+  Tasks: <code>CIL-6785</code> through <code>CIL-6792</code> (8 tasks, 3 delivery groups) ·
+  All technical identifiers derived automatically — no Go knowledge required ·
+  All data sources read at runtime: simplesurance-api.yml, rtqpolicy.proto, products.go ·
+  Auth credentials always <code>[MANUAL]</code> — no secrets generated ·
+  Admin UI gate unchanged (external dependency — pause-and-resume checkpoint accommodates it) ·
+  New flow handlers still require engineering — command covers onboarding to existing endpoints only ·
+  Scope: PROD-13946 / integration manager user type — no endpoint changes, no new development
+</div>
+</footer>
+
+<script>
+// ── Scroll reveal ──
+const revealEls = document.querySelectorAll('.reveal, .reveal-up');
+const ro = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => ro.observe(el));
+
+// ── Animated bar widths ──
+const barEls = document.querySelectorAll('.tchart-fill[data-width]');
+const barObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.width = e.target.dataset.width;
+      barObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+barEls.forEach(el => barObs.observe(el));
+
+// ── Counter animation ──
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target, 10);
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  if (!target) return;
+  let start = null;
+  const duration = 1000;
+  function step(ts) {
+    if (!start) start = ts;
+    const progress = Math.min((ts - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = prefix + Math.round(ease * target) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+const counterEls = document.querySelectorAll('[data-target]');
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { animateCounter(e.target); counterObs.unobserve(e.target); }
+  });
+}, { threshold: 0.5 });
+counterEls.forEach(el => counterObs.observe(el));
+</script>
+</body>
+</html>
