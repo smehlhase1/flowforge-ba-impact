@@ -509,6 +509,51 @@ body {
 footer { border-top: 1px solid var(--line); padding: 32px 0 60px; color: var(--muted-2); font-size: .8rem; line-height: 1.6; }
 footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 
+/* ─── PRD MOCK ─── */
+.prd-lifecycle {
+  display: flex; align-items: flex-start; gap: 10px; margin: 0 0 32px; flex-wrap: wrap;
+}
+.prd-stage { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.prd-arrow { color: var(--muted-2); font-size: 1.1rem; margin-top: 6px; }
+.prd-stage-note { font-size: .62rem; color: var(--muted-2); font-family: "JetBrains Mono", monospace; text-align: center; max-width: 160px; line-height: 1.4; }
+.prd-badge {
+  font-family: "JetBrains Mono", monospace; font-size: .6rem; letter-spacing: .08em;
+  text-transform: uppercase; padding: 4px 11px; border-radius: 20px; font-weight: 600; white-space: nowrap;
+}
+.prd-badge.pre-ref  { background: rgba(210,153,34,.12); color: var(--amber); border: 1px solid rgba(210,153,34,.28); }
+.prd-badge.post-ref { background: var(--ba-dim); color: var(--ba); border: 1px solid rgba(88,166,255,.28); }
+.prd-badge.verified { background: rgba(63,185,80,.12); color: var(--green); border: 1px solid rgba(63,185,80,.28); }
+.cf-page { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--surface); }
+.cf-header { padding: 18px 26px; border-bottom: 1px solid var(--line); background: var(--surface-2); }
+.cf-breadcrumb { font-family: "JetBrains Mono", monospace; font-size: .58rem; color: var(--muted-2); letter-spacing: .06em; margin-bottom: 8px; }
+.cf-title-row { display: flex; align-items: center; gap: 14px; margin-bottom: 5px; flex-wrap: wrap; }
+.cf-title { font-family: "Space Grotesk", sans-serif; font-size: 1.15rem; font-weight: 700; margin: 0; color: var(--text); }
+.cf-meta { font-size: .62rem; color: var(--muted-2); font-family: "JetBrains Mono", monospace; }
+.cf-body { display: grid; grid-template-columns: 188px 1fr; }
+.cf-toc { border-right: 1px solid var(--line); padding: 18px 0; background: rgba(0,0,0,.18); }
+.cf-toc-title { font-family: "JetBrains Mono", monospace; font-size: .55rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted-2); padding: 0 16px 10px; }
+.cf-toc-item { font-size: .7rem; color: var(--muted); padding: 4px 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cf-toc-item.highlight { color: var(--green); }
+.cf-content { padding: 22px 26px; display: flex; flex-direction: column; gap: 18px; }
+.cf-section { border: 1px solid var(--line); border-radius: 9px; overflow: hidden; }
+.cf-section-head { display: flex; align-items: center; gap: 10px; padding: 9px 14px; background: var(--surface-2); border-bottom: 1px solid var(--line); }
+.cf-section-num { font-family: "JetBrains Mono", monospace; font-size: .68rem; color: var(--muted-2); flex-shrink: 0; }
+.cf-section-name { font-family: "Space Grotesk", sans-serif; font-size: .88rem; font-weight: 600; color: var(--text); flex: 1; }
+.cf-source-tag { font-family: "JetBrains Mono", monospace; font-size: .56rem; color: var(--teal); background: var(--teal-dim); border: 1px solid rgba(57,197,185,.2); padding: 2px 7px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; }
+.cf-section-body { padding: 12px 14px; display: flex; flex-direction: column; gap: 7px; }
+.cf-section-row { display: grid; grid-template-columns: 130px 1fr; gap: 10px; font-size: .76rem; align-items: baseline; }
+.cf-row-label { color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: .65rem; }
+.cf-row-val { color: var(--text); line-height: 1.45; }
+.cf-ac-item { font-size: .76rem; color: var(--text); line-height: 1.45; padding: 5px 0; border-bottom: 1px solid rgba(48,54,61,.5); }
+.cf-ac-item:last-child { border-bottom: none; }
+.cf-ac-ref { font-family: "JetBrains Mono", monospace; font-size: .6rem; color: var(--ba); background: var(--ba-dim); border: 1px solid rgba(88,166,255,.2); padding: 1px 6px; border-radius: 4px; margin-right: 8px; }
+.cf-ac-more { color: var(--muted); font-style: italic; font-size: .7rem; border-bottom: none !important; }
+.cf-verify-summary { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.cf-verify-stat { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 56px; }
+.cf-v-num { font-family: "Space Grotesk", sans-serif; font-size: 1.55rem; font-weight: 800; color: var(--green); line-height: 1; }
+.cf-v-label { font-size: .6rem; color: var(--muted-2); font-family: "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .08em; text-align: center; }
+.cf-verify-status { font-family: "JetBrains Mono", monospace; font-size: .66rem; color: var(--muted); margin-left: auto; }
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 960px) {
   .asym-grid { grid-template-columns: 1fr; }
@@ -532,6 +577,13 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
   .cc2-bar.narrow { width: 60%; }
   .hero-numbers { gap: 24px; }
   .rm-ticket { max-width: 100%; }
+  .cf-body { grid-template-columns: 1fr; }
+  .cf-toc { display: none; }
+  .cf-section-row { grid-template-columns: 1fr; gap: 3px; }
+  .cf-verify-summary { gap: 16px; }
+  .cf-verify-status { margin-left: 0; }
+  .prd-lifecycle { gap: 8px; }
+  .cf-source-tag { display: none; }
 }
 </style>
 </head>
@@ -544,7 +596,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
   <h1>Closing the <em>upstream gap</em></h1>
   <p class="hero-sub">
     The dev pipeline has 15 agents across 4 commands. The BA phase had 3 — all post-spec-capture.
-    The 6–10 hours before a spec exists had no tooling. This proposal delivers <strong style="color:var(--ba)">5 BA commands</strong> across <strong style="color:var(--ba)">10 CIL tasks</strong>, extending spec-driven development upstream to problem framing, discovery, live refinement, and a 13-section living PRD — with measurable impact for <strong style="color:var(--purple)">6 distinct personas</strong>.
+    The 6–10 hours before a spec exists had no tooling. This proposal delivers <strong style="color:var(--ba)">5 BA commands</strong> across <strong style="color:var(--ba)">10 CIL tasks</strong>, extending spec-driven development upstream to problem framing, discovery, live refinement, and a 14-section living PRD — with measurable impact for <strong style="color:var(--purple)">6 distinct personas</strong>.
   </p>
   <div class="hero-numbers reveal">
     <div class="hero-stat">
@@ -707,7 +759,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 <div class="wrap">
   <p class="s-label reveal">The proposal</p>
   <h2 class="s-title reveal">The full pipeline — proposed</h2>
-  <p class="s-note reveal">Five BA commands extend the pipeline upstream. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.start</code> eliminates the git barrier. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.discover</code> covers problem framing, research, and ideation. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.require</code> expands to 8 agents and 5 phases including decomposition and agenda building. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.refine</code> facilitates live meetings. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.prd</code> produces a 13-section living PRD published to Confluence.</p>
+  <p class="s-note reveal">Five BA commands extend the pipeline upstream. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.start</code> eliminates the git barrier. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.discover</code> covers problem framing, research, and ideation. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.require</code> expands to 8 agents and 5 phases including decomposition and agenda building. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.refine</code> facilitates live meetings. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.prd</code> produces a 14-section living PRD published to Confluence.</p>
 
   <div class="pipeline-flow reveal-up">
     <div class="pf-zone-label" style="color:var(--muted);"><span>Pre-flight — git barrier elimination</span><div class="pz-bar" style="background:linear-gradient(90deg,var(--muted),transparent)"></div></div>
@@ -794,10 +846,10 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
           <span class="step-badge badge-new">new · CIL-6857</span>
         </div>
         <div class="pf-step-desc">
-          <div>Reads <code>0-eval.json</code> as primary input and assembles a <strong>full 13-section PRD</strong> — publishes to Confluence as ADF. <strong>Living document:</strong> auto-updates at refine end, build phase-close, verify complete, and review complete (when <code>prd.enabled = true</code>). Uploads <code>eval.json</code> as attachment for cross-feature discovery.</div>
+          <div>Reads <code>0-eval.json</code> as primary input and assembles a <strong>full 14-section PRD</strong> — publishes to Confluence as ADF. <strong>Living document:</strong> auto-updates at refine end, build phase-close, verify complete, and review complete (when <code>prd.enabled = true</code>). Uploads <code>eval.json</code> as attachment for cross-feature discovery.</div>
           <div class="pf-agents"><span class="pf-agent-chip">Document Assembler</span><span class="pf-agent-chip">Confluence Publisher</span></div>
         </div>
-        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">0-prd.md</span><span class="pf-out">Confluence (13 sections)</span><span class="pf-out">eval.json attachment</span></div>
+        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">0-prd.md</span><span class="pf-out">Confluence (14 sections)</span><span class="pf-out">eval.json attachment</span></div>
       </div>
     </div>
 
@@ -892,7 +944,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
         <div class="rm-ticket" style="--c:var(--green);--glow:var(--green-glow)">
           <div class="rm-ticket-id">CIL-6857 <span class="rm-ticket-status draft">draft</span></div>
           <div class="rm-ticket-title">/ff.prd — Living PRD</div>
-          <div class="rm-ticket-scope">13-section PRD from 0-eval.json. Publishes to Confluence as ADF. Auto-updates across pipeline. Uploads eval.json attachment for cross-feature discovery.</div>
+          <div class="rm-ticket-scope">14-section PRD from 0-eval.json. Publishes to Confluence as ADF. Auto-updates across pipeline. Uploads eval.json attachment for cross-feature discovery.</div>
           <div class="rm-ticket-cmd">/ff.prd</div>
         </div>
       </div>
@@ -965,7 +1017,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
         <li><strong>/ff.discover</strong> covers 6–10h of pre-spec manual work: problem framing, Jira/Confluence research, 3–4 structured solution options</li>
         <li><strong>8-agent review panel</strong> in /ff.require catches ambiguity, edge cases, GDPR implications before the dev team sees the spec</li>
         <li><strong>/ff.refine</strong> guides the live meeting item by item with a pre-built agenda — session becomes decisions, not exploration</li>
-        <li><strong>13-section Confluence PRD</strong> auto-published after refinement, auto-updated throughout the pipeline — no manual assembly</li>
+        <li><strong>14-section Confluence PRD</strong> auto-published after refinement, auto-updated throughout the pipeline — no manual assembly</li>
         <li>Can run the entire upstream flow <strong>independently</strong>: start → discover → require → refine → prd</li>
       </ul>
       <div class="persona-metrics">
@@ -1298,6 +1350,122 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 </div>
 </section>
 
+<!-- ══════════ PRD MOCK ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">Output artifact</p>
+  <h2 class="s-title reveal">What <code style="font-size:inherit">/ff.prd</code> actually produces</h2>
+  <p class="s-note reveal">A 14-section living Confluence document assembled entirely from pipeline artifacts — never written by hand. The label advances automatically as the feature moves through delivery. Sample below is the PRD for <strong>CIL-6148</strong> itself — FlowForge documenting FlowForge.</p>
+
+  <div class="prd-lifecycle reveal">
+    <div class="prd-stage">
+      <span class="prd-badge pre-ref">Pre-Refinement Proposal</span>
+      <span class="prd-stage-note">/ff.require complete<br>0-meeting-log.md absent</span>
+    </div>
+    <div class="prd-arrow">→</div>
+    <div class="prd-stage">
+      <span class="prd-badge post-ref">Post-Refinement Spec</span>
+      <span class="prd-stage-note">/ff.refine complete<br>decisions captured</span>
+    </div>
+    <div class="prd-arrow">→</div>
+    <div class="prd-stage">
+      <span class="prd-badge verified">Verified Spec</span>
+      <span class="prd-stage-note">/ff.verify complete<br>eval suite passed</span>
+    </div>
+  </div>
+
+  <div class="cf-page reveal-up">
+    <div class="cf-header">
+      <div class="cf-breadcrumb">CIL &rsaquo; FlowForge &rsaquo; BA/PO Upstream Pipeline</div>
+      <div class="cf-title-row">
+        <h3 class="cf-title">FlowForge BA/PO Upstream Pipeline &mdash; PRD</h3>
+        <span class="prd-badge verified">Verified Spec</span>
+      </div>
+      <div class="cf-meta">Last updated by /ff.prd &middot; auto-triggered after /ff.verify &middot; 14 sections &middot; 0-eval.json attached &middot; CIL-6148</div>
+    </div>
+    <div class="cf-body">
+      <div class="cf-toc">
+        <div class="cf-toc-title">Contents</div>
+        <div class="cf-toc-item">1. Executive Summary</div>
+        <div class="cf-toc-item">2. Problem Statement</div>
+        <div class="cf-toc-item highlight">3. Business Requirements</div>
+        <div class="cf-toc-item">4. Landscape Context</div>
+        <div class="cf-toc-item">5. Solution Options</div>
+        <div class="cf-toc-item">6. Selected Approach</div>
+        <div class="cf-toc-item">7. Scope &amp; Decomposition</div>
+        <div class="cf-toc-item highlight">8. Acceptance Criteria</div>
+        <div class="cf-toc-item">9. Risk Register</div>
+        <div class="cf-toc-item">10. Decision Log</div>
+        <div class="cf-toc-item">11. Spec Change Record</div>
+        <div class="cf-toc-item">12. Deferred Items</div>
+        <div class="cf-toc-item">13. Diagrams</div>
+        <div class="cf-toc-item highlight">14. Delivery Verification</div>
+      </div>
+      <div class="cf-content">
+
+        <div class="cf-section">
+          <div class="cf-section-head">
+            <span class="cf-section-num">§3</span>
+            <span class="cf-section-name">Business Requirements</span>
+            <span class="cf-source-tag">← /ff.discover Phase 1 &rarr; 0-discovery.md</span>
+          </div>
+          <div class="cf-section-body">
+            <div class="cf-section-row">
+              <span class="cf-row-label">Success metrics</span>
+              <span class="cf-row-val">BAs run the full upstream pipeline independently &middot; /ff.prd publishes to Confluence with zero manual assembly &middot; spec quality issues caught upstream, not in the .plan cycle &middot; &minus;57% active BA effort per feature vs. baseline</span>
+            </div>
+            <div class="cf-section-row">
+              <span class="cf-row-label">Business rules</span>
+              <span class="cf-row-val">Pipeline commands execute in fixed sequence &middot; phase-close pattern mandatory on every command &middot; prd.enabled flag controls Confluence auto-publish &middot; no orphaned Jira tickets at any hierarchy level</span>
+            </div>
+            <div class="cf-section-row">
+              <span class="cf-row-label">Constraints</span>
+              <span class="cf-row-val">All artifacts pushed to GitHub at phase-close &middot; /ff.split, /ff.research, /ff.ideate do not exist as standalone commands &middot; dev pipeline (15 agents) is unchanged &middot; GDPR: no PII written to 0-eval.json</span>
+            </div>
+            <div class="cf-section-row">
+              <span class="cf-row-label">Stakeholders</span>
+              <span class="cf-row-val">BA/PO (feature owner) &middot; Tech Lead (implementation decisions) &middot; Engineer (receives spec + PRD) &middot; QA Automation Squad (AUT tickets) &middot; Stakeholder (Confluence PRD consumer)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cf-section">
+          <div class="cf-section-head">
+            <span class="cf-section-num">§8</span>
+            <span class="cf-section-name">Acceptance Criteria</span>
+            <span class="cf-source-tag">← /ff.require &middot; 8-agent review panel</span>
+          </div>
+          <div class="cf-section-body">
+            <div class="cf-ac-item"><span class="cf-ac-ref">AC-001-1</span>GIVEN I am on master WHEN I run /ff.start THEN git pull origin master executes automatically before branch creation</div>
+            <div class="cf-ac-item"><span class="cf-ac-ref">AC-002-1</span>GIVEN I run /ff.discover THEN a Problem Framer agent conducts a structured interview and writes structured, countable lists (success metrics, failure criteria, business rules, constraints, stakeholders) to 0-discovery.md; counts are written to 0-eval.json at phase-close</div>
+            <div class="cf-ac-item"><span class="cf-ac-ref">AC-008-1</span>GIVEN I run /ff.prd THEN the command reads 0-eval.json as primary input and assembles 14 mandatory sections in fixed order without any manual assembly step</div>
+            <div class="cf-ac-item cf-ac-more">+ 85 further criteria across US-001 through US-011 &middot; grouped by user story</div>
+          </div>
+        </div>
+
+        <div class="cf-section">
+          <div class="cf-section-head">
+            <span class="cf-section-num">§14</span>
+            <span class="cf-section-name">Delivery Verification</span>
+            <span class="cf-source-tag">← /ff.build + /ff.verify</span>
+          </div>
+          <div class="cf-section-body">
+            <div class="cf-verify-summary">
+              <div class="cf-verify-stat"><span class="cf-v-num">88</span><span class="cf-v-label">total tests</span></div>
+              <div class="cf-verify-stat"><span class="cf-v-num">88</span><span class="cf-v-label">ACs covered</span></div>
+              <div class="cf-verify-stat"><span class="cf-v-num">22</span><span class="cf-v-label">smoke tests</span></div>
+              <div class="cf-verify-stat"><span class="cf-v-num">11</span><span class="cf-v-label">user stories</span></div>
+              <span class="cf-verify-status">Last verified: 2026-07-28</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
 <!-- ══════════ BUILD SEQUENCE ══════════ -->
 <section class="section">
 <div class="wrap">
@@ -1311,7 +1479,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
       <div class="pc-title">Mechanical · high-trust</div>
       <div class="pc-cmds">
         <div class="pc-cmd"><div class="cmd-dot"></div>/ff.require (phases 2–5: 8 agents, decomp, agenda)</div>
-        <div class="pc-cmd"><div class="cmd-dot"></div>/ff.prd (13-section living PRD → Confluence)</div>
+        <div class="pc-cmd"><div class="cmd-dot"></div>/ff.prd (14-section living PRD → Confluence)</div>
         <div class="pc-cmd"><div class="cmd-dot"></div>qa-author AUTOMATION-CREATE post-processing</div>
         <div class="pc-cmd"><div class="cmd-dot"></div>AUT ticket auto-creation at build end</div>
       </div>
@@ -1355,7 +1523,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 <footer>
 <div class="wrap">
   Epic: <code>CIL-6148</code> · Tasks: <code>CIL-6851 through CIL-6860</code> ·
-  BA commands: <code>/ff.start · /ff.discover (3 phases, 10 agents) · /ff.require (enhanced, 5 phases, 8 agents) · /ff.refine (live) · /ff.prd (13 sections, living)</code> ·
+  BA commands: <code>/ff.start · /ff.discover (3 phases, 10 agents) · /ff.require (enhanced, 5 phases, 8 agents) · /ff.refine (live) · /ff.prd (14 sections, living)</code> ·
   Dev-side additions: <code>qa-author AUTOMATION-CREATE post-processing (CIL-6858) · AUT ticket auto-creation (CIL-6860)</code> ·
   Personas impacted: <code>BA/PO · Engineer · Tech Lead · Stakeholder · QA Automation Squad · Manual QA</code> ·
   /ff.split, /ff.research, /ff.ideate, /ff.refine --prep do not exist as standalone commands ·
