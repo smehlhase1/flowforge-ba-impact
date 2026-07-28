@@ -28,6 +28,9 @@
   --amber: #d29922;
   --red: #f85149;
   --purple: #bc8cff;
+  --teal: #39c5b9;
+  --teal-glow: rgba(57,197,185,.18);
+  --teal-dim: rgba(57,197,185,.10);
 }
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -63,9 +66,7 @@ body {
   text-transform: uppercase; color: var(--ba); margin: 0 0 22px;
   display: flex; align-items: center; gap: 10px;
 }
-.hero-eyebrow::before {
-  content: ""; width: 24px; height: 1px; background: var(--ba);
-}
+.hero-eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--ba); }
 .hero h1 {
   font-family: "Space Grotesk", sans-serif; font-weight: 800;
   font-size: clamp(2.6rem, 6vw, 4.2rem); line-height: 1.0; margin: 0 0 24px;
@@ -80,9 +81,7 @@ body {
   color: var(--muted); font-size: clamp(1rem, 1.8vw, 1.15rem); max-width: 58ch;
   margin: 0 0 48px; line-height: 1.65;
 }
-.hero-numbers {
-  display: flex; gap: 40px; flex-wrap: wrap; margin-top: 8px;
-}
+.hero-numbers { display: flex; gap: 40px; flex-wrap: wrap; margin-top: 8px; }
 .hero-stat { display: flex; flex-direction: column; gap: 4px; }
 .hero-stat .hs-num {
   font-family: "Space Grotesk", sans-serif; font-size: clamp(2.4rem, 5vw, 3.6rem);
@@ -91,9 +90,7 @@ body {
 .hero-stat .hs-num.zero { color: var(--red); }
 .hero-stat .hs-num.thirteen { color: var(--green); }
 .hero-stat .hs-label { font-size: .82rem; color: var(--muted); }
-.hero-divider {
-  width: 1px; background: var(--line); align-self: stretch; margin: 8px 0;
-}
+.hero-divider { width: 1px; background: var(--line); align-self: stretch; margin: 8px 0; }
 .scroll-hint {
   position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center; gap: 6px;
@@ -155,16 +152,11 @@ body {
 .asym-zone.ba { color: var(--ba); border-color: rgba(88,166,255,.35); background: var(--ba-dim); }
 .asym-zone.dev { color: var(--dev); border-color: rgba(255,123,57,.35); background: var(--dev-dim); }
 .asym-items { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
-.asym-items li {
-  display: flex; align-items: center; gap: 10px;
-  font-size: .85rem; padding: 8px 12px; border-radius: 8px;
-}
+.asym-items li { display: flex; align-items: center; gap: 10px; font-size: .85rem; padding: 8px 12px; border-radius: 8px; }
 .asym-items li.missing { color: var(--muted-2); background: transparent; }
 .asym-items li.has { color: var(--text); background: var(--surface-2); }
 .asym-items li.has-partial { color: var(--text); background: rgba(210,153,34,.07); border: 1px solid rgba(210,153,34,.15); }
-.asym-items li .ai-dot {
-  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
-}
+.asym-items li .ai-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 .asym-items li.missing .ai-dot { background: var(--muted-2); }
 .asym-items li.has .ai-dot { background: var(--green); box-shadow: 0 0 6px var(--green); }
 .asym-items li.has-partial .ai-dot { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
@@ -184,17 +176,11 @@ body {
 
 /* ─── TIME CHART ─── */
 .time-chart { display: flex; flex-direction: column; gap: 4px; }
-.tchart-row {
-  display: grid; grid-template-columns: 195px 1fr 56px;
-  gap: 14px; align-items: center; padding: 4px 0;
-}
+.tchart-row { display: grid; grid-template-columns: 195px 1fr 56px; gap: 14px; align-items: center; padding: 4px 0; }
 .tchart-label { font-size: .83rem; }
 .tchart-label strong { display: block; color: var(--text); font-weight: 500; font-size: .85rem; }
 .tchart-label span { color: var(--muted); font-size: .78rem; }
-.tchart-track {
-  height: 32px; background: var(--surface-2); border-radius: 6px;
-  overflow: hidden; position: relative;
-}
+.tchart-track { height: 32px; background: var(--surface-2); border-radius: 6px; overflow: hidden; position: relative; }
 .tchart-fill {
   height: 100%; border-radius: 6px; display: flex; align-items: center;
   padding-left: 12px; font-family: "JetBrains Mono", monospace; font-size: .62rem;
@@ -204,10 +190,7 @@ body {
 .tchart-fill.red { background: linear-gradient(90deg, rgba(248,81,73,.55), rgba(248,81,73,.25)); }
 .tchart-fill.amber { background: linear-gradient(90deg, rgba(210,153,34,.55), rgba(210,153,34,.25)); }
 .tchart-fill.green { background: linear-gradient(90deg, rgba(63,185,80,.55), rgba(63,185,80,.25)); }
-.tchart-hrs {
-  font-family: "JetBrains Mono", monospace; font-size: .75rem;
-  color: var(--muted); text-align: right; white-space: nowrap;
-}
+.tchart-hrs { font-family: "JetBrains Mono", monospace; font-size: .75rem; color: var(--muted); text-align: right; white-space: nowrap; }
 .tchart-legend { display: flex; gap: 20px; margin-top: 18px; flex-wrap: wrap; }
 .tchart-legend .tl-item { display: flex; align-items: center; gap: 7px; font-size: .77rem; color: var(--muted); }
 .tchart-legend .tl-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
@@ -244,17 +227,10 @@ body {
 .pf-step-num {
   display: flex; align-items: center; justify-content: center;
   font-family: "JetBrains Mono", monospace; font-size: .6rem;
-  color: var(--muted-2); padding: 16px 0;
-  border-right: 1px solid var(--line);
+  color: var(--muted-2); padding: 16px 0; border-right: 1px solid var(--line);
 }
-.pf-step-cmd {
-  padding: 16px 18px; border-right: 1px solid var(--line);
-  display: flex; flex-direction: column; justify-content: center; gap: 6px;
-}
-.pf-step-name {
-  font-family: "JetBrains Mono", monospace; font-size: .9rem; font-weight: 600;
-  white-space: nowrap;
-}
+.pf-step-cmd { padding: 16px 18px; border-right: 1px solid var(--line); display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+.pf-step-name { font-family: "JetBrains Mono", monospace; font-size: .9rem; font-weight: 600; white-space: nowrap; }
 .pf-step-name .slash { color: var(--dev); opacity: .6; }
 .ba-step .pf-step-name .slash { color: var(--ba); opacity: .6; }
 .step-badge {
@@ -291,27 +267,108 @@ body {
   background: var(--surface-2); border: 1px solid var(--line); border-radius: 4px; padding: 2px 8px;
 }
 
+/* ─── DELIVERY ROADMAP ─── */
+.rm-phase-group { margin-bottom: 28px; }
+.rm-phase-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+  font-family: "JetBrains Mono", monospace; font-size: .65rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--muted-2);
+}
+.rm-phase-header .rm-ph-bar { height: 1px; flex: 1; background: var(--line); }
+.rm-phase-header .rm-ph-badge {
+  padding: 3px 10px; border-radius: 5px; border: 1px solid; font-size: .58rem;
+}
+.rm-phase-header .rm-ph-badge.p1 { color: var(--green); border-color: rgba(63,185,80,.3); background: rgba(63,185,80,.08); }
+.rm-phase-header .rm-ph-badge.p2 { color: var(--amber); border-color: rgba(210,153,34,.3); background: rgba(210,153,34,.08); }
+.rm-phase-header .rm-ph-badge.p3 { color: var(--ba); border-color: rgba(88,166,255,.3); background: var(--ba-dim); }
+.rm-tickets { display: flex; flex-wrap: wrap; gap: 8px; }
+.rm-ticket {
+  flex: 1; min-width: 180px; max-width: 240px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-left: 3px solid var(--c, var(--muted-2));
+  border-radius: 8px; padding: 14px 16px;
+  position: relative; overflow: hidden;
+}
+.rm-ticket::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(200px 150px at 100% 0%, var(--glow,transparent), transparent 70%);
+}
+.rm-ticket-id {
+  font-family: "JetBrains Mono", monospace; font-size: .62rem; letter-spacing: .08em;
+  color: var(--c, var(--muted)); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;
+}
+.rm-ticket-status {
+  font-family: "JetBrains Mono", monospace; font-size: .5rem; letter-spacing: .06em;
+  padding: 1px 6px; border-radius: 3px; text-transform: uppercase; margin-left: auto;
+}
+.rm-ticket-status.pushed { background: rgba(63,185,80,.12); color: var(--green); border: 1px solid rgba(63,185,80,.2); }
+.rm-ticket-status.draft { background: rgba(210,153,34,.1); color: var(--amber); border: 1px solid rgba(210,153,34,.2); }
+.rm-ticket-title { font-size: .84rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.rm-ticket-scope { font-size: .75rem; color: var(--muted); line-height: 1.45; }
+.rm-ticket-cmd {
+  margin-top: 8px; font-family: "JetBrains Mono", monospace; font-size: .7rem;
+  color: var(--c, var(--muted-2)); opacity: .8;
+}
+
+/* ─── PERSONA IMPACT ─── */
+.persona-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
+  background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+}
+.persona-card {
+  background: var(--surface); padding: 28px 24px; position: relative; overflow: hidden;
+}
+.persona-card::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--c, var(--muted-2));
+}
+.persona-card::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(300px 200px at 80% 0%, var(--glow, transparent), transparent 70%);
+}
+.persona-tag {
+  font-family: "JetBrains Mono", monospace; font-size: .58rem; letter-spacing: .14em;
+  text-transform: uppercase; padding: 3px 9px; border-radius: 5px; border: 1px solid;
+  display: inline-block; margin-bottom: 12px; font-weight: 700;
+  color: var(--c); border-color: var(--bc); background: var(--bg-c);
+}
+.persona-name {
+  font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 1rem;
+  margin-bottom: 3px; color: var(--text);
+}
+.persona-role { font-size: .78rem; color: var(--muted); margin-bottom: 16px; line-height: 1.4; }
+.persona-wins { list-style: none; padding: 0; margin: 0 0 18px; display: flex; flex-direction: column; gap: 7px; }
+.persona-wins li {
+  font-size: .8rem; color: var(--muted); line-height: 1.45; padding-left: 16px;
+  position: relative;
+}
+.persona-wins li::before {
+  content: "→"; position: absolute; left: 0; color: var(--c); font-size: .7rem; font-weight: 700;
+  font-family: "JetBrains Mono", monospace;
+}
+.persona-wins li strong { color: var(--text); font-weight: 500; }
+.persona-metrics { display: flex; gap: 10px; flex-wrap: wrap; }
+.persona-metric {
+  font-family: "Space Grotesk", sans-serif; font-weight: 800;
+  font-size: 1.35rem; line-height: 1; letter-spacing: -.03em;
+  color: var(--c); background: var(--bg-c); border: 1px solid var(--bc);
+  padding: 6px 12px; border-radius: 8px; display: flex; flex-direction: column; gap: 2px;
+}
+.persona-metric span { font-family: "Inter", sans-serif; font-weight: 400; font-size: .65rem; color: var(--muted); letter-spacing: 0; }
+
 /* ─── IMPACT METRICS ─── */
 .metrics-grid {
   display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
   background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
 }
-.metric-card {
-  background: var(--surface); padding: 32px 28px;
-  position: relative; overflow: hidden;
-}
+.metric-card { background: var(--surface); padding: 32px 28px; position: relative; overflow: hidden; }
 .metric-card::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background: radial-gradient(300px 200px at 80% 0%, var(--glow,transparent), transparent 70%);
 }
-.mc-label {
-  font-family: "JetBrains Mono", monospace; font-size: .6rem; letter-spacing: .2em;
-  text-transform: uppercase; color: var(--muted-2); margin-bottom: 14px;
-}
+.mc-label { font-family: "JetBrains Mono", monospace; font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted-2); margin-bottom: 14px; }
 .mc-num {
   font-family: "Space Grotesk", sans-serif; font-size: clamp(2.4rem, 4vw, 3.4rem);
-  font-weight: 800; line-height: 1; letter-spacing: -.04em;
-  color: var(--c, var(--text)); margin-bottom: 8px;
+  font-weight: 800; line-height: 1; letter-spacing: -.04em; color: var(--c, var(--text)); margin-bottom: 8px;
 }
 .mc-title { font-size: .92rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
 .mc-body { font-size: .8rem; color: var(--muted); line-height: 1.55; }
@@ -360,27 +417,20 @@ body {
   padding: 22px 28px; display: flex; align-items: center; gap: 28px; flex-wrap: wrap;
   margin-top: 28px;
 }
-.saving-strip .ss-num {
-  font-family: "Space Grotesk", sans-serif; font-size: 3rem; font-weight: 800;
-  color: var(--green); line-height: 1; letter-spacing: -.04em; white-space: nowrap;
-}
+.saving-strip .ss-num { font-family: "Space Grotesk", sans-serif; font-size: 3rem; font-weight: 800; color: var(--green); line-height: 1; letter-spacing: -.04em; white-space: nowrap; }
 .saving-strip .ss-body { font-size: .9rem; color: var(--muted); line-height: 1.6; }
 .saving-strip .ss-body strong { color: var(--text); }
 
 /* ─── QUALITY CHAIN ─── */
 .chain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-.chain-col-title {
-  font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 1.05rem;
-  margin-bottom: 24px; color: var(--text);
-}
+.chain-col-title { font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 24px; color: var(--text); }
 .chain-steps { display: flex; flex-direction: column; gap: 0; }
 .cs-item { display: grid; grid-template-columns: 44px 1fr; align-items: stretch; }
 .cs-spine { display: flex; flex-direction: column; align-items: center; }
 .cs-dot {
   width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  font-family: "JetBrains Mono", monospace; font-size: .6rem; font-weight: 700;
-  z-index: 1;
+  font-family: "JetBrains Mono", monospace; font-size: .6rem; font-weight: 700; z-index: 1;
 }
 .cs-dot.ba { background: var(--ba-dim); color: var(--ba); border: 1px solid rgba(88,166,255,.35); }
 .cs-dot.dev { background: var(--dev-dim); color: var(--dev); border: 1px solid rgba(255,123,57,.3); }
@@ -391,8 +441,7 @@ body {
 .cs-desc { font-size: .8rem; color: var(--muted); line-height: 1.5; }
 .cs-desc code {
   font-family: "JetBrains Mono", monospace; font-size: .82em;
-  background: var(--surface-2); padding: 1px 5px; border-radius: 3px;
-  color: #8b949e; border: 1px solid var(--line);
+  background: var(--surface-2); padding: 1px 5px; border-radius: 3px; color: #8b949e; border: 1px solid var(--line);
 }
 .risk-list { display: flex; flex-direction: column; gap: 10px; }
 .risk-item {
@@ -405,9 +454,7 @@ body {
   font-family: "JetBrains Mono", monospace; font-size: .82em;
   background: var(--surface); padding: 1px 5px; border-radius: 3px; color: #8b949e;
 }
-.risk-item.blocker {
-  border-left-color: var(--red); background: rgba(248,81,73,.05);
-}
+.risk-item.blocker { border-left-color: var(--red); background: rgba(248,81,73,.05); }
 .risk-item.blocker .ri-title { color: var(--red); }
 .risk-item .ri-severity {
   font-family: "JetBrains Mono", monospace; font-size: .55rem; letter-spacing: .12em;
@@ -420,10 +467,7 @@ body {
 .phase-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
 .phase-card { background: var(--surface); padding: 28px 24px; position: relative; }
 .phase-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--c); }
-.phase-card .pc-num {
-  font-family: "JetBrains Mono", monospace; font-size: .65rem; letter-spacing: .22em;
-  text-transform: uppercase; color: var(--muted-2); margin-bottom: 10px;
-}
+.phase-card .pc-num { font-family: "JetBrains Mono", monospace; font-size: .65rem; letter-spacing: .22em; text-transform: uppercase; color: var(--muted-2); margin-bottom: 10px; }
 .phase-card .pc-title { font-family: "Space Grotesk", sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 16px; color: var(--text); }
 .phase-card .pc-cmds { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
 .phase-card .pc-cmd {
@@ -432,13 +476,15 @@ body {
   padding: 5px 10px; color: var(--muted); display: flex; align-items: center; gap: 6px;
 }
 .phase-card .pc-cmd .cmd-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; background: var(--c); }
+.phase-card .pc-tickets { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 14px; }
+.phase-card .pc-ticket {
+  font-family: "JetBrains Mono", monospace; font-size: .55rem; letter-spacing: .04em;
+  padding: 2px 7px; border-radius: 4px; background: var(--surface-2); border: 1px solid var(--line); color: var(--muted-2);
+}
 .phase-card .pc-desc { font-size: .8rem; color: var(--muted); line-height: 1.5; }
 
 /* ─── FOOTER ─── */
-footer {
-  border-top: 1px solid var(--line); padding: 32px 0 60px;
-  color: var(--muted-2); font-size: .8rem; line-height: 1.6;
-}
+footer { border-top: 1px solid var(--line); padding: 32px 0 60px; color: var(--muted-2); font-size: .8rem; line-height: 1.6; }
 footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 
 /* ─── RESPONSIVE ─── */
@@ -446,6 +492,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
   .asym-grid { grid-template-columns: 1fr; }
   .asym-side.ba-side { border-right: none; border-bottom: 1px solid var(--line); }
   .metrics-grid { grid-template-columns: 1fr 1fr; }
+  .persona-grid { grid-template-columns: 1fr 1fr; }
   .chain-grid { grid-template-columns: 1fr; }
   .phase-row { grid-template-columns: 1fr; }
   .pf-step { grid-template-columns: 40px 180px 1fr; }
@@ -455,11 +502,13 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
   .tchart-row { grid-template-columns: 1fr 52px; }
   .tchart-label { display: none; }
   .metrics-grid { grid-template-columns: 1fr; }
+  .persona-grid { grid-template-columns: 1fr; }
   .pf-step { grid-template-columns: 40px 1fr; }
   .pf-step-cmd { border-right: none; }
   .cc-row { grid-template-columns: 1fr; }
   .cc-label { text-align: left; }
   .hero-numbers { gap: 24px; }
+  .rm-ticket { max-width: 100%; }
 }
 </style>
 </head>
@@ -468,34 +517,41 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 <!-- ══════════ HERO ══════════ -->
 <div class="wrap">
 <section class="hero">
-  <p class="hero-eyebrow">FlowForge · BA/PO Pipeline Proposal</p>
+  <p class="hero-eyebrow">FlowForge · CIL-6148 · BA/PO Upstream Pipeline</p>
   <h1>Closing the <em>upstream gap</em></h1>
   <p class="hero-sub">
-    FlowForge accelerates engineering with 15 agents across 5 steps.
-    The BA phase has <strong style="color:var(--amber)">3 agents</strong> in <code style="font-family:'JetBrains Mono';color:var(--ba);font-size:.9em">.require</code> — all operating <em>after</em> the spec is written.
-    The 6–10 hours before the spec exists have no tooling. And non-technical BAs face a hidden git barrier before they can even start.
-    The proposal consolidates discovery, research, and ideation into a single <code style="font-family:'JetBrains Mono';color:var(--ba);font-size:.9em">/ff.discover</code> command, expands <code style="font-family:'JetBrains Mono';color:var(--ba);font-size:.9em">/ff.require</code> to 5 phases with 10 agents, and adds live-facilitated refinement and a 13-section living PRD.
+    The dev pipeline has 15 agents across 4 commands. The BA phase had 3 — all post-spec-capture.
+    The 6–10 hours before a spec exists had no tooling. This proposal delivers <strong style="color:var(--ba)">5 BA commands</strong> across <strong style="color:var(--ba)">10 CIL tasks</strong>, extending spec-driven development upstream to problem framing, discovery, live refinement, and a 13-section living PRD — with measurable impact for <strong style="color:var(--purple)">6 distinct personas</strong>.
   </p>
   <div class="hero-numbers reveal">
     <div class="hero-stat">
       <div class="hs-num" style="color:var(--amber)" data-target="3">3</div>
-      <div class="hs-label">agents on .require today</div>
+      <div class="hs-label">BA agents today</div>
     </div>
     <div class="hero-divider"></div>
     <div class="hero-stat">
-      <div class="hs-num thirteen" data-target="15">15</div>
-      <div class="hs-label">agents on dev pipeline</div>
+      <div class="hs-num thirteen" data-target="10">10</div>
+      <div class="hs-label">CIL tasks (CIL-6851–6860)</div>
     </div>
     <div class="hero-divider"></div>
     <div class="hero-stat">
-      <div class="hs-num" style="color:var(--ba)" data-target="4">4</div>
-      <div class="hs-label">new BA commands proposed</div>
+      <div class="hs-num" style="color:var(--ba)" data-target="5">5</div>
+      <div class="hs-label">new BA commands</div>
     </div>
     <div class="hero-divider"></div>
     <div class="hero-stat">
-      <div class="hs-num" style="color:var(--purple)" data-target="13">13</div>
+      <div class="hs-num" style="color:var(--purple)" data-target="6">6</div>
+      <div class="hs-label">personas impacted</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="hs-num" style="color:var(--green)" data-target="13">13</div>
       <div class="hs-label">PRD sections (living doc)</div>
     </div>
+  </div>
+  <div class="scroll-hint">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.5L3 5.5h10L8 10.5z"/></svg>
+    scroll
   </div>
 </section>
 </div>
@@ -521,8 +577,8 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
     <strong style="color:var(--red)">Git barrier — critical adoption blocker for non-technical BAs/POs:</strong>
     FlowForge requires two manual git operations that most BAs have never done.
     <strong>(1) Pull before every step:</strong> <code>git pull origin master</code> must be run manually before starting any new feature. Forgetting it is silent — no error, just stale context.
-    <strong>(2) Branch dependency trap:</strong> <code>/flowforge.require</code> creates a feature branch immediately from whatever the current HEAD is. If feature A's branch hasn't been merged yet, feature B's branch is parented on A — creating an implicit dependency that isn't visible until <code>.plan</code> or <code>.build</code> fails on unrelated changes. A non-git user has no way to know this is happening.
-    Neither issue is in scope for the current BA pipeline proposal, but both must be resolved before non-technical BAs can run FlowForge independently.
+    <strong>(2) Branch dependency trap:</strong> <code>/flowforge.require</code> creates a feature branch immediately from whatever the current HEAD is. If feature A's branch hasn't been merged yet, feature B's branch is parented on A — creating an implicit dependency that isn't visible until <code>.plan</code> or <code>.build</code> fails on unrelated changes.
+    Addressed by <code>/ff.start</code> (US-001 of CIL-6148), implemented as part of the FlowForge infrastructure.
   </div>
 
   <div class="asym-grid reveal-up">
@@ -553,7 +609,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
       <div class="asym-header">
         <div>
           <div class="asym-big thirteen">15</div>
-          <div class="asym-big-label">agents across 4 steps</div>
+          <div class="asym-big-label">agents across 4 dev steps</div>
         </div>
         <span class="asym-zone dev">Dev</span>
       </div>
@@ -628,7 +684,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 <div class="wrap">
   <p class="s-label reveal">The proposal</p>
   <h2 class="s-title reveal">The full pipeline — proposed</h2>
-  <p class="s-note reveal">Four new commands + one enhanced command extend the BA pipeline. A new pre-flight step eliminates the git barrier for non-technical users. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.discover</code> consolidates discovery, research, and ideation into 3 phases in a single command. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.require</code> expands to 5 phases including decomposition and agenda building. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.refine</code> facilitates live refinement meetings. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.prd</code> produces a 13-section living document that persists through the full pipeline.</p>
+  <p class="s-note reveal">Five BA commands extend the pipeline upstream. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.start</code> eliminates the git barrier. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.discover</code> covers problem framing, research, and ideation. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.require</code> expands to 8 agents and 5 phases including decomposition and agenda building. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.refine</code> facilitates live meetings. <code style="font-family:'JetBrains Mono';color:var(--ba)">/ff.prd</code> produces a 13-section living PRD published to Confluence.</p>
 
   <div class="pipeline-flow reveal-up">
     <div class="pf-zone-label" style="color:var(--muted);"><span>Pre-flight — git barrier elimination</span><div class="pz-bar" style="background:linear-gradient(90deg,var(--muted),transparent)"></div></div>
@@ -638,10 +694,10 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
         <div class="pf-step-num" style="color:var(--red)">00</div>
         <div class="pf-step-cmd">
           <div class="pf-step-name"><span class="slash" style="color:var(--red)">/ff.</span>start</div>
-          <span class="step-badge badge-new" style="background:rgba(248,81,73,.12);color:var(--red);border-color:rgba(248,81,73,.3)">new · blocker fix</span>
+          <span class="step-badge badge-new" style="background:rgba(248,81,73,.12);color:var(--red);border-color:rgba(248,81,73,.3)">new · US-001</span>
         </div>
         <div class="pf-step-desc">
-          <div>Eliminates the two git blockers for non-technical users. <strong>Pulls latest master automatically</strong> — no manual <code>git pull</code> required. <strong>Checks for unmerged branches:</strong> if a prior feature branch exists and hasn't been merged, warns the user before creating a new one — preventing silent branch dependency traps. Creates the feature branch from a clean, up-to-date HEAD.</div>
+          <div>Eliminates two git blockers for non-technical users. <strong>Pulls latest master automatically</strong> — no manual <code>git pull</code>. <strong>Branch conflict check:</strong> warns before creating a new branch if a prior feature branch hasn't merged — prevents silent branch dependency traps.</div>
           <div class="pf-agents"><span class="pf-agent-chip">Git Pre-flight</span><span class="pf-agent-chip">Branch Conflict Detector</span></div>
         </div>
         <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">clean branch</span><span class="pf-out">automated</span></div>
@@ -655,90 +711,76 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
         <div class="pf-step-num">01</div>
         <div class="pf-step-cmd">
           <div class="pf-step-name"><span class="slash">/ff.</span>discover</div>
-          <span class="step-badge badge-new">new · 3 phases</span>
+          <span class="step-badge badge-new">new · CIL-6851</span>
         </div>
         <div class="pf-step-desc">
-          <div><strong>All of discovery, research, and ideation in one command — 3 phases:</strong></div>
-          <div style="font-size:.8rem;color:var(--muted);margin:4px 0 2px"><strong style="color:var(--text)">Phase 1 (sequential):</strong> Agent-driven interview frames the business problem before any spec writing starts. Forces articulation of success metrics, user impact, regulatory constraints → writes <code>0-discovery.md</code></div>
-          <div style="font-size:.8rem;color:var(--muted);margin:4px 0 2px"><strong style="color:var(--text)">Phase 2 (parallel):</strong> Confluence Scanner + Jira Linker (4 search dimensions, comment threads + child ticket comments) + Pattern Scout → Research Synthesiser → writes <code>0-research.md</code></div>
-          <div style="font-size:.8rem;color:var(--muted);margin:4px 0 6px"><strong style="color:var(--text)">Phase 3:</strong> Option generators produce 3–4 structured options (fast-to-ship vs. clean architecture vs. lowest risk). Recommender proposes preferred option. Lane Estimator attaches cost signal. BA picks one → writes <code>0-options.md</code></div>
+          <div><strong>3 phases, 10 agents — problem framing, research, and ideation in one command:</strong></div>
+          <div style="font-size:.8rem;color:var(--muted);margin:4px 0 2px"><strong style="color:var(--text)">Phase 1 (sequential):</strong> Problem Framer interview → Journey Mapper → Value Validator → Risk Spotter. Writes <code>0-discovery.md</code>.</div>
+          <div style="font-size:.8rem;color:var(--muted);margin:4px 0 2px"><strong style="color:var(--text)">Phase 2 (parallel):</strong> Confluence Scanner (with <code>eval.json</code> cross-feature context) + Jira Linker (4 dimensions + comment threads) + Pattern Scout → Research Synthesiser. Writes <code>0-research.md</code>.</div>
+          <div style="font-size:.8rem;color:var(--muted);margin:4px 0 6px"><strong style="color:var(--text)">Phase 3:</strong> Option Generators (fast-to-ship / clean-architecture / lowest-risk) → Recommender with rationale → Lane Estimator. Writes <code>0-options.md</code>.</div>
           <div class="pf-agents">
-            <span class="pf-agent-chip">Problem Framer</span>
-            <span class="pf-agent-chip">Journey Mapper</span>
-            <span class="pf-agent-chip">Value Validator</span>
-            <span class="pf-agent-chip">Risk Spotter</span>
-            <span class="pf-agent-chip">Confluence Scanner</span>
-            <span class="pf-agent-chip">Jira Linker ×4 dims</span>
-            <span class="pf-agent-chip">Pattern Scout</span>
-            <span class="pf-agent-chip">Research Synthesiser</span>
-            <span class="pf-agent-chip">Option Generators</span>
-            <span class="pf-agent-chip">Recommender</span>
+            <span class="pf-agent-chip">Problem Framer</span><span class="pf-agent-chip">Journey Mapper</span>
+            <span class="pf-agent-chip">Value Validator</span><span class="pf-agent-chip">Risk Spotter</span>
+            <span class="pf-agent-chip">Confluence Scanner</span><span class="pf-agent-chip">Jira Linker ×4 dims</span>
+            <span class="pf-agent-chip">Pattern Scout</span><span class="pf-agent-chip">Research Synthesiser</span>
+            <span class="pf-agent-chip">Option Generators</span><span class="pf-agent-chip">Recommender</span>
             <span class="pf-agent-chip">Lane Estimator</span>
           </div>
         </div>
-        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">0-discovery.md</span><span class="pf-out">0-research.md</span><span class="pf-out">0-options.md</span><span class="pf-out">10 agents total</span></div>
+        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">0-discovery.md</span><span class="pf-out">0-research.md</span><span class="pf-out">0-options.md</span><span class="pf-out">10 agents</span></div>
       </div>
       <div class="pf-step ba-step">
         <div class="pf-step-num">02</div>
         <div class="pf-step-cmd">
           <div class="pf-step-name"><span class="slash">/ff.</span>require</div>
-          <span class="step-badge badge-enhanced">enhanced · 5 phases</span>
+          <span class="step-badge badge-enhanced">enhanced · CIL-6852–55, 59</span>
         </div>
         <div class="pf-step-desc">
-          <div><strong>Spec capture through decomposition and agenda building — 5 phases:</strong></div>
-          <div style="font-size:.8rem;color:var(--muted);margin:4px 0 2px"><strong style="color:var(--text)">Phases 1–3:</strong> Existing spec capture (guided prompts, unchanged)</div>
-          <div style="font-size:.8rem;color:var(--muted);margin:4px 0 2px"><strong style="color:var(--text)">Phase 2 review panel (8 agents):</strong> 3 existing agents (Gap Reviewer, Self-Review, QA Author) + 5 new specialist agents (Completeness Auditor, Edge Case Hunter, Ambiguity Detector, GDPR Probe, Scope Guard). Catches ambiguity, missing edge cases, GDPR implications before the dev pipeline sees it.</div>
-          <div style="font-size:.8rem;color:var(--muted);margin:4px 0 2px"><strong style="color:var(--text)">Phase 4 — Decomposition Assessor:</strong> Evaluates spec, proposes sub-tickets if warranted, writes <code>0-split-map.md</code> and sub-specs. Decomposition is built-in — there is no standalone /ff.split command.</div>
-          <div style="font-size:.8rem;color:var(--muted);margin:4px 0 6px"><strong style="color:var(--text)">Phase 5 — Agenda Builder:</strong> Writes <code>0-refine-agenda.md</code> with unresolved review findings as numbered agenda items with suggested resolutions. Creates Jira ticket(s) with Refinement Brief (Why/What) + Solution Options + ACs + Refinement Agenda embedded.</div>
+          <div><strong>5 phases, 8-agent review panel:</strong></div>
+          <div style="font-size:.8rem;color:var(--muted);margin:4px 0 2px"><strong style="color:var(--text)">Phases 1–3:</strong> Existing spec capture (guided prompts, unchanged).</div>
+          <div style="font-size:.8rem;color:var(--muted);margin:4px 0 2px"><strong style="color:var(--text)">Phase 2 review panel (8 agents, CIL-6852–54):</strong> 3 existing agents + 5 new specialists (Completeness Auditor, Edge Case Hunter, Ambiguity Detector, GDPR Probe, Scope Guard). Catches ambiguity, edge cases, GDPR implications before dev pipeline.</div>
+          <div style="font-size:.8rem;color:var(--muted);margin:4px 0 2px"><strong style="color:var(--text)">Phase 4 — Decomposition (CIL-6855):</strong> Decomposition Assessor proposes sub-tickets if warranted; writes <code>0-split-map.md</code>. No standalone /ff.split command.</div>
+          <div style="font-size:.8rem;color:var(--muted);margin:4px 0 6px"><strong style="color:var(--text)">Phase 5 — Agenda Builder (CIL-6859):</strong> Writes <code>0-refine-agenda.md</code> with unresolved review findings as numbered agenda items with suggested resolutions. Creates Jira ticket(s) with Refinement Brief.</div>
           <div class="pf-agents">
-            <span class="pf-agent-chip existing">Gap Reviewer ✓</span>
-            <span class="pf-agent-chip existing">Self-Review ✓</span>
-            <span class="pf-agent-chip existing">QA Author ✓</span>
-            <span class="pf-agent-chip">Completeness Auditor</span>
-            <span class="pf-agent-chip">Edge Case Hunter</span>
-            <span class="pf-agent-chip">Ambiguity Detector</span>
-            <span class="pf-agent-chip">GDPR Probe</span>
-            <span class="pf-agent-chip">Scope Guard</span>
-            <span class="pf-agent-chip">Decomposition Assessor</span>
-            <span class="pf-agent-chip">Agenda Builder</span>
+            <span class="pf-agent-chip existing">Gap Reviewer ✓</span><span class="pf-agent-chip existing">Self-Review ✓</span>
+            <span class="pf-agent-chip existing">QA Author ✓</span><span class="pf-agent-chip">Completeness Auditor</span>
+            <span class="pf-agent-chip">Edge Case Hunter</span><span class="pf-agent-chip">Ambiguity Detector</span>
+            <span class="pf-agent-chip">GDPR Probe</span><span class="pf-agent-chip">Scope Guard</span>
+            <span class="pf-agent-chip">Decomposition Assessor</span><span class="pf-agent-chip">Agenda Builder</span>
           </div>
         </div>
-        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">1-spec.md</span><span class="pf-out">0-split-map.md</span><span class="pf-out">0-refine-agenda.md</span><span class="pf-out">10 agents (3 existing + 7 new)</span></div>
+        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">1-spec.md</span><span class="pf-out">0-split-map.md</span><span class="pf-out">0-refine-agenda.md</span><span class="pf-out">8 agents (3+5)</span></div>
       </div>
       <div class="pf-step ba-step">
         <div class="pf-step-num">03</div>
         <div class="pf-step-cmd">
           <div class="pf-step-name"><span class="slash">/ff.</span>refine</div>
-          <span class="step-badge badge-new">new · live facilitation</span>
+          <span class="step-badge badge-new">new · CIL-6856</span>
         </div>
         <div class="pf-step-desc">
-          <div><strong>Live meeting facilitation — not a prep tool, not a sync tool.</strong> Loads <code>0-refine-agenda.md</code> built by /ff.require and guides the session item by item in real time.</div>
-          <div style="font-size:.8rem;color:var(--muted);margin:4px 0 6px">Agenda items presented with numbered suggested resolutions + custom/defer options. Architectural option selection with custom option support. Transcript upload offered after all items resolved. Spec Editor applies atomic changes. Jira Sync enforces full hierarchy (theme→initiative→epic→task, no orphans). /ff.prd runs automatically as the final step.</div>
-          <div class="pf-agents">
-            <span class="pf-agent-chip">Agenda Facilitator</span>
-            <span class="pf-agent-chip">Spec Editor</span>
-            <span class="pf-agent-chip">Jira Sync</span>
-          </div>
+          <div><strong>Live meeting facilitation — not a prep tool, not a sync tool.</strong> Loads <code>0-refine-agenda.md</code> and guides the session item by item in real time.</div>
+          <div style="font-size:.8rem;color:var(--muted);margin:4px 0 6px">Agenda items presented with numbered suggested resolutions. Architectural option selection. Transcript upload offered. Spec Editor applies atomic changes. Jira Sync enforces full hierarchy. <code>/ff.prd</code> runs automatically as the final step when <code>prd.enabled = true</code>.</div>
+          <div class="pf-agents"><span class="pf-agent-chip">Agenda Facilitator</span><span class="pf-agent-chip">Spec Editor</span><span class="pf-agent-chip">Jira Sync</span></div>
         </div>
-        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">updated 1-spec.md</span><span class="pf-out">Jira hierarchy</span><span class="pf-out">→ triggers /ff.prd</span></div>
+        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">updated 1-spec.md</span><span class="pf-out">0-meeting-log.md</span><span class="pf-out">→ triggers /ff.prd</span></div>
       </div>
       <div class="pf-step ba-step">
         <div class="pf-step-num">04</div>
         <div class="pf-step-cmd">
           <div class="pf-step-name"><span class="slash">/ff.</span>prd</div>
-          <span class="step-badge badge-new">new · living doc</span>
+          <span class="step-badge badge-new">new · CIL-6857</span>
         </div>
         <div class="pf-step-desc">
-          <div>Assembles all pipeline artifacts into a <strong>full 13-section PRD</strong> — publishes to Confluence automatically, stores URL in status.json. <strong>Living document:</strong> auto-updates on any engineering phase that modifies 1-spec.md. Triggered automatically at end of /ff.refine; can also run standalone.</div>
+          <div>Reads <code>0-eval.json</code> as primary input and assembles a <strong>full 13-section PRD</strong> — publishes to Confluence as ADF. <strong>Living document:</strong> auto-updates at refine end, build phase-close, verify complete, and review complete (when <code>prd.enabled = true</code>). Uploads <code>eval.json</code> as attachment for cross-feature discovery.</div>
           <div class="pf-agents"><span class="pf-agent-chip">Document Assembler</span><span class="pf-agent-chip">Confluence Publisher</span></div>
         </div>
-        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">Confluence PRD (13 sections)</span><span class="pf-out">status.json URL</span><span class="pf-out">auto-updates</span></div>
+        <div class="pf-step-meta"><span class="pf-owner ba">BA / PO</span><span class="pf-out">0-prd.md</span><span class="pf-out">Confluence (13 sections)</span><span class="pf-out">eval.json attachment</span></div>
       </div>
     </div>
 
     <div class="pf-handoff reveal">
       <div class="ph-icon">⇣</div>
-      <div><strong>Handoff to dev pipeline</strong> — only after spec has passed the full BA review panel (8 agents) + decomposition assessment. Lane suggestion pre-calculated from /ff.discover Phase 3 options output.</div>
+      <div><strong>Handoff to dev pipeline</strong> — spec has passed the full 8-agent BA review panel + decomposition assessment. Lane signal pre-calculated from /ff.discover Phase 3.</div>
     </div>
 
     <div class="pf-zone-label dev-zone"><span>Dev zone — existing pipeline, unchanged</span><div class="pz-bar"></div></div>
@@ -746,13 +788,13 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
       <div class="pf-step dev-step">
         <div class="pf-step-num">05</div>
         <div class="pf-step-cmd"><div class="pf-step-name"><span class="slash">/ff.</span>lane</div><span class="step-badge badge-existing">existing</span></div>
-        <div class="pf-step-desc">Auto-detect or assign process lane. Now informed by /ff.discover Phase 3 options output — lane arrives pre-calculated.</div>
+        <div class="pf-step-desc">Lane arrives pre-calculated from /ff.discover Phase 3 options. Lane discussion at .plan is already informed.</div>
         <div class="pf-step-meta"><span class="pf-owner dev">Dev</span></div>
       </div>
       <div class="pf-step dev-step">
         <div class="pf-step-num">06</div>
         <div class="pf-step-cmd"><div class="pf-step-name"><span class="slash">/ff.</span>plan</div><span class="step-badge badge-existing">existing</span></div>
-        <div class="pf-step-desc">Technical plan + 6-agent review. <strong>Higher-quality spec = fewer plan iterations.</strong></div>
+        <div class="pf-step-desc">Technical plan + 6-agent review. Higher-quality spec = fewer plan iterations. CRITICAL gaps now caught upstream.</div>
         <div class="pf-step-meta"><span class="pf-owner dev">Dev</span><span class="pf-out">6 agents</span></div>
       </div>
       <div class="pf-step dev-step">
@@ -762,12 +804,243 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
         <div class="pf-step-meta"><span class="pf-owner dev">Dev</span><span class="pf-out">3 agents</span></div>
       </div>
       <div class="pf-step dev-step">
-        <div class="pf-step-num">08–10</div>
-        <div class="pf-step-cmd"><div class="pf-step-name"><span class="slash">/ff.</span>build · verify · fix</div><span class="step-badge badge-existing">existing</span></div>
-        <div class="pf-step-desc">TDD code generation, spec compliance verification, auto-fix. Unchanged — but operating on a verified, complete spec. PRD auto-updates whenever 1-spec.md is modified here.</div>
-        <div class="pf-step-meta"><span class="pf-owner dev">Dev</span><span class="pf-out">6 agents</span></div>
+        <div class="pf-step-num">08</div>
+        <div class="pf-step-cmd"><div class="pf-step-name"><span class="slash">/ff.</span>build</div><span class="step-badge badge-existing">existing + CIL-6858, 6860</span></div>
+        <div class="pf-step-desc">TDD pipeline. At build end: qa-author runs AUTOMATION-CREATE with mock split (CIL-6858); AUT tickets auto-created from MOCK_SPLIT report (CIL-6860). PRD auto-updates on 1-spec.md changes.</div>
+        <div class="pf-step-meta"><span class="pf-owner dev">Dev</span><span class="pf-out">2 agents</span><span class="pf-out">AUT tickets auto</span></div>
+      </div>
+      <div class="pf-step dev-step">
+        <div class="pf-step-num">09–10</div>
+        <div class="pf-step-cmd"><div class="pf-step-name"><span class="slash">/ff.</span>verify · fix</div><span class="step-badge badge-existing">existing</span></div>
+        <div class="pf-step-desc">Spec compliance verification and auto-fix. PRD auto-updates at verify complete. Label advances to "Verified Spec".</div>
+        <div class="pf-step-meta"><span class="pf-owner dev">Dev</span><span class="pf-out">4 agents</span></div>
       </div>
     </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ ROADMAP ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">Delivery roadmap</p>
+  <h2 class="s-title reveal">10 CIL tasks — CIL-6851 to CIL-6860</h2>
+  <p class="s-note reveal">Grouped into three delivery phases. Each phase validates the model for the next. Phase 1 ships quick wins with the highest trust and lowest change risk. Phases 2 and 3 build on confirmed adoption.</p>
+
+  <div class="reveal-up">
+    <!-- Phase 1 -->
+    <div class="rm-phase-group">
+      <div class="rm-phase-header">
+        <span>Phase 1 — Foundation &amp; quick wins</span>
+        <span class="rm-ph-badge p1">mechanical · high-trust · ships first</span>
+        <div class="rm-ph-bar"></div>
+      </div>
+      <div class="rm-tickets">
+        <div class="rm-ticket" style="--c:var(--green);--glow:var(--green-glow)">
+          <div class="rm-ticket-id">CIL-6852 <span class="rm-ticket-status draft">draft</span></div>
+          <div class="rm-ticket-title">/ff.require — Gap Reviewer</div>
+          <div class="rm-ticket-scope">Explore sub-agent Phase 1 enhancement. Structured gap-finding before self-review.</div>
+          <div class="rm-ticket-cmd">/ff.require phase 1</div>
+        </div>
+        <div class="rm-ticket" style="--c:var(--green);--glow:var(--green-glow)">
+          <div class="rm-ticket-id">CIL-6853 <span class="rm-ticket-status draft">draft</span></div>
+          <div class="rm-ticket-title">/ff.require — Phase 2</div>
+          <div class="rm-ticket-scope">Self-Review + QA Author phase updates. DRAFT QA scenarios at end of require.</div>
+          <div class="rm-ticket-cmd">/ff.require phase 2–3</div>
+        </div>
+        <div class="rm-ticket" style="--c:var(--green);--glow:var(--green-glow)">
+          <div class="rm-ticket-id">CIL-6854 <span class="rm-ticket-status draft">draft</span></div>
+          <div class="rm-ticket-title">/ff.require — Specialist Agents</div>
+          <div class="rm-ticket-scope">5 new parallel specialist reviewers: Completeness, Edge Case Hunter, Ambiguity Detector, GDPR Probe, Scope Guard.</div>
+          <div class="rm-ticket-cmd">/ff.require phase 2 panel</div>
+        </div>
+        <div class="rm-ticket" style="--c:var(--green);--glow:var(--green-glow)">
+          <div class="rm-ticket-id">CIL-6855 <span class="rm-ticket-status draft">draft</span></div>
+          <div class="rm-ticket-title">/ff.require — Decomposition</div>
+          <div class="rm-ticket-scope">Decomposition Assessor Phase 4. Evaluates spec, proposes sub-tickets, writes 0-split-map.md. No standalone /ff.split.</div>
+          <div class="rm-ticket-cmd">/ff.require phase 4</div>
+        </div>
+        <div class="rm-ticket" style="--c:var(--green);--glow:var(--green-glow)">
+          <div class="rm-ticket-id">CIL-6859 <span class="rm-ticket-status pushed">pushed</span></div>
+          <div class="rm-ticket-title">/ff.require — Agenda Builder</div>
+          <div class="rm-ticket-scope">Phase 5: distils unresolved review findings into numbered agenda items with suggested resolutions. Creates Jira ticket with Refinement Brief.</div>
+          <div class="rm-ticket-cmd">/ff.require phase 5</div>
+        </div>
+        <div class="rm-ticket" style="--c:var(--green);--glow:var(--green-glow)">
+          <div class="rm-ticket-id">CIL-6857 <span class="rm-ticket-status draft">draft</span></div>
+          <div class="rm-ticket-title">/ff.prd — Living PRD</div>
+          <div class="rm-ticket-scope">13-section PRD from 0-eval.json. Publishes to Confluence as ADF. Auto-updates across pipeline. Uploads eval.json attachment for cross-feature discovery.</div>
+          <div class="rm-ticket-cmd">/ff.prd</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="rm-phase-group">
+      <div class="rm-phase-header">
+        <span>Phase 2 — Refinement layer</span>
+        <span class="rm-ph-badge p2">higher leverage · needs trust</span>
+        <div class="rm-ph-bar"></div>
+      </div>
+      <div class="rm-tickets">
+        <div class="rm-ticket" style="--c:var(--amber);--glow:rgba(210,153,34,.18)">
+          <div class="rm-ticket-id">CIL-6856 <span class="rm-ticket-status pushed">pushed</span></div>
+          <div class="rm-ticket-title">/ff.refine — Live Facilitation</div>
+          <div class="rm-ticket-scope">Loads 0-refine-agenda.md and guides meeting item by item. Spec Editor, Jira Sync, transcript upload. Triggers /ff.prd on completion.</div>
+          <div class="rm-ticket-cmd">/ff.refine</div>
+        </div>
+        <div class="rm-ticket" style="--c:var(--amber);--glow:rgba(210,153,34,.18)">
+          <div class="rm-ticket-id">CIL-6858 <span class="rm-ticket-status pushed">pushed</span></div>
+          <div class="rm-ticket-title">qa-author — AUTOMATION-CREATE</div>
+          <div class="rm-ticket-scope">Post-processing: mock split (CIL_Mock_Enabled / Disabled), operation grouping per top-level class, smoke tests, MOCK_SPLIT report for AUT ticket creation.</div>
+          <div class="rm-ticket-cmd">/ff.build → qa-author</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="rm-phase-group">
+      <div class="rm-phase-header">
+        <span>Phase 3 — Full upstream + build integration</span>
+        <span class="rm-ph-badge p3">transformative · BA-led</span>
+        <div class="rm-ph-bar"></div>
+      </div>
+      <div class="rm-tickets">
+        <div class="rm-ticket" style="--c:var(--ba);--glow:var(--ba-glow)">
+          <div class="rm-ticket-id">CIL-6851 <span class="rm-ticket-status draft">draft</span></div>
+          <div class="rm-ticket-title">/ff.discover — Pre-Spec Discovery</div>
+          <div class="rm-ticket-scope">3-phase, 10-agent command: problem framing (4 sequential), landscape research (3 parallel), solution ideation. Writes 0-discovery.md, 0-research.md, 0-options.md.</div>
+          <div class="rm-ticket-cmd">/ff.discover</div>
+        </div>
+        <div class="rm-ticket" style="--c:var(--ba);--glow:var(--ba-glow)">
+          <div class="rm-ticket-id">CIL-6860 <span class="rm-ticket-status draft">draft</span></div>
+          <div class="rm-ticket-title">AUT Ticket Auto-Creation</div>
+          <div class="rm-ticket-scope">One AUT Task per mock group at build end. Populated from MOCK_SPLIT: test counts, output dir, smoke names, AC references. Parented under PROD epic live from Jira.</div>
+          <div class="rm-ticket-cmd">/ff.build phase-close</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ PERSONA IMPACT ══════════ -->
+<section class="section">
+<div class="wrap">
+  <p class="s-label reveal">Persona impact</p>
+  <h2 class="s-title reveal">Spec-driven development affects more than the BA</h2>
+  <p class="s-note reveal">The upstream pipeline improves the input quality for every downstream role. Each persona gets a specific, measurable improvement — not a generic "better tooling" claim.</p>
+
+  <div class="persona-grid reveal-up">
+
+    <!-- BA / PO -->
+    <div class="persona-card" style="--c:var(--ba);--glow:var(--ba-glow);--bc:rgba(88,166,255,.3);--bg-c:var(--ba-dim)">
+      <div class="persona-tag">BA / PO</div>
+      <div class="persona-name">Business Analyst / PO</div>
+      <div class="persona-role">owns problem framing → spec → refinement → Confluence PRD</div>
+      <ul class="persona-wins">
+        <li><strong>/ff.discover</strong> covers 6–10h of pre-spec manual work: problem framing, Jira/Confluence research, 3–4 structured solution options</li>
+        <li><strong>8-agent review panel</strong> in /ff.require catches ambiguity, edge cases, GDPR implications before the dev team sees the spec</li>
+        <li><strong>/ff.refine</strong> guides the live meeting item by item with a pre-built agenda — session becomes decisions, not exploration</li>
+        <li><strong>13-section Confluence PRD</strong> auto-published after refinement, auto-updated throughout the pipeline — no manual assembly</li>
+        <li>Can run the entire upstream flow <strong>independently</strong>: start → discover → require → refine → prd</li>
+      </ul>
+      <div class="persona-metrics">
+        <div class="persona-metric" style="--c:var(--ba);--bc:rgba(88,166,255,.3);--bg-c:var(--ba-dim)">−45%<span>time per feature</span></div>
+        <div class="persona-metric" style="--c:var(--ba);--bc:rgba(88,166,255,.3);--bg-c:var(--ba-dim)">−35%<span>meeting duration</span></div>
+      </div>
+    </div>
+
+    <!-- Engineer / Developer -->
+    <div class="persona-card" style="--c:var(--dev);--glow:var(--dev-glow);--bc:rgba(255,123,57,.3);--bg-c:var(--dev-dim)">
+      <div class="persona-tag">Engineer / Dev</div>
+      <div class="persona-name">Software Engineer</div>
+      <div class="persona-role">implements the spec; owns .plan → .build → .verify</div>
+      <ul class="persona-wins">
+        <li>Spec arrives <strong>discovery-grounded</strong> — 8-agent review means fewer ambiguities surfacing at .plan</li>
+        <li><strong>AUT tickets auto-created</strong> at build end from qa-author's MOCK_SPLIT report — zero manual ticket work per feature</li>
+        <li><strong>Lane pre-calculated</strong> from /ff.discover Phase 3 options — no lane debate before .plan starts</li>
+        <li><strong>PRD auto-updates</strong> whenever 1-spec.md changes — stakeholders always see current state without engineer involvement</li>
+        <li>Jira hierarchy enforced by /ff.refine: no orphan tasks, no missing epic links</li>
+      </ul>
+      <div class="persona-metrics">
+        <div class="persona-metric" style="--c:var(--dev);--bc:rgba(255,123,57,.3);--bg-c:var(--dev-dim)">−50%<span>spec bounce rate</span></div>
+        <div class="persona-metric" style="--c:var(--dev);--bc:rgba(255,123,57,.3);--bg-c:var(--dev-dim)">0<span>manual AUT tickets</span></div>
+      </div>
+    </div>
+
+    <!-- Tech Lead / Architect -->
+    <div class="persona-card" style="--c:var(--purple);--glow:rgba(188,140,255,.18);--bc:rgba(188,140,255,.3);--bg-c:rgba(188,140,255,.08)">
+      <div class="persona-tag">Tech Lead</div>
+      <div class="persona-name">Tech Lead / Architect</div>
+      <div class="persona-role">owns implementation decisions; reviews plan and build quality</div>
+      <ul class="persona-wins">
+        <li><strong>3–4 structured solution options</strong> from /ff.discover Phase 3 — each with effort estimate, risk profile, and architectural impact — available before refinement starts</li>
+        <li><strong>Decomposition Assessor</strong> in /ff.require Phase 4 right-sizes stories automatically — sub-tickets proposed with rationale</li>
+        <li><strong>PRD Section 13</strong> (Delivery Verification) shows executable test coverage status throughout the pipeline — living signal, not a snapshot</li>
+        <li>GDPR Probe and Scope Guard in the BA review panel surface compliance and scope issues <strong>before the dev plan is written</strong></li>
+        <li>0-eval.json living artifact captures all pipeline state — single source of truth for any stakeholder technical query</li>
+      </ul>
+      <div class="persona-metrics">
+        <div class="persona-metric" style="--c:var(--purple);--bc:rgba(188,140,255,.3);--bg-c:rgba(188,140,255,.08)">3–4<span>options at refinement</span></div>
+        <div class="persona-metric" style="--c:var(--purple);--bc:rgba(188,140,255,.3);--bg-c:rgba(188,140,255,.08)">↑↑<span>spec input quality</span></div>
+      </div>
+    </div>
+
+    <!-- Stakeholder -->
+    <div class="persona-card" style="--c:var(--green);--glow:var(--green-glow);--bc:rgba(63,185,80,.3);--bg-c:rgba(63,185,80,.08)">
+      <div class="persona-tag">Stakeholder</div>
+      <div class="persona-name">Stakeholder / PM</div>
+      <div class="persona-role">reviews feature progress; approves scope and delivery</div>
+      <ul class="persona-wins">
+        <li><strong>Single Confluence URL</strong> from the moment /ff.refine completes — no more hunting for the latest PRD version</li>
+        <li><strong>Executive Summary</strong> (Section 1) always current: problem, goal, selected approach in ≤3 sentences — non-technical, no jargon</li>
+        <li><strong>Decision Log</strong> (Section 9): every refinement decision verbatim, with deferral reasons and agenda item references</li>
+        <li><strong>Deferred Items</strong> (Section 11): scope decisions explicitly tracked, not lost in meeting notes</li>
+        <li>PRD label reflects pipeline state: "Pre-Refinement Proposal" → "Post-Refinement Spec" → "Verified Spec" — always clear where the feature stands</li>
+      </ul>
+      <div class="persona-metrics">
+        <div class="persona-metric" style="--c:var(--green);--bc:rgba(63,185,80,.3);--bg-c:rgba(63,185,80,.08)">13<span>PRD sections</span></div>
+        <div class="persona-metric" style="--c:var(--green);--bc:rgba(63,185,80,.3);--bg-c:rgba(63,185,80,.08)">0<span>manual Confluence edits</span></div>
+      </div>
+    </div>
+
+    <!-- QA Automation Squad -->
+    <div class="persona-card" style="--c:var(--amber);--glow:rgba(210,153,34,.18);--bc:rgba(210,153,34,.3);--bg-c:rgba(210,153,34,.08)">
+      <div class="persona-tag">QA Automation</div>
+      <div class="persona-name">QA Automation Squad</div>
+      <div class="persona-role">picks up AUT tickets; implements automation test suite</div>
+      <ul class="persona-wins">
+        <li><strong>AUT ticket auto-created</strong> at build end — one per mock group that has tests (CIL_Mock_Enabled / CIL_Mock_Disabled)</li>
+        <li>Ticket description pre-populated: <strong>CIL link, output directory, test count per group, smoke test method names, AC references</strong></li>
+        <li>Ticket parented under <strong>PROD epic resolved live from Jira</strong> at creation time — correct hierarchy guaranteed</li>
+        <li>"Relates to" Jira link to CIL engineering ticket — no manual linking</li>
+        <li>MOCK_SPLIT report format is deterministic — ticket content matches qa-author output exactly, no interpretation needed</li>
+      </ul>
+      <div class="persona-metrics">
+        <div class="persona-metric" style="--c:var(--amber);--bc:rgba(210,153,34,.3);--bg-c:rgba(210,153,34,.08)">0<span>manual ticket creation</span></div>
+        <div class="persona-metric" style="--c:var(--amber);--bc:rgba(210,153,34,.3);--bg-c:rgba(210,153,34,.08)">≤2<span>AUT tickets/feature</span></div>
+      </div>
+    </div>
+
+    <!-- Manual QA -->
+    <div class="persona-card" style="--c:var(--teal);--glow:var(--teal-glow);--bc:rgba(57,197,185,.3);--bg-c:var(--teal-dim)">
+      <div class="persona-tag">Manual QA</div>
+      <div class="persona-name">Manual QA Tester</div>
+      <div class="persona-role">validates feature behaviour against ACs before and after release</div>
+      <ul class="persona-wins">
+        <li><strong>DRAFT QA scenarios auto-generated</strong> at end of /ff.require Phase 3 — Gherkin-lite per AC, no blank slate</li>
+        <li>Every AC has at minimum three scenarios: success case, validation/error case, edge case — all traced to spec ACs</li>
+        <li>Enrichable with <strong>/qa.manual</strong> after implementation: curl commands added, edge cases deepened, no rework of existing content</li>
+        <li><strong>PRD Section 13</strong> (Delivery Verification) shows test coverage status throughout the pipeline — tester knows what's covered before they start</li>
+        <li>Risk Register (PRD Section 8) surfaces GDPR Probe and Risk Spotter findings — tester aware of compliance-sensitive areas</li>
+      </ul>
+      <div class="persona-metrics">
+        <div class="persona-metric" style="--c:var(--teal);--bc:rgba(57,197,185,.3);--bg-c:var(--teal-dim)">≥3<span>scenarios per AC</span></div>
+        <div class="persona-metric" style="--c:var(--teal);--bc:rgba(57,197,185,.3);--bg-c:var(--teal-dim)">0<span>blank-slate starts</span></div>
+      </div>
+    </div>
+
   </div>
 </div>
 </section>
@@ -776,45 +1049,45 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 <section class="section">
 <div class="wrap">
   <p class="s-label reveal">Estimated impact</p>
-  <h2 class="s-title reveal">What changes</h2>
-  <p class="s-note reveal">Grounded in the current team size — 19 FlowForge users, 55 active tickets — observed cycle time, and where time is spent today. Baselines credit the 3 existing agents in .require.</p>
+  <h2 class="s-title reveal">What changes — quantified</h2>
+  <p class="s-note reveal">Grounded in current team size (19 FlowForge users, 55 active tickets), observed cycle time, and where time is spent today. Baselines credit the 3 existing agents in .require.</p>
 
   <div class="metrics-grid reveal-up">
     <div class="metric-card" style="--c:var(--ba);--glow:var(--ba-glow)">
       <div class="mc-label">BA / PO time per feature</div>
       <div class="mc-num" data-target="45" data-prefix="−" data-suffix="%">−45%</div>
       <div class="mc-title">Hours saved upstream</div>
-      <div class="mc-body">Research agent replaces 1–3h of manual Jira/Confluence archaeology. Expanded review panel and ideation reduce rework in refinement. The 3 existing agents already save ~20–30min on spec quality — the proposal targets the other 6–9h. <strong style="color:var(--text)">3–7h net saved per standard feature.</strong></div>
+      <div class="mc-body">Research agents replace 1–3h of manual Jira/Confluence archaeology. Review panel and ideation reduce refinement rework. The 3 existing agents save ~20–30min on spec quality — the proposal targets the remaining 6–9h. <strong style="color:var(--text)">3–7h net saved per standard feature.</strong></div>
     </div>
     <div class="metric-card" style="--c:var(--red);--glow:rgba(248,81,73,.18)">
       <div class="mc-label">Spec bounce rate at .analyze</div>
       <div class="mc-num" data-target="50" data-prefix="−" data-suffix="%">−50%</div>
       <div class="mc-title">Fewer critical gaps hitting dev pipeline</div>
-      <div class="mc-body">The existing 3 agents (Gap Reviewer, Self-Review, QA Author) already catch some spec issues post-capture. The 5 new BA review agents (Completeness, Edge Case, Ambiguity, GDPR, Scope) catch the rest — before the dev has invested time in <code>.plan</code>. Revised down from −65% to credit existing partial coverage.</div>
+      <div class="mc-body">The 3 existing agents catch some spec issues post-capture. The 5 new BA specialist agents (Completeness, Edge Case, Ambiguity, GDPR, Scope) catch the rest — before the dev has invested time in <code>.plan</code>. Saves ~0.5 dev days per bounce avoided.</div>
     </div>
     <div class="metric-card" style="--c:var(--amber);--glow:rgba(210,153,34,.18)">
       <div class="mc-label">Refinement meeting duration</div>
       <div class="mc-num" data-target="35" data-prefix="−" data-suffix="%">−35%</div>
       <div class="mc-title">From exploration to decision</div>
-      <div class="mc-body"><code>/ff.discover</code> Phase 3 generates 3–4 structured options before refinement begins. The Agenda Builder (Phase 5 of /ff.require) distills all unresolved review findings into a numbered agenda with suggested resolutions. The /ff.refine session becomes a live decision loop, not an exploration. 90+ min → ~60 min.</div>
+      <div class="mc-body"><code>/ff.discover</code> Phase 3 generates 3–4 structured options before refinement begins. The Agenda Builder distils all unresolved findings into a numbered agenda with suggested resolutions. The /ff.refine session becomes a live decision loop — 90+ min → ~60 min.</div>
     </div>
-    <div class="metric-card" style="--c:var(--purple);--glow:rgba(188,140,255,.18)">
-      <div class="mc-label">FlowForge adoption reach</div>
-      <div class="mc-num" style="font-size:2.6rem">2–3×</div>
-      <div class="mc-title">More people who can drive it</div>
-      <div class="mc-body">FlowForge currently has a BA entry point that relies on the 3 post-capture agents in .require. With a consolidated upstream pipeline (start → discover [3 phases] → require [5 phases] → refine [live] → prd [13 sections, living]), BAs and POs initiate and run the entire upstream flow independently. Estimate unchanged — structural shift, not incremental.</div>
+    <div class="metric-card" style="--c:var(--dev);--glow:var(--dev-glow)">
+      <div class="mc-label">AUT ticket creation work</div>
+      <div class="mc-num" style="font-size:2.6rem">Zero</div>
+      <div class="mc-title">No manual QA automation tickets</div>
+      <div class="mc-body">Every standard-lane build auto-creates AUT tickets from the qa-author <code>MOCK_SPLIT</code> report. QA automation squad receives fully populated tickets — test counts, output directory, smoke names, AC references — without any manual steps from BA or engineer.</div>
     </div>
     <div class="metric-card" style="--c:var(--green);--glow:var(--green-glow)">
       <div class="mc-label">Total cycle time (problem → PR)</div>
       <div class="mc-num" data-target="33" data-prefix="−" data-suffix="%">−33%</div>
       <div class="mc-title">Compresses the dominant term</div>
-      <div class="mc-body">Current: 7–13h BA upstream + 0.5–1h FlowForge dev pipeline. The 3 existing agents save ~20–30min on spec quality. The proposed pipeline targets the remaining 6–9h. Revised down from −40% to account for partial existing coverage and adoption friction in early phases.</div>
+      <div class="mc-body">Current: 7–13h BA upstream + 0.5–1h dev pipeline. The 3 existing agents save ~20–30min. The proposed pipeline targets the remaining 6–9h. Revised down from −40% to account for existing partial coverage and adoption friction in early phases.</div>
     </div>
-    <div class="metric-card" style="--c:var(--dev);--glow:var(--dev-glow)">
-      <div class="mc-label">Spec quality floor</div>
+    <div class="metric-card" style="--c:var(--purple);--glow:rgba(188,140,255,.18)">
+      <div class="mc-label">Spec quality floor — all downstream roles</div>
       <div class="mc-num" style="font-size:2.6rem">↑↑</div>
-      <div class="mc-title">Higher baseline for .plan input</div>
-      <div class="mc-body">Today: Gap Reviewer + Self-Review catch spec holes; QA Author drafts test skeleton. Proposed: every spec has also been through discovery, research grounding, and 5 additional specialist agents. The <code>.plan</code> reviewers already apply this pattern technically — the proposal replicates it upstream at the requirements layer.</div>
+      <div class="mc-title">Higher baseline for every role</div>
+      <div class="mc-body">Architect sees options with architecture impact before build. Engineer gets discovery-grounded spec with lane pre-calculated. QA Automation gets structured tickets. Manual QA gets DRAFT scenarios. Stakeholder gets living PRD. The upstream improvement compounds through every role that depends on spec quality.</div>
     </div>
   </div>
 </div>
@@ -857,7 +1130,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
           <div class="cc-seg seg-blue" style="flex:1" data-tip="/ff.discover Phase 1–2 (problem framing + research): 0.5–1h">—</div>
           <div class="cc-seg seg-blue" style="flex:1" data-tip="/ff.discover Phase 3 (option generation): 0.5–1h">—</div>
           <div class="cc-seg seg-amber" style="flex:2" data-tip="/ff.require Phases 1–3 (human spec writing): 1–2h">1–2h</div>
-          <div class="cc-seg seg-blue" style="flex:.8" data-tip="/ff.require Phase 2 review panel (8 agents) + Phase 4 decomposition + Phase 5 agenda: ~30min">—</div>
+          <div class="cc-seg seg-blue" style="flex:.8" data-tip="/ff.require Phase 2 panel (8 agents) + Phase 4 decomp + Phase 5 agenda: ~30min">—</div>
           <div class="cc-seg seg-blue" style="flex:1.5" data-tip="/ff.refine live meeting (loaded agenda, item-by-item): ~60min">—</div>
           <div class="cc-seg seg-amber" style="flex:.4" data-tip="Occasional bounce (rare): ~0.5h"></div>
           <div class="cc-seg seg-green" style="flex:1" data-tip="Dev pipeline: 0.5–1h"></div>
@@ -878,7 +1151,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
     <div class="ss-body">
       Revised estimate: <strong>4–6 days → 2.5–4 days</strong> total cycle time from business problem to merged PR.
       The 3 existing .require agents save ~20–30min; the proposed pipeline targets the remaining 6–9h of manual upstream work.
-      Revised down from −40% to account for partial existing coverage and expected adoption friction in early phases (discover, ideate).
+      Revised down from −40% to account for partial existing coverage and expected adoption friction in early phases.
       Express and Fast lanes still benefit most: the Jira→PR automation bottleneck is spec quality, not pipeline speed.
     </div>
   </div>
@@ -890,7 +1163,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 <div class="wrap">
   <p class="s-label reveal">Why it compounds</p>
   <h2 class="s-title reveal">Each phase determines the floor for everything below</h2>
-  <p class="s-note reveal">The weak link is at the top. The current pipeline is only as good as the spec that enters it.</p>
+  <p class="s-note reveal">The weak link is at the top. The current pipeline is only as good as the spec that enters it — and the spec is only as good as the problem framing that preceded it.</p>
 
   <div class="chain-grid reveal-up">
     <div>
@@ -900,28 +1173,28 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
           <div class="cs-spine"><div class="cs-dot ba">BA</div><div class="cs-line"></div></div>
           <div class="cs-body">
             <div class="cs-title">Discovery output → spec quality</div>
-            <div class="cs-desc">A spec written without problem framing produces ACs that are technically complete but solve the wrong thing. The 3 existing .require agents catch spec holes — but none of them can flag a misaligned problem statement. Only production or sprint review does.</div>
+            <div class="cs-desc">A spec written without problem framing produces ACs that are technically complete but solve the wrong thing. The 3 existing .require agents catch spec holes — but none of them can flag a misaligned problem statement. Only production or sprint review does. /ff.discover addresses this before any spec writing starts.</div>
           </div>
         </div>
         <div class="cs-item">
           <div class="cs-spine"><div class="cs-dot ba">BA</div><div class="cs-line"></div></div>
           <div class="cs-body">
             <div class="cs-title">Spec quality → plan iterations</div>
-            <div class="cs-desc">Every ambiguity surfaces as a question during <code>.plan</code>. The 6 plan-review agents flag it, work bounces back to the BA. One cycle = half a dev day wasted before any code is written.</div>
+            <div class="cs-desc">Every ambiguity surfaces as a question during <code>.plan</code>. The 6 plan-review agents flag it, work bounces back to the BA. One cycle = half a dev day wasted before any code is written. The 8-agent BA review panel catches these ambiguities upstream — the same bet .plan makes with 6 technical reviewers, applied one step earlier.</div>
           </div>
         </div>
         <div class="cs-item">
           <div class="cs-spine"><div class="cs-dot dev">Dev</div><div class="cs-line"></div></div>
           <div class="cs-body">
             <div class="cs-title">Plan quality → build correctness</div>
-            <div class="cs-desc">Vague plan → vague tasks → implementation that passes <code>.verify</code> technically correct but doesn't meet business intent. The failure that's hardest to catch.</div>
+            <div class="cs-desc">Vague plan → vague tasks → implementation that passes <code>.verify</code> technically correct but doesn't meet business intent. The failure that's hardest to catch. Decomposition Assessor (Phase 4 of /ff.require) right-sizes stories before the plan is written.</div>
           </div>
         </div>
         <div class="cs-item">
           <div class="cs-spine"><div class="cs-dot dev">Dev</div></div>
           <div class="cs-body">
-            <div class="cs-title">The expanded BA panel replicates a pattern already proven in .require</div>
-            <div class="cs-desc">The existing Gap Reviewer + Self-Review already prove that spec-review agents catch gaps human review misses. Adding 5 specialist reviewers scales that further — the same bet .plan makes with 6 technical reviewers, applied one step upstream.</div>
+            <div class="cs-title">0-eval.json as the living source of truth</div>
+            <div class="cs-desc">Every pipeline stage writes its state to <code>0-eval.json</code>. /ff.prd reads it as primary input to assemble the PRD — no manual artifact hunting, no stale snapshots. The eval artifact is also uploaded to Confluence so future /ff.discover runs on related features can ingest prior decisions as structured prior-art context.</div>
           </div>
         </div>
       </div>
@@ -932,17 +1205,17 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
         <div class="risk-item blocker">
           <div class="ri-severity hard">hard blocker</div>
           <div class="ri-title">Git pull — silent stale context</div>
-          <div class="ri-body">Every FlowForge step requires <code>git pull origin master</code> first. A non-technical BA will not know to do this. The failure is silent — FlowForge runs against stale code, produces a spec grounded in the wrong baseline. No error is raised. <strong style="color:var(--text)">Addressed by <code>/ff.start</code></strong>, but until that ships, this is a guaranteed failure mode for any BA using FlowForge without a dev standing by.</div>
+          <div class="ri-body">Every FlowForge step requires <code>git pull origin master</code> first. A non-technical BA will not know this. The failure is silent — FlowForge runs against stale code, produces a spec grounded in the wrong baseline. <strong style="color:var(--text)">Addressed by <code>/ff.start</code></strong> (US-001, CIL-6148 epic scope), but until that ships this is a guaranteed failure mode.</div>
         </div>
         <div class="risk-item blocker">
           <div class="ri-severity hard">hard blocker</div>
-          <div class="ri-title">Branch dependency trap — invisible chaining</div>
-          <div class="ri-body"><code>/flowforge.require</code> creates the feature branch immediately from the current HEAD. If a prior feature branch is still open (not merged), the new branch is parented on it — creating an implicit dependency. When the first feature changes or is rebased, the second breaks silently. A BA starting two features in sequence will hit this every time and have no idea why. <strong style="color:var(--text)">Addressed by <code>/ff.start</code></strong>'s branch conflict check, but the current tool has no guard at all.</div>
+          <div class="ri-title">Branch dependency trap</div>
+          <div class="ri-body"><code>/flowforge.require</code> creates a feature branch from the current HEAD. If a prior feature branch is still open, the new branch is parented on it — creating an invisible dependency. <strong style="color:var(--text)">Addressed by <code>/ff.start</code>'s branch conflict check.</strong></div>
         </div>
         <div class="risk-item">
           <div class="ri-severity soft">soft risk</div>
           <div class="ri-title">Discovery resistance</div>
-          <div class="ri-body"><code>/ff.discover</code> depends on BAs trusting an agent-driven interview. First runs will need heavy human correction. Adoption lags the more mechanical commands.</div>
+          <div class="ri-body"><code>/ff.discover</code> depends on BAs trusting an agent-driven interview. First runs will need correction. Adoption lags the more mechanical commands.</div>
         </div>
         <div class="risk-item">
           <div class="ri-severity soft">soft risk</div>
@@ -952,12 +1225,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
         <div class="risk-item">
           <div class="ri-severity soft">soft risk</div>
           <div class="ri-title">Org dependency</div>
-          <div class="ri-body">Cycle-time impact depends on BAs adopting FlowForge as their primary workflow. If BAs use it as a final formatting step, the upstream gains don't materialize.</div>
-        </div>
-        <div class="risk-item">
-          <div class="ri-severity soft">soft risk</div>
-          <div class="ri-title">Adoption curve</div>
-          <div class="ri-body">Commands that ship first (<code>/ff.start</code>, <code>/ff.require</code> enhancement phases 4–5, <code>/ff.prd</code>) validate the model before the more exploratory <code>/ff.discover</code> phases and live <code>/ff.refine</code> facilitation need to be trusted.</div>
+          <div class="ri-body">Cycle-time impact depends on BAs adopting FlowForge as their primary workflow. If BAs use it as a final formatting step, the upstream gains don't materialise.</div>
         </div>
       </div>
     </div>
@@ -969,19 +1237,26 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 <section class="section">
 <div class="wrap">
   <p class="s-label reveal">Build sequence</p>
-  <h2 class="s-title reveal">Not all commands at once</h2>
-  <p class="s-note reveal">Start where friction is highest and trust is easiest to build. Each phase validates the model for the next. The full pipeline is 4 BA commands — not 7.</p>
+  <h2 class="s-title reveal">Not all 10 tasks at once</h2>
+  <p class="s-note reveal">Start where friction is highest and trust is easiest to build. Each phase validates the model for the next. The /ff.require enhancements and /ff.prd ship first — they produce visible, verifiable output immediately. /ff.discover and /ff.refine follow once BAs have used the mechanical commands.</p>
 
   <div class="phase-row reveal-up">
     <div class="phase-card" style="--c:var(--green)">
       <div class="pc-num">Phase 1 — Quick wins</div>
       <div class="pc-title">Mechanical · high-trust</div>
       <div class="pc-cmds">
-        <div class="pc-cmd"><div class="cmd-dot"></div>/ff.start <span style="color:var(--red);font-size:.7em">← git blocker fix</span></div>
-        <div class="pc-cmd"><div class="cmd-dot"></div>/ff.require (+ 7 new agents, 5 phases)</div>
-        <div class="pc-cmd"><div class="cmd-dot"></div>/ff.prd (13-section living doc)</div>
+        <div class="pc-cmd"><div class="cmd-dot"></div>/ff.require (phases 2–5: 8 agents, decomp, agenda)</div>
+        <div class="pc-cmd"><div class="cmd-dot"></div>/ff.prd (13-section living PRD → Confluence)</div>
+        <div class="pc-cmd"><div class="cmd-dot"></div>qa-author AUTOMATION-CREATE post-processing</div>
+        <div class="pc-cmd"><div class="cmd-dot"></div>AUT ticket auto-creation at build end</div>
       </div>
-      <div class="pc-desc"><code>/ff.start</code> is the prerequisite for all BA commands — pull + branch safety check, zero learning curve. The enhanced /ff.require adds decomposition and agenda building in-band (Phases 4–5), no separate split command needed. PRD is a zero-cost Confluence byproduct that auto-updates.</div>
+      <div class="pc-tickets">
+        <span class="pc-ticket">CIL-6852</span><span class="pc-ticket">CIL-6853</span>
+        <span class="pc-ticket">CIL-6854</span><span class="pc-ticket">CIL-6855</span>
+        <span class="pc-ticket">CIL-6857</span><span class="pc-ticket">CIL-6858</span>
+        <span class="pc-ticket">CIL-6859</span><span class="pc-ticket">CIL-6860</span>
+      </div>
+      <div class="pc-desc">The enhanced /ff.require adds decomposition and agenda building in-band — no separate commands. PRD is a zero-cost Confluence byproduct from existing pipeline artifacts. AUT tickets auto-created from MOCK_SPLIT report. All eight tasks have deterministic, verifiable output.</div>
     </div>
     <div class="phase-card" style="--c:var(--amber)">
       <div class="pc-num">Phase 2 — Refinement layer</div>
@@ -990,16 +1265,22 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
         <div class="pc-cmd"><div class="cmd-dot"></div>/ff.refine (live facilitation)</div>
         <div class="pc-cmd"><div class="cmd-dot"></div>/ff.discover Phases 1–2 (problem + research)</div>
       </div>
-      <div class="pc-desc">Live refinement facilitation loads the agenda built by /ff.require Phase 5 — validated immediately because the output is visible before the meeting. Research phase replaces hours of manual Jira/Confluence lookup; easy to verify side-by-side.</div>
+      <div class="pc-tickets">
+        <span class="pc-ticket">CIL-6856</span>
+      </div>
+      <div class="pc-desc">Live refinement facilitation loads the agenda built by /ff.require Phase 5 — validated immediately because the output is visible before the meeting. Research phase replaces hours of manual Jira/Confluence lookup; easy to verify side-by-side with existing knowledge. /ff.discover Phases 1–2 can be adopted incrementally before Phase 3.</div>
     </div>
     <div class="phase-card" style="--c:var(--ba)">
       <div class="pc-num">Phase 3 — Full upstream</div>
       <div class="pc-title">Transformative · BA-led</div>
       <div class="pc-cmds">
-        <div class="pc-cmd"><div class="cmd-dot"></div>/ff.discover Phase 3 (ideation)</div>
+        <div class="pc-cmd"><div class="cmd-dot"></div>/ff.discover Phase 3 (ideation + options)</div>
         <div class="pc-cmd" style="opacity:.8"><div class="cmd-dot"></div>Full BA-owned flow: start → discover → require → refine → prd</div>
       </div>
-      <div class="pc-desc">At this point BAs run the entire upstream pipeline independently, handing a verified, research-grounded, decomposed, agent-reviewed spec to the dev pipeline. FlowForge becomes a full product development tool — 4 commands from business problem to Confluence PRD.</div>
+      <div class="pc-tickets">
+        <span class="pc-ticket">CIL-6851</span>
+      </div>
+      <div class="pc-desc">At this point BAs run the entire upstream pipeline independently, handing a verified, research-grounded, decomposed, 8-agent-reviewed spec to the dev pipeline. FlowForge becomes a full product development tool — 5 commands from business problem to Confluence PRD + linked Jira hierarchy.</div>
     </div>
   </div>
 </div>
@@ -1008,14 +1289,13 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 <div style="height:1px;background:var(--line)"></div>
 <footer>
 <div class="wrap">
-  Proposed BA commands: <code>start (new) · discover [3 phases, 10 agents] · require (enhanced, 5 phases, 10 agents) · refine [live] · prd [13 sections, living]</code> ·
-  Hard blockers addressed: git pull automation + branch dependency guard (<code>/ff.start</code>) ·
-  /ff.split does not exist — decomposition is Phase 4 of /ff.require ·
-  /ff.research and /ff.ideate do not exist — both are phases within /ff.discover ·
-  /ff.refine has no --prep flag — prep is Phase 5 of /ff.require ·
-  Every command ends with: open topics → artifact summary → confirm → GitHub push ·
-  Jira tickets never created without a parent (theme is only parentless level) ·
-  PRD auto-updates on any engineering phase that modifies 1-spec.md ·
+  Epic: <code>CIL-6148</code> · Tasks: <code>CIL-6851 through CIL-6860</code> ·
+  BA commands: <code>/ff.start · /ff.discover (3 phases, 10 agents) · /ff.require (enhanced, 5 phases, 8 agents) · /ff.refine (live) · /ff.prd (13 sections, living)</code> ·
+  Dev-side additions: <code>qa-author AUTOMATION-CREATE post-processing (CIL-6858) · AUT ticket auto-creation (CIL-6860)</code> ·
+  Personas impacted: <code>BA/PO · Engineer · Tech Lead · Stakeholder · QA Automation Squad · Manual QA</code> ·
+  /ff.split, /ff.research, /ff.ideate, /ff.refine --prep do not exist as standalone commands ·
+  PRD auto-updates on: refine end · build phase-close · verify complete · review complete (when prd.enabled) ·
+  AUT tickets: one per mock group, non-blocking, auto-linked, PROD epic resolved live from Jira ·
   Dev pipeline (15 agents) unchanged · Revised cycle-time impact: −33% problem-to-PR on standard features
 </div>
 </footer>
