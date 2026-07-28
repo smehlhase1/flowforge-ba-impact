@@ -378,39 +378,61 @@ body {
   color: var(--steel, #8b949e); border: 1px solid var(--line);
 }
 
-/* ─── CYCLE TIMELINE ─── */
-.cycle-compare { display: flex; flex-direction: column; gap: 40px; }
-.cc-row { display: grid; grid-template-columns: 140px 1fr; gap: 20px; align-items: center; }
-.cc-label { text-align: right; }
-.cc-label strong { display: block; font-size: .92rem; font-weight: 600; color: var(--text); }
-.cc-label span { font-size: .78rem; color: var(--muted); }
-.cc-label .cc-total {
-  font-family: "JetBrains Mono", monospace; font-size: .75rem; margin-top: 6px;
-  padding: 3px 10px; border-radius: 5px; display: inline-block;
+/* ─── CYCLE COMPARE V2 ─── */
+.cc2-compare { display: flex; flex-direction: column; gap: 28px; }
+.cc2-row { display: grid; grid-template-columns: 160px 1fr; gap: 20px; align-items: center; }
+.cc2-meta { display: flex; flex-direction: column; gap: 6px; }
+.cc2-state { font-size: .9rem; font-weight: 600; color: var(--text); }
+.cc2-badge {
+  font-family: "JetBrains Mono", monospace; font-size: .75rem;
+  padding: 3px 10px; border-radius: 5px; display: inline-block; width: fit-content;
 }
-.cc-label .cc-total.before { background: rgba(248,81,73,.12); color: var(--red); border: 1px solid rgba(248,81,73,.2); }
-.cc-label .cc-total.after { background: rgba(63,185,80,.12); color: var(--green); border: 1px solid rgba(63,185,80,.2); }
-.cc-bar { display: flex; gap: 2px; height: 40px; border-radius: 8px; overflow: hidden; }
-.cc-seg {
-  display: flex; align-items: center; justify-content: center;
-  font-family: "JetBrains Mono", monospace; font-size: .62rem; font-weight: 600;
-  color: rgba(255,255,255,.7); min-width: 28px; transition: flex .8s cubic-bezier(.4,0,.2,1);
-  position: relative; overflow: hidden; cursor: default;
+.cc2-badge.before { background: rgba(248,81,73,.12); color: var(--red); border: 1px solid rgba(248,81,73,.2); }
+.cc2-badge.after { background: rgba(63,185,80,.12); color: var(--green); border: 1px solid rgba(63,185,80,.2); }
+.cc2-bars-wrap { display: flex; align-items: stretch; width: 100%; }
+.cc2-bar {
+  display: flex; height: 68px; border-radius: 8px; overflow: hidden; gap: 1px;
+  background: rgba(0,0,0,.25);
 }
-.cc-seg:hover::after {
-  content: attr(data-tip); position: absolute; bottom: 100%; left: 50%;
-  transform: translateX(-50%); background: #1c2128; border: 1px solid var(--line);
-  color: var(--text); font-size: .68rem; padding: 4px 8px; border-radius: 5px;
-  white-space: nowrap; pointer-events: none; margin-bottom: 4px; z-index: 10;
+.cc2-bar.full { width: 100%; }
+.cc2-bar.narrow { width: 43%; border-radius: 8px 0 0 8px; flex-shrink: 0; }
+.cc2-gap {
+  flex: 1; border: 1px dashed rgba(63,185,80,.28); border-left: none;
+  border-radius: 0 8px 8px 0; display: flex; align-items: center;
+  justify-content: center; background: rgba(63,185,80,.03);
 }
-.seg-red { background: rgba(248,81,73,.5); }
-.seg-amber { background: rgba(210,153,34,.5); }
-.seg-green { background: rgba(63,185,80,.5); }
-.seg-blue { background: rgba(88,166,255,.5); }
-.seg-fade { background: rgba(248,81,73,.2); }
-.cc-legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 16px; }
-.cc-legend .cl-item { display: flex; align-items: center; gap: 7px; font-size: .77rem; color: var(--muted); }
-.cc-legend .cl-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.cc2-gap-inner { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.cc2-gap-label {
+  font-family: "JetBrains Mono", monospace; font-size: .72rem; font-weight: 700;
+  color: var(--green); opacity: .75; white-space: nowrap;
+}
+.cc2-gap-sub { font-size: .65rem; color: var(--muted-2); white-space: nowrap; }
+.cc2-seg {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 6px 5px; overflow: hidden; gap: 3px; min-width: 0;
+}
+.cc2-seg.s-manual { background: rgba(248,81,73,.48); }
+.cc2-seg.s-waste { background: rgba(248,81,73,.18); border: 1px dashed rgba(248,81,73,.35); }
+.cc2-seg.s-partial { background: rgba(210,153,34,.48); }
+.cc2-seg.s-aided { background: rgba(88,166,255,.52); }
+.cc2-seg.s-auto { background: rgba(63,185,80,.5); }
+.cc2-sname {
+  font-size: .58rem; font-weight: 500; color: rgba(255,255,255,.88);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 100%; text-align: center; line-height: 1.2;
+}
+.cc2-stime {
+  font-family: "JetBrains Mono", monospace; font-size: .68rem; font-weight: 700;
+  color: rgba(255,255,255,.96); white-space: nowrap;
+}
+.cc2-legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 14px; }
+.cc2-leg-item { display: flex; align-items: center; gap: 7px; font-size: .77rem; color: var(--muted); }
+.cc2-leg-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+.cc2-leg-dot.manual { background: rgba(248,81,73,.5); }
+.cc2-leg-dot.waste { background: rgba(248,81,73,.2); border: 1px dashed rgba(248,81,73,.4); }
+.cc2-leg-dot.partial { background: rgba(210,153,34,.5); }
+.cc2-leg-dot.aided { background: rgba(88,166,255,.5); }
+.cc2-leg-dot.auto { background: rgba(63,185,80,.5); }
 .saving-strip {
   background: linear-gradient(135deg, rgba(63,185,80,.1), rgba(88,166,255,.07));
   border: 1px solid rgba(63,185,80,.25); border-radius: 12px;
@@ -505,8 +527,9 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
   .persona-grid { grid-template-columns: 1fr; }
   .pf-step { grid-template-columns: 40px 1fr; }
   .pf-step-cmd { border-right: none; }
-  .cc-row { grid-template-columns: 1fr; }
-  .cc-label { text-align: left; }
+  .cc2-row { grid-template-columns: 1fr; }
+  .cc2-meta { flex-direction: row; align-items: center; gap: 12px; }
+  .cc2-bar.narrow { width: 60%; }
   .hero-numbers { gap: 24px; }
   .rm-ticket { max-width: 100%; }
 }
@@ -1096,63 +1119,105 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 <!-- ══════════ CYCLE TIME ══════════ -->
 <section class="section">
 <div class="wrap">
-  <p class="s-label reveal">Cycle time</p>
-  <h2 class="s-title reveal">Before vs after</h2>
-  <p class="s-note reveal">Standard feature, business problem to merged PR. Each segment is a phase. Hover for details.</p>
+  <p class="s-label reveal">Effort comparison</p>
+  <h2 class="s-title reveal">Before vs after — active work per feature</h2>
+  <p class="s-note reveal">Each bar represents total active effort for a standard feature from blank slate to merged PR. Bar width is proportional to total hours — <strong style="color:var(--red)">before is wider because it is more work</strong>. Each segment is labelled with the activity name and time range. The green dotted area shows effort eliminated by FlowForge.</p>
 
-  <div class="cycle-compare reveal-up">
-    <div class="cc-row">
-      <div class="cc-label">
-        <strong>Today</strong>
-        <span>4–6 days total</span>
-        <div class="cc-total before">~7–14h</div>
+  <div class="cc2-compare reveal-up">
+
+    <!-- ── BEFORE ── -->
+    <div class="cc2-row">
+      <div class="cc2-meta">
+        <div class="cc2-state">Today</div>
+        <div class="cc2-badge before">~14h active work</div>
       </div>
-      <div>
-        <div class="cc-bar" id="bar-before">
-          <div class="cc-seg seg-red" style="flex:4" data-tip="Problem framing: 2–4h">2–4h</div>
-          <div class="cc-seg seg-red" style="flex:2" data-tip="Research: 1–3h">1–3h</div>
-          <div class="cc-seg seg-amber" style="flex:3" data-tip="Spec writing (.require guided prompts): 2–4h">2–4h</div>
-          <div class="cc-seg seg-green" style="flex:.4" data-tip="Gap Reviewer + Self-Review + QA Author: ~20–30min">✓</div>
-          <div class="cc-seg seg-red" style="flex:3" data-tip="Refinement: 2–4h">2–4h</div>
-          <div class="cc-seg seg-fade" style="flex:2" data-tip="Spec rework/bounce: 1–3h">rework</div>
-          <div class="cc-seg seg-green" style="flex:1" data-tip="Dev pipeline: 0.5–1h"></div>
+      <div class="cc2-bars-wrap">
+        <div class="cc2-bar full">
+          <div class="cc2-seg s-manual" style="flex:3">
+            <div class="cc2-sname">Problem Framing</div>
+            <div class="cc2-stime">2–4h</div>
+          </div>
+          <div class="cc2-seg s-manual" style="flex:2">
+            <div class="cc2-sname">Research</div>
+            <div class="cc2-stime">1–3h</div>
+          </div>
+          <div class="cc2-seg s-partial" style="flex:3">
+            <div class="cc2-sname">Spec Writing</div>
+            <div class="cc2-stime">2–4h</div>
+          </div>
+          <div class="cc2-seg s-auto" style="flex:.4">
+            <div class="cc2-stime" style="font-size:.52rem;opacity:.8">3 agts</div>
+          </div>
+          <div class="cc2-seg s-manual" style="flex:3.5">
+            <div class="cc2-sname">Refinement</div>
+            <div class="cc2-stime">2–5h</div>
+          </div>
+          <div class="cc2-seg s-waste" style="flex:2">
+            <div class="cc2-sname">Rework / Bounce</div>
+            <div class="cc2-stime">1–3h</div>
+          </div>
+          <div class="cc2-seg s-auto" style="flex:.7">
+            <div class="cc2-sname">Dev</div>
+            <div class="cc2-stime">~1h</div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="cc-row">
-      <div class="cc-label">
-        <strong style="color:var(--green)">With BA Pipeline</strong>
-        <span>2.5–4 days total</span>
-        <div class="cc-total after">~4–8h</div>
+
+    <!-- ── AFTER ── -->
+    <div class="cc2-row">
+      <div class="cc2-meta">
+        <div class="cc2-state" style="color:var(--green)">With FlowForge</div>
+        <div class="cc2-badge after">~6h active work</div>
       </div>
-      <div>
-        <div class="cc-bar">
-          <div class="cc-seg seg-blue" style="flex:1" data-tip="/ff.discover Phase 1–2 (problem framing + research): 0.5–1h">—</div>
-          <div class="cc-seg seg-blue" style="flex:1" data-tip="/ff.discover Phase 3 (option generation): 0.5–1h">—</div>
-          <div class="cc-seg seg-amber" style="flex:2" data-tip="/ff.require Phases 1–3 (human spec writing): 1–2h">1–2h</div>
-          <div class="cc-seg seg-blue" style="flex:.8" data-tip="/ff.require Phase 2 panel (8 agents) + Phase 4 decomp + Phase 5 agenda: ~30min">—</div>
-          <div class="cc-seg seg-blue" style="flex:1.5" data-tip="/ff.refine live meeting (loaded agenda, item-by-item): ~60min">—</div>
-          <div class="cc-seg seg-amber" style="flex:.4" data-tip="Occasional bounce (rare): ~0.5h"></div>
-          <div class="cc-seg seg-green" style="flex:1" data-tip="Dev pipeline: 0.5–1h"></div>
+      <div class="cc2-bars-wrap">
+        <div class="cc2-bar narrow">
+          <div class="cc2-seg s-aided" style="flex:2">
+            <div class="cc2-sname">/ff.discover</div>
+            <div class="cc2-stime">1–2h</div>
+          </div>
+          <div class="cc2-seg s-partial" style="flex:2">
+            <div class="cc2-sname">Spec Writing</div>
+            <div class="cc2-stime">1–2h</div>
+          </div>
+          <div class="cc2-seg s-aided" style="flex:.5">
+            <div class="cc2-stime" style="font-size:.52rem;opacity:.8">panel</div>
+          </div>
+          <div class="cc2-seg s-aided" style="flex:1">
+            <div class="cc2-sname">/ff.refine</div>
+            <div class="cc2-stime">~1h</div>
+          </div>
+          <div class="cc2-seg s-auto" style="flex:.7">
+            <div class="cc2-sname">Dev</div>
+            <div class="cc2-stime">~1h</div>
+          </div>
+        </div>
+        <div class="cc2-gap">
+          <div class="cc2-gap-inner">
+            <div class="cc2-gap-label">~8h eliminated</div>
+            <div class="cc2-gap-sub">problem framing · research · unstructured refinement · rework</div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="cc-legend reveal">
-    <div class="cl-item"><div class="cl-dot" style="background:rgba(248,81,73,.5)"></div>No tooling — manual work</div>
-    <div class="cl-item"><div class="cl-dot" style="background:rgba(210,153,34,.5)"></div>Partial / rework</div>
-    <div class="cl-item"><div class="cl-dot" style="background:rgba(88,166,255,.5)"></div>Agent-assisted BA work</div>
-    <div class="cl-item"><div class="cl-dot" style="background:rgba(63,185,80,.5)"></div>FlowForge dev pipeline (automated)</div>
+    <!-- ── LEGEND ── -->
+    <div class="cc2-legend reveal">
+      <div class="cc2-leg-item"><div class="cc2-leg-dot manual"></div>Manual — no tooling</div>
+      <div class="cc2-leg-item"><div class="cc2-leg-dot waste"></div>Rework / bounce (wasted effort)</div>
+      <div class="cc2-leg-item"><div class="cc2-leg-dot partial"></div>Human-driven (guided prompts)</div>
+      <div class="cc2-leg-item"><div class="cc2-leg-dot aided"></div>Agent-assisted BA work</div>
+      <div class="cc2-leg-item"><div class="cc2-leg-dot auto"></div>Automated (FlowForge)</div>
+    </div>
+
   </div>
 
   <div class="saving-strip reveal">
-    <div class="ss-num">−33%</div>
+    <div class="ss-num">−57%</div>
     <div class="ss-body">
-      Revised estimate: <strong>4–6 days → 2.5–4 days</strong> total cycle time from business problem to merged PR.
-      The 3 existing .require agents save ~20–30min; the proposed pipeline targets the remaining 6–9h of manual upstream work.
-      Revised down from −40% to account for partial existing coverage and expected adoption friction in early phases.
-      Express and Fast lanes still benefit most: the Jira→PR automation bottleneck is spec quality, not pipeline speed.
+      <strong>~14h → ~6h active effort</strong> per standard feature (problem to merged PR).
+      The 3 existing .require agents save ~30 min on spec quality. The proposed pipeline eliminates the remaining ~8h: manual problem framing (2–4h), landscape research (1–3h), unstructured refinement (2–5h), and spec rework/bounce (1–3h).
+      Total calendar cycle time: <strong>4–6 days → 2.5–4 days</strong> (−33%) — days compress less than hours because not all phases happen on the same day.
     </div>
   </div>
 </div>
