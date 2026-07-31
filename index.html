@@ -596,7 +596,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
   <h1>Closing the <em>upstream gap</em></h1>
   <p class="hero-sub">
     The dev pipeline has 15 agents across 4 commands. The BA phase had 3 — all post-spec-capture.
-    The 6–10 hours before a spec exists had no tooling. This proposal delivers <strong style="color:var(--ba)">5 BA commands</strong> across <strong style="color:var(--ba)">10 CIL tasks</strong>, extending spec-driven development upstream to problem framing, discovery, live refinement, and a 14-section living PRD — with measurable impact for <strong style="color:var(--purple)">6 distinct personas</strong>.
+    The 6–10 hours before a spec exists had no tooling. This proposal delivers <strong style="color:var(--ba)">5 BA commands</strong> across <strong style="color:var(--ba)">13 CIL tasks</strong> (+ /flowforge.start), extending spec-driven development upstream to problem framing, discovery, live refinement, and a 14-section living PRD — with measurable impact for <strong style="color:var(--purple)">6 distinct personas</strong>.
   </p>
   <div class="hero-numbers reveal">
     <div class="hero-stat">
@@ -605,8 +605,8 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
     </div>
     <div class="hero-divider"></div>
     <div class="hero-stat">
-      <div class="hs-num thirteen" data-target="10">10</div>
-      <div class="hs-label">CIL tasks (CIL-6851–6860)</div>
+      <div class="hs-num thirteen" data-target="13">13</div>
+      <div class="hs-label">CIL tasks · epic CIL-6148</div>
     </div>
     <div class="hero-divider"></div>
     <div class="hero-stat">
@@ -858,7 +858,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
       <div><strong>Handoff to dev pipeline</strong> — spec has passed the full 8-agent BA review panel + decomposition assessment. Lane signal pre-calculated from /flowforge.discover Phase 3.</div>
     </div>
 
-    <div class="pf-zone-label dev-zone"><span>Dev zone — existing pipeline, unchanged</span><div class="pz-bar"></div></div>
+    <div class="pf-zone-label dev-zone"><span>Dev zone — workflow unchanged · additive eval writes + AUT tickets + PRD hooks</span><div class="pz-bar"></div></div>
     <div class="pf-steps">
       <div class="pf-step dev-step">
         <div class="pf-step-num">05</div>
@@ -899,10 +899,45 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 <section class="section">
 <div class="wrap">
   <p class="s-label reveal">Delivery roadmap</p>
-  <h2 class="s-title reveal">10 CIL tasks — CIL-6851 to CIL-6860</h2>
+  <h2 class="s-title reveal">13 engineering tasks + /flowforge.start — epic CIL-6148</h2>
   <p class="s-note reveal">Grouped into three delivery phases. Each phase validates the model for the next. Phase 1 ships quick wins with the highest trust and lowest change risk. Phases 2 and 3 build on confirmed adoption. Three cross-cutting tasks underpin these ten — <strong style="color:var(--text)">CIL-7103</strong> (shared foundation), <strong style="color:var(--text)">CIL-7104</strong> (dev-pipeline eval writes), and <strong style="color:var(--text)">CIL-7105</strong> (PRD auto-publish hooks) — for <strong style="color:var(--text)">13 engineering tasks under epic CIL-6148</strong>, plus <strong style="color:var(--text)">CIL-6171</strong> (/flowforge.start), already in code review.</p>
 
   <div class="reveal-up">
+    <!-- Group 0 — Foundation & cross-cutting -->
+    <div class="rm-phase-group">
+      <div class="rm-phase-header">
+        <span>Group 0 — Foundation &amp; cross-cutting</span>
+        <span class="rm-ph-badge p1">shared primitives · ships first</span>
+        <div class="rm-ph-bar"></div>
+      </div>
+      <div class="rm-tickets">
+        <div class="rm-ticket" style="--c:var(--purple);--glow:rgba(188,140,255,.18)">
+          <div class="rm-ticket-id">CIL-7103 <span class="rm-ticket-status pushed">pushed</span></div>
+          <div class="rm-ticket-title">Foundation — shared primitives</div>
+          <div class="rm-ticket-scope">Eval merge, phase-close, guided-closing loop, agent invocation policy, output validation — delivered once, consumed by every command.</div>
+          <div class="rm-ticket-cmd">shared · Group 0</div>
+        </div>
+        <div class="rm-ticket" style="--c:var(--purple);--glow:rgba(188,140,255,.18)">
+          <div class="rm-ticket-id">CIL-7104 <span class="rm-ticket-status pushed">pushed</span></div>
+          <div class="rm-ticket-title">Dev-pipeline eval writes</div>
+          <div class="rm-ticket-scope">/flowforge.plan · .analyze · qa.automation · qa.manual · .verify (verify.status + acCoverage) · .review write their sections into 0-eval.json.</div>
+          <div class="rm-ticket-cmd">dev pipeline → 0-eval.json</div>
+        </div>
+        <div class="rm-ticket" style="--c:var(--purple);--glow:rgba(188,140,255,.18)">
+          <div class="rm-ticket-id">CIL-7105 <span class="rm-ticket-status pushed">pushed</span></div>
+          <div class="rm-ticket-title">PRD auto-publish hooks</div>
+          <div class="rm-ticket-scope">Non-blocking /flowforge.prd triggers at build/verify/review boundaries, with staleness guard and drift skip-and-record.</div>
+          <div class="rm-ticket-cmd">build · verify · review</div>
+        </div>
+        <div class="rm-ticket" style="--c:var(--red);--glow:rgba(248,81,73,.18)">
+          <div class="rm-ticket-id">CIL-6171 <span class="rm-ticket-status pushed">in code review</span></div>
+          <div class="rm-ticket-title">/flowforge.start — git pre-flight (US-001)</div>
+          <div class="rm-ticket-scope">Auto-pull master, unmerged-branch guard, start_confirmed in status.json. The one BA-pipeline task already in code review.</div>
+          <div class="rm-ticket-cmd">/flowforge.start</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Phase 1 -->
     <div class="rm-phase-group">
       <div class="rm-phase-header">
@@ -1181,7 +1216,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
     <div class="cc2-row">
       <div class="cc2-meta">
         <div class="cc2-state">Today</div>
-        <div class="cc2-badge before">~14h active work</div>
+        <div class="cc2-badge before">~13h active work</div>
       </div>
       <div class="cc2-bars-wrap">
         <div class="cc2-bar full">
@@ -1220,7 +1255,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
     <div class="cc2-row">
       <div class="cc2-meta">
         <div class="cc2-state" style="color:var(--green)">With FlowForge</div>
-        <div class="cc2-badge after">~6h active work</div>
+        <div class="cc2-badge after">~7h active work</div>
       </div>
       <div class="cc2-bars-wrap">
         <div class="cc2-bar narrow">
@@ -1246,7 +1281,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
         </div>
         <div class="cc2-gap">
           <div class="cc2-gap-inner">
-            <div class="cc2-gap-label">~8h eliminated</div>
+            <div class="cc2-gap-label">~6h eliminated</div>
             <div class="cc2-gap-sub">problem framing · research · unstructured refinement · rework</div>
           </div>
         </div>
@@ -1265,10 +1300,10 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
   </div>
 
   <div class="saving-strip reveal">
-    <div class="ss-num">−57%</div>
+    <div class="ss-num">−45%</div>
     <div class="ss-body">
-      <strong>~14h → ~6h active effort</strong> per standard feature (problem to merged PR).
-      The 3 existing .require agents save ~30 min on spec quality. The proposed pipeline eliminates the remaining ~8h: manual problem framing (2–4h), landscape research (1–3h), unstructured refinement (2–5h), and spec rework/bounce (1–3h).
+      <strong>~13h → ~7h active effort</strong> per standard feature (problem to merged PR).
+      The 3 existing .require agents save ~30 min on spec quality. The proposed pipeline eliminates ~6h of manual work: problem framing (2–4h), landscape research (1–3h), unstructured refinement, and spec rework/bounce.
       Total calendar cycle time: <strong>4–6 days → 2.5–4 days</strong> (−33%) — days compress less than hours because not all phases happen on the same day.
     </div>
   </div>
@@ -1412,7 +1447,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
           <div class="cf-section-body">
             <div class="cf-section-row">
               <span class="cf-row-label">Success metrics</span>
-              <span class="cf-row-val">BAs run the full upstream pipeline independently &middot; /flowforge.prd publishes to Confluence with zero manual assembly &middot; spec quality issues caught upstream, not in the .plan cycle &middot; &minus;57% active BA effort per feature vs. baseline</span>
+              <span class="cf-row-val">BAs run the full upstream pipeline independently &middot; /flowforge.prd publishes to Confluence with zero manual assembly &middot; spec quality issues caught upstream, not in the .plan cycle &middot; target &minus;45% active BA effort per feature (baseline captured before Group 1 ships)</span>
             </div>
             <div class="cf-section-row">
               <span class="cf-row-label">Business rules</span>
@@ -1439,7 +1474,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
             <div class="cf-ac-item"><span class="cf-ac-ref">AC-001-1</span>GIVEN I am on master WHEN I run /flowforge.start THEN git pull origin master executes automatically before branch creation</div>
             <div class="cf-ac-item"><span class="cf-ac-ref">AC-002-1</span>GIVEN I run /flowforge.discover THEN a Problem Framer agent conducts a structured interview and writes structured, countable lists (success metrics, failure criteria, business rules, constraints, stakeholders) to 0-discovery.md; counts are written to 0-eval.json at phase-close</div>
             <div class="cf-ac-item"><span class="cf-ac-ref">AC-008-1</span>GIVEN I run /flowforge.prd THEN the command reads 0-eval.json as primary input and assembles 14 mandatory sections in fixed order without any manual assembly step</div>
-            <div class="cf-ac-item cf-ac-more">+ 85 further criteria across US-001 through US-011 &middot; grouped by user story</div>
+            <div class="cf-ac-item cf-ac-more">+ 221 further criteria across US-001 through US-011 (≈224 ACs total) &middot; grouped by user story</div>
           </div>
         </div>
 
@@ -1455,7 +1490,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
               <div class="cf-verify-stat"><span class="cf-v-num">88</span><span class="cf-v-label">ACs covered</span></div>
               <div class="cf-verify-stat"><span class="cf-v-num">22</span><span class="cf-v-label">smoke tests</span></div>
               <div class="cf-verify-stat"><span class="cf-v-num">11</span><span class="cf-v-label">user stories</span></div>
-              <span class="cf-verify-status">Last verified: 2026-07-28</span>
+              <span class="cf-verify-status">Illustrative — populated by /flowforge.verify</span>
             </div>
           </div>
         </div>
@@ -1470,7 +1505,7 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
 <section class="section">
 <div class="wrap">
   <p class="s-label reveal">Build sequence</p>
-  <h2 class="s-title reveal">Not all 10 tasks at once</h2>
+  <h2 class="s-title reveal">Not all 13 tasks at once</h2>
   <p class="s-note reveal">Start where friction is highest and trust is easiest to build. Each phase validates the model for the next. The /flowforge.require enhancements and /flowforge.prd ship first — they produce visible, verifiable output immediately. /flowforge.discover and /flowforge.refine follow once BAs have used the mechanical commands.</p>
 
   <div class="phase-row reveal-up">
