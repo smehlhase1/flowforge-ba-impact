@@ -303,6 +303,8 @@ body {
 }
 .rm-ticket-status.pushed { background: rgba(63,185,80,.12); color: var(--green); border: 1px solid rgba(63,185,80,.2); }
 .rm-ticket-status.draft { background: rgba(210,153,34,.1); color: var(--amber); border: 1px solid rgba(210,153,34,.2); }
+.rm-ticket-status.todo { background: rgba(88,166,255,.1); color: var(--ba); border: 1px solid rgba(88,166,255,.25); }
+.rm-ticket-status.review { background: rgba(210,153,34,.14); color: var(--amber); border: 1px solid rgba(210,153,34,.3); }
 .rm-ticket-title { font-size: .84rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
 .rm-ticket-scope { font-size: .75rem; color: var(--muted); line-height: 1.45; }
 .rm-ticket-cmd {
@@ -912,25 +914,25 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
       </div>
       <div class="rm-tickets">
         <div class="rm-ticket" style="--c:var(--purple);--glow:rgba(188,140,255,.18)">
-          <div class="rm-ticket-id">CIL-7103 <span class="rm-ticket-status pushed">pushed</span></div>
+          <div class="rm-ticket-id">CIL-7103 <span class="rm-ticket-status todo">To Do</span></div>
           <div class="rm-ticket-title">Foundation — shared primitives</div>
           <div class="rm-ticket-scope">Eval merge, phase-close, guided-closing loop, agent invocation policy, output validation — delivered once, consumed by every command.</div>
           <div class="rm-ticket-cmd">shared · Group 0</div>
         </div>
         <div class="rm-ticket" style="--c:var(--purple);--glow:rgba(188,140,255,.18)">
-          <div class="rm-ticket-id">CIL-7104 <span class="rm-ticket-status pushed">pushed</span></div>
+          <div class="rm-ticket-id">CIL-7104 <span class="rm-ticket-status todo">To Do</span></div>
           <div class="rm-ticket-title">Dev-pipeline eval writes</div>
           <div class="rm-ticket-scope">/flowforge.plan · .analyze · qa.automation · qa.manual · .verify (verify.status + acCoverage) · .review write their sections into 0-eval.json.</div>
           <div class="rm-ticket-cmd">dev pipeline → 0-eval.json</div>
         </div>
         <div class="rm-ticket" style="--c:var(--purple);--glow:rgba(188,140,255,.18)">
-          <div class="rm-ticket-id">CIL-7105 <span class="rm-ticket-status pushed">pushed</span></div>
+          <div class="rm-ticket-id">CIL-7105 <span class="rm-ticket-status todo">To Do</span></div>
           <div class="rm-ticket-title">PRD auto-publish hooks</div>
           <div class="rm-ticket-scope">Non-blocking /flowforge.prd triggers at build/verify/review boundaries, with staleness guard and drift skip-and-record.</div>
           <div class="rm-ticket-cmd">build · verify · review</div>
         </div>
         <div class="rm-ticket" style="--c:var(--red);--glow:rgba(248,81,73,.18)">
-          <div class="rm-ticket-id">CIL-6171 <span class="rm-ticket-status pushed">in code review</span></div>
+          <div class="rm-ticket-id">CIL-6171 <span class="rm-ticket-status review">In Code Review</span></div>
           <div class="rm-ticket-title">/flowforge.start — git pre-flight (US-001)</div>
           <div class="rm-ticket-scope">Auto-pull master, unmerged-branch guard, start_confirmed in status.json. The one BA-pipeline task already in code review.</div>
           <div class="rm-ticket-cmd">/flowforge.start</div>
@@ -947,37 +949,37 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
       </div>
       <div class="rm-tickets">
         <div class="rm-ticket" style="--c:var(--green);--glow:var(--green-glow)">
-          <div class="rm-ticket-id">CIL-6852 <span class="rm-ticket-status draft">draft</span></div>
+          <div class="rm-ticket-id">CIL-6852 <span class="rm-ticket-status todo">To Do</span></div>
           <div class="rm-ticket-title">/flowforge.require — Gap Reviewer</div>
           <div class="rm-ticket-scope">Explore sub-agent Phase 1 enhancement. Structured gap-finding before self-review.</div>
           <div class="rm-ticket-cmd">/flowforge.require phase 1</div>
         </div>
         <div class="rm-ticket" style="--c:var(--green);--glow:var(--green-glow)">
-          <div class="rm-ticket-id">CIL-6853 <span class="rm-ticket-status draft">draft</span></div>
+          <div class="rm-ticket-id">CIL-6853 <span class="rm-ticket-status todo">To Do</span></div>
           <div class="rm-ticket-title">/flowforge.require — Phase 2</div>
           <div class="rm-ticket-scope">Self-Review + QA Author phase updates. DRAFT QA scenarios at end of require.</div>
           <div class="rm-ticket-cmd">/flowforge.require phase 2–3</div>
         </div>
         <div class="rm-ticket" style="--c:var(--green);--glow:var(--green-glow)">
-          <div class="rm-ticket-id">CIL-6854 <span class="rm-ticket-status draft">draft</span></div>
+          <div class="rm-ticket-id">CIL-6854 <span class="rm-ticket-status todo">To Do</span></div>
           <div class="rm-ticket-title">/flowforge.require — Specialist Agents</div>
           <div class="rm-ticket-scope">5 new parallel specialist reviewers: Completeness, Edge Case Hunter, Ambiguity Detector, GDPR Probe, Scope Guard.</div>
           <div class="rm-ticket-cmd">/flowforge.require phase 2 panel</div>
         </div>
         <div class="rm-ticket" style="--c:var(--green);--glow:var(--green-glow)">
-          <div class="rm-ticket-id">CIL-6855 <span class="rm-ticket-status draft">draft</span></div>
+          <div class="rm-ticket-id">CIL-6855 <span class="rm-ticket-status todo">To Do</span></div>
           <div class="rm-ticket-title">/flowforge.require — Decomposition</div>
           <div class="rm-ticket-scope">Decomposition Assessor Phase 4. Evaluates spec, proposes sub-tickets, writes 0-split-map.json. No standalone /flowforge.split.</div>
           <div class="rm-ticket-cmd">/flowforge.require phase 4</div>
         </div>
         <div class="rm-ticket" style="--c:var(--green);--glow:var(--green-glow)">
-          <div class="rm-ticket-id">CIL-6859 <span class="rm-ticket-status pushed">pushed</span></div>
+          <div class="rm-ticket-id">CIL-6859 <span class="rm-ticket-status todo">To Do</span></div>
           <div class="rm-ticket-title">/flowforge.require — Agenda Builder</div>
           <div class="rm-ticket-scope">Phase 5: distils unresolved review findings into numbered agenda items with suggested resolutions. Creates Jira ticket with Refinement Brief.</div>
           <div class="rm-ticket-cmd">/flowforge.require phase 5</div>
         </div>
         <div class="rm-ticket" style="--c:var(--green);--glow:var(--green-glow)">
-          <div class="rm-ticket-id">CIL-6857 <span class="rm-ticket-status draft">draft</span></div>
+          <div class="rm-ticket-id">CIL-6857 <span class="rm-ticket-status todo">To Do</span></div>
           <div class="rm-ticket-title">/flowforge.prd — Living PRD</div>
           <div class="rm-ticket-scope">14-section PRD from 0-eval.json. Publishes to Confluence as ADF. Auto-updates across pipeline. Uploads eval.json attachment for cross-feature discovery.</div>
           <div class="rm-ticket-cmd">/flowforge.prd</div>
@@ -994,13 +996,13 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
       </div>
       <div class="rm-tickets">
         <div class="rm-ticket" style="--c:var(--amber);--glow:rgba(210,153,34,.18)">
-          <div class="rm-ticket-id">CIL-6856 <span class="rm-ticket-status pushed">pushed</span></div>
+          <div class="rm-ticket-id">CIL-6856 <span class="rm-ticket-status todo">To Do</span></div>
           <div class="rm-ticket-title">/flowforge.refine — Live Facilitation</div>
           <div class="rm-ticket-scope">Loads 0-refine-agenda.md and guides meeting item by item. Spec Editor, Jira Sync, transcript upload. Triggers /flowforge.prd on completion.</div>
           <div class="rm-ticket-cmd">/flowforge.refine</div>
         </div>
         <div class="rm-ticket" style="--c:var(--amber);--glow:rgba(210,153,34,.18)">
-          <div class="rm-ticket-id">CIL-6858 <span class="rm-ticket-status pushed">pushed</span></div>
+          <div class="rm-ticket-id">CIL-6858 <span class="rm-ticket-status todo">To Do</span></div>
           <div class="rm-ticket-title">qa-author — AUTOMATION-CREATE</div>
           <div class="rm-ticket-scope">Post-processing: mock split (CIL_Mock_Enabled / Disabled), operation grouping per top-level class, smoke tests, MOCK_SPLIT report for AUT ticket creation.</div>
           <div class="rm-ticket-cmd">/flowforge.build → qa-author</div>
@@ -1017,13 +1019,13 @@ footer code { font-family: "JetBrains Mono", monospace; color: #6e7681; }
       </div>
       <div class="rm-tickets">
         <div class="rm-ticket" style="--c:var(--ba);--glow:var(--ba-glow)">
-          <div class="rm-ticket-id">CIL-6851 <span class="rm-ticket-status draft">draft</span></div>
+          <div class="rm-ticket-id">CIL-6851 <span class="rm-ticket-status todo">To Do</span></div>
           <div class="rm-ticket-title">/flowforge.discover — Pre-Spec Discovery</div>
           <div class="rm-ticket-scope">3-phase, 10-agent command: problem framing (4 sequential), landscape research (3 parallel), solution ideation. Writes 0-discovery.md, 0-research.md, 0-options.md.</div>
           <div class="rm-ticket-cmd">/flowforge.discover</div>
         </div>
         <div class="rm-ticket" style="--c:var(--ba);--glow:var(--ba-glow)">
-          <div class="rm-ticket-id">CIL-6860 <span class="rm-ticket-status draft">draft</span></div>
+          <div class="rm-ticket-id">CIL-6860 <span class="rm-ticket-status todo">To Do</span></div>
           <div class="rm-ticket-title">AUT Ticket Auto-Creation</div>
           <div class="rm-ticket-scope">One AUT Task per mock group at build end. Populated from MOCK_SPLIT: test counts, output dir, smoke names, AC references. Parented under PROD epic live from Jira.</div>
           <div class="rm-ticket-cmd">/flowforge.build phase-close</div>
